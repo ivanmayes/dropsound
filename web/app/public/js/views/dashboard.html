@@ -1,0 +1,42 @@
+<h1>DropSound</h1>
+
+<div class="row">
+	<div class="col-sm-6">
+		<h2>Whats Playing</h2>
+	</div>
+	<div class="col-sm-6" ng-controller="SearchCtrl">
+		<h2>Add a song</h2>
+		<form class="form-inline" ng-submit="searchVideos()">
+		  <div class="form-group">
+		    <label class="sr-only" for="videoSearch">Search Youtube</label>
+		    <div class="input-group">
+		      <input type="text" ng-model="search.q" class="form-control" id="videoSearch" placeholder="Search Youtube">
+		    </div>
+		  </div>
+		  <button type="submit" class="btn btn-primary">Search</button>
+		</form>
+
+		<div class="search-list list-group">
+			<div class="list-group-item" ng-repeat="item in videos">
+				<span class="fa fa-plus" ng-click="addVideo(item)"></span>
+				<img class="pull-left" ng-src="{{item.snippet.thumbnails.default.url}}">
+				<h4>{{item.snippet.title}}</h4>
+			</div>
+		</div>
+	</div>
+</div>
+
+<style type="text/css">
+	.search-list .list-group-item {
+		min-height:110px;
+	}
+	.search-list img {
+		margin-right:5px;
+	}
+	.search-list .fa-plus {
+		float:left;
+		font-size:22px;
+		padding-right: 8px;
+		cursor: pointer;
+	}
+</style>
