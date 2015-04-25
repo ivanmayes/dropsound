@@ -2,9 +2,7 @@
 
 define(['angular',
     'uiRouter',
-    'uiBootstrap',
-    'uiBootstrapTemplates',
-    'angularGoogleChart',
+    'socketIo',
     'config',
     'filters/filters',
     'services/services',
@@ -19,32 +17,42 @@ define(['angular',
             'app.services',
             'app.directives',
             'app.config',
-            'ui.bootstrap',
             'ui.router',
-            "googlechart"
+            'btford.socket-io'
         ]);
 
-        app.run(function($rootScope, $state, UserService) {
-
-            $rootScope.token = UserService.getAccessToken();
-            $rootScope.user = UserService.getUserSettings();
+        app.run(function($rootScope, $state, UserService, socket) {
 
             // Check if Page requires authentication
             $rootScope.$on("$stateChangeStart", function(event, toState, toParams, fromState, fromParams) {
-                if (toState.authenticate && !UserService.isLoggedIn()) {
+                /*if (toState.authenticate && !UserService.isLoggedIn()) {
                     // User isn’t authenticated
                     console.log('Not logged in');
                     $state.transitionTo('login');
                     event.preventDefault();
-
-                }
+                }*/
                 console.log('Route changed');
 
             });
 
+            // Route change socket emit
+            socket.on('route', function(data) {
+                console.log('received route change');
+                $state.transitionTo(data.path);
+            });
+
+            // Route change socket emit
+            socket.on('connected', function(data) {
+                console.log('someone else connected');
+            });
 
         });
 
+        app.factory('socket', function(socketFactory) {
+            var socket = socketFactory();
+            socket.forward('broadcast');
+            return socket;
+        });
 
         return app;
 

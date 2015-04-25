@@ -9,8 +9,6 @@ define(function(require) {
         services = angular.module('app.services', ['app.config']);
 
     services.factory('UserService', require('services/UserService'));
-    services.factory('ListService', require('services/ListService'));
-    services.factory('SearchService', require('services/SearchService'));
 
     return services;
 

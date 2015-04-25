@@ -5,7 +5,6 @@ module.exports = function(app, passport, passportConf){
     var homeController = require('../controllers/home');
     var userController = require('../controllers/user');
     var contactController = require('../controllers/contact');
-    var permafloraeController = require('../controllers/permaflorae');
 
     app.get('/', homeController.index);
     app.get('/app', homeController.app);
@@ -25,8 +24,6 @@ module.exports = function(app, passport, passportConf){
     app.post('/account/password', passportConf.isAuthenticated, userController.postUpdatePassword);
     app.post('/account/delete', passportConf.isAuthenticated, userController.postDeleteAccount);
     app.get('/account/unlink/:provider', passportConf.isAuthenticated, userController.getOauthUnlink);
-
-    app.get('/permaflorae/refactor', permafloraeController.refactor);
 
 
     /**

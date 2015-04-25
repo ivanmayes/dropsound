@@ -15,7 +15,9 @@ var csrf = require('lusca').csrf();
 var methodOverride = require('method-override');
 
 var _ = require('lodash');
-var MongoStore = require('connect-mongo')({ session: session });
+var MongoStore = require('connect-mongo')({
+    session: session
+});
 var flash = require('express-flash');
 var path = require('path');
 var mongoose = require('mongoose');
@@ -42,6 +44,7 @@ dotenv.load();
 
 var secrets = require('./app/config/secrets');
 var passportConf = require('./app/config/passport');
+
 
 /**
  * Create Express server.
@@ -72,37 +75,37 @@ var csrfExclude = ['/url1', '/url2'];
  * Express configuration.
  */
 
-app.set('port', process.env.PORT || 8090);
+app.set('port', process.env.PORT || 8080);
 app.set('views', path.join(__dirname, '/app/views'));
 app.set('view engine', 'hbs');
 
 /**
  * Dev settings
  */
-if(process.env.NODE_ENV === 'dev') {
+if (process.env.NODE_ENV === 'dev') {
 
     /**
      * Get Local IP for browserify
      */
 
-    var os=require('os');
-    var ifaces=os.networkInterfaces();
+    var os = require('os');
+    var ifaces = os.networkInterfaces();
     var localIpAddress = null;
     for (var dev in ifaces) {
-        if(dev !== "en1" && dev !== "en0") {
+        if (dev !== "en1" && dev !== "en0") {
             continue;
         }
-        ifaces[dev].forEach(function(details){
-            if (details.family==='IPv4') {
+        ifaces[dev].forEach(function(details) {
+            if (details.family === 'IPv4') {
                 localIpAddress = details.address;
             }
         });
     }
 
     var dev = {
-        livereload : process.env.livereload ? process.env.livereload : true,
-        browsersync : process.env.browsersync ? process.env.browsersync : true,
-        localIpAddress : localIpAddress
+        livereload: process.env.livereload ? process.env.livereload : true,
+        browsersync: process.env.browsersync ? process.env.browsersync : true,
+        localIpAddress: localIpAddress
     };
 }
 
@@ -111,13 +114,15 @@ app.use(compress());
 
 app.use(logger('dev'));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended : true }));
+app.use(bodyParser.urlencoded({
+    extended: true
+}));
 app.use(expressValidator());
 app.use(methodOverride());
 app.use(cookieParser());
 app.use(session({
     resave: true,
-    saveUninitialized : true,
+    saveUninitialized: true,
     secret: secrets.sessionSecret,
     store: new MongoStore({
         url: secrets.db,
@@ -128,7 +133,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
 app.use(function(req, res, next) {
-  // CSRF protection.
+    // CSRF protection.
     if (_.contains(csrfExclude, req.path)) {
         return next();
     }
@@ -149,7 +154,9 @@ app.use(function(req, res, next) {
     req.session.returnTo = req.path;
     next();
 });
-app.use(express.static(path.join(__dirname, 'app/public'), { maxAge: week }));
+app.use(express.static(path.join(__dirname, 'app/public'), {
+    maxAge: week
+}));
 
 /**
  * Routes.
@@ -168,7 +175,8 @@ app.use(errorHandler());
  * Find all the patterns in our patterns directory and register with Handlebars
  */
 
-var files = glob.sync("./app/patterns/**/*.hbs"), partials = {};
+var files = glob.sync("./app/patterns/**/*.hbs"),
+    partials = {};
 files.forEach(function(filename) {
     var name = filename.match(/[^\/]+[.+\.].*$/, '');
     name = name[0].replace(/\.hbs$/, '');
@@ -187,8 +195,12 @@ helpers.register();
  * Start Express server.
  */
 
-app.listen(app.get('port'), function() {
+var server = app.listen(app.get('port'), function() {
     console.log('Express server listening on port %d in %s mode', app.get('port'), app.get('env'));
 });
+
+// Socket.io
+var io = require('socket.io');
+require('./app/controllers/io.js')(app, io, server);
 
 module.exports = app;
