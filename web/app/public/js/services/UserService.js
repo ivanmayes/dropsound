@@ -1,21 +1,12 @@
 define(['angular'], function(angular) {
-    "use strict";
+    'use strict';
 
-    var factory = function(API_VERSION, $http, $q, $window) {
+    var factory = function($http, $q, $window, $rootScope, API_URL) {
 
         var userInfo;
 
-        /**
-         * Checks if user is logged in
-         * @return {Boolean} User login state
-         */
-        function isLoggedIn() {
-            if ($window.sessionStorage["userInfo"]) {
-                return true;
-            } else {
-                return false;
-            }
-        }
+
+
 
         /**
          * Logs a user into the application
@@ -27,7 +18,7 @@ define(['angular'], function(angular) {
             var deferred = $q.defer();
 
             $http.post(
-                "http://localhost:8280/v" + API_VERSION + "/login",
+                API_URL + 'login',
                 {
                     email: email,
                     password: password
@@ -43,7 +34,9 @@ define(['angular'], function(angular) {
                         accessToken: result.data.response.token.token,
                         user: result.data.response.token.user
                     };
-                    $window.sessionStorage["userInfo"] = JSON.stringify(userInfo);
+                    setToken(result.data.response.token.token);
+                    setUserSettings(result.data.response.token.user);
+
                     deferred.resolve(userInfo);
                 } else {
                     deferred.reject(result.data.meta.errorDetail[0]);
@@ -62,7 +55,7 @@ define(['angular'], function(angular) {
          */
         function logout() {
 
-            $window.sessionStorage["userInfo"] = null;
+            $window.localStorage['userInfo'] = null;
 
             return true;
         }
@@ -76,8 +69,7 @@ define(['angular'], function(angular) {
         function signup(email, password) {
             var deferred = $q.defer();
 
-            // TODO: Remove hard coded url
-            $http.post("http://localhost:8280/v" + API_VERSION + "/signup", {
+            $http.post(API_URL + 'signup', {
                 email: email,
                 password: password
             }).then(function(result) {
@@ -85,9 +77,11 @@ define(['angular'], function(angular) {
                 if (result.data && result.data.response && result.data.response) {
                     userInfo = {
                         accessToken: result.data.response.token,
-                        email: result.data.email
+                        user: result.data.response.user
                     };
-                    $window.sessionStorage["userInfo"] = JSON.stringify(userInfo);
+                    setToken(result.data.response.token);
+                    setUserSettings(result.data.response.user);
+
                     deferred.resolve(userInfo);
                 } else {
                     deferred.reject(result.data.meta.errorDetail[0]);
@@ -100,16 +94,85 @@ define(['angular'], function(angular) {
             return deferred.promise;
         }
 
+
+        /**
+         * Checks if user is logged in
+         * @return {Boolean} User login state
+         */
+        function isLoggedIn() {
+            if ($window.localStorage['token']) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+        /**
+         * Gets the User Access token if it exists
+         * @return string Access Token
+         */
+        function getAccessToken() {
+
+            if ($window.localStorage['token']) {
+                var info = JSON.parse($window.localStorage['token']);
+
+                if (info && info.token) {
+                    return info.token;
+                } else {
+                    return false;
+                }
+
+            } else {
+                return false;
+            }
+        }
+
+        function setToken(token) {
+            if (token) {
+                $window.localStorage['token'] = JSON.stringify(token);
+                $rootScope.token = token.token;
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+        function getUserSettings() {
+            if ($window.localStorage['user']) {
+                return JSON.parse($window.localStorage['user']);
+            } else {
+                return false;
+            }
+        }
+
+        function setUserSettings(user) {
+            if (user) {
+                if(user.password) {
+                    delete user.password;
+                }
+                $window.localStorage['user'] = JSON.stringify(user);
+                $rootScope.user = user;
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+
+
+
         // Return all our public functions
         return {
+            getAccessToken: getAccessToken,
             login: login,
             isLoggedIn: isLoggedIn,
             logout: logout,
-            signup: signup
+            signup: signup,
+            getUserSettings: getUserSettings
         };
 
     };
 
-    factory.$inject = ['API_VERSION', '$http', '$q', '$window'];
+    factory.$inject = ['$http', '$q', '$window', '$rootScope', 'API_URL'];
     return factory;
 });

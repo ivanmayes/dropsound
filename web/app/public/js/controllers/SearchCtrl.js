@@ -3,7 +3,7 @@
 define(function() {
     'use strict';
 
-    function ctrl($scope, $stateParams, $rootScope, $modal, SearchService) {
+    function ctrl($scope, $stateParams, $rootScope, SearchService, RoomService) {
     	$scope.addVideo = addVideo;
     	$scope.search = {
     		q: '',
@@ -15,8 +15,9 @@ define(function() {
     	$scope.searchVideos = searchVideos;
     	$scope.videos = [];
         
-    	function addVideo() {
-    		
+    	function addVideo(video) {
+    		console.log('adding video');
+            RoomService.addVideoToPlaylist(video);
     	}
 
         function searchVideos() {
@@ -31,7 +32,7 @@ define(function() {
 
     }
 
-    ctrl.$inject = ['$scope', '$stateParams', '$rootScope', '$modal', 'SearchService'];
+    ctrl.$inject = ['$scope', '$stateParams', '$rootScope', 'SearchService', 'RoomService'];
     return ctrl;
 
 });

@@ -10,10 +10,11 @@ define(function(require) {
         controllers = angular.module('app.controllers', ['app.services', 'app.config']);
 
     controllers.controller('AppCtrl', require('controllers/AppCtrl'));
-    controllers.controller('StartCtrl', require('controllers/StartCtrl'));
-    controllers.controller('SettingsCtrl', require('controllers/SettingsCtrl'));
-    controllers.controller('TutorialsCtrl', require('controllers/TutorialsCtrl'));
-    controllers.controller('GameCtrl', require('controllers/GameCtrl'));
+    controllers.controller('LoginCtrl', require('controllers/LoginCtrl'));
+    controllers.controller('LobbyCtrl', require('controllers/LobbyCtrl'));
+    controllers.controller('RoomCtrl', require('controllers/RoomCtrl'));
+    controllers.controller('SearchCtrl', require('controllers/SearchCtrl'));
+
 
     /*controllers.run(['$rootScope', function($rootScope) {
             $rootScope.sampleParam = "value";

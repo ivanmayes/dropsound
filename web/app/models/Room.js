@@ -4,6 +4,9 @@
   
   var Room = function(config) {
     this.id = config.id;
+    this.name = config.name;
+    this.playlist = config.playlist || [];
+    this.currentVideo = config.currentVideo;
     this.createdAt = new Date().getTime();
 
     this.players = config.players || [];
@@ -35,6 +38,7 @@
     });
     return {
       id: this.id,
+      name: this.name,
       createdAt: this.createdAt,
       players: players
     }

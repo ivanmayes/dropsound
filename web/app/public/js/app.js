@@ -23,14 +23,18 @@ define(['angular',
 
         app.run(function($rootScope, $state, UserService, socket) {
 
+            $rootScope.token = UserService.getAccessToken();
+            $rootScope.user = UserService.getUserSettings();
+
             // Check if Page requires authentication
             $rootScope.$on("$stateChangeStart", function(event, toState, toParams, fromState, fromParams) {
-                /*if (toState.authenticate && !UserService.isLoggedIn()) {
+                if (toState.authenticate && !UserService.isLoggedIn()) {
                     // User isn’t authenticated
                     console.log('Not logged in');
                     $state.transitionTo('login');
                     event.preventDefault();
-                }*/
+
+                }
                 console.log('Route changed');
 
             });

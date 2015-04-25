@@ -2,18 +2,26 @@
 module.exports = (function(app, io, server) {
 
   var Room = require('./../models/Room');
+  var Player = require('./../models/Player');
 
   // Game data
   var g = {
     io: io,
     players: [],
-    maps: {}
+    rooms: {}
   };
+
+  // Create room for now
+  var room = new Room({
+    id: 1234,
+    name: 'Shoptology DJ'
+  });
+  g.rooms[1234] = room;
 
   var s = io.listen(server);
 
   s.on('connection', function onConnection(socket) {
-    util.log("Client has connected: " + socket.id);
+    console.log("Client has connected: " + socket.id);
 
     socket.emit('connected', { id: socket.id });
 
@@ -22,168 +30,191 @@ module.exports = (function(app, io, server) {
         socket.broadcast.emit('route', data);
     });
 
-    g.players.push({id: socket.id});
+    var player = new Player({ id: socket.id });
+    g.players.push(player);
 
+    socket.on('addVideo', onAddVideo);
     socket.on('newPlayer', onNewPlayer);
-  });
+    socket.on('getRooms', onGetRooms);
+    socket.on('disconnect', onDisconnect);
 
-  function onNewPlayer(data) {
-    var player = playerById(this.id);
-    if (!player) {
-      util.log("Player not found: " + this.id);
-      return;
-    }
 
-    if (!data.mapId) {
-      util.log("Cannot join an empty game?", data.mapId);
-      return;
-    }
 
-    if (!g.maps[data.mapId]) {
-      util.log("Game doesn't exist yet. Creating game: " + data.mapId);
-      var map = new Room({id: data.mapId});
-      g.maps[data.mapId] = map;
-      g.io.emit('newMapCreated', map.serialize());
+    function onNewPlayer(data) {
+      var player = playerById(this.id);
+
+      if (!player) {
+        console.log("Player not found: " + this.id);
+        return;
+      }
+
+      if (!data.roomId) {
+        console.log("Cannot join an empty game?", data.roomId);
+        return;
+      }
+
+      if (!g.rooms[data.roomId]) {
+        console.log("Game doesn't exist yet. Creating game: " + data.roomId);
+        var room = new Room({id: data.roomId});
+        g.rooms[data.roomId] = room;
+        socket.emit('newMapCreated', room.serialize());
+      };
+
+      if (!player.inMap(data.roomId)) {
+        player.joinMap(g.rooms[data.roomId]);
+
+        this.join(data.roomId);
+
+        // @todo we need to only send events to the room we're in
+        /*this.broadcast.to(data.roomId)
+          .emit('roomUpdated', {
+            player: player.serialize(),
+            room: g.rooms[data.roomId],
+            allPlayers: g.rooms[data.roomId].players
+          });*/
+
+        this.emit('roomUpdated', {
+          room: g.rooms[data.roomId],
+          allPlayers: g.rooms[data.roomId].players
+        });
+
+        socket.emit('global:newPlayer', {
+          player: player.serialize(),
+          room: data.roomId
+        });
+      }
     };
 
-    if (!player.inMap(data.mapId)) {
-      player.joinMap(g.maps[data.mapId]);
+    function onAddVideo(data) {
+      g.rooms[data.room.id].playlist.push(data.video);
 
-      this.broadcast.to(data.mapId)
-        .emit('gameUpdated:add', {
+      //this.broadcast.to(data.room.id)
+        socket.emit('roomUpdated', {
           player: player.serialize(),
-          map: data.mapId,
-          allPlayers: g.maps[data.mapId].players
+          room: g.rooms[data.room.id],
+          allPlayers: g.rooms[data.room.id].players
         });
+    };
 
-      this.join(data.mapId);
+    function updateRemotePlayers() {
+      var that = this;
+      for (var key in g.rooms) {
+        var game = g.rooms[key];
 
-      this.emit('gameUpdated:add', {
-        map: data.mapId,
-        allPlayers: g.maps[data.mapId].players
-      });
+        var newData;
+          newData = {
+            roomId: game.id,
+            game: game.serialize(),
+            timestamp: new Date().getTime()
+          }
+          socket.sockets.to(game.id).emit('updatePlayers', newData);
+      }
+    };
 
-      g.io.emit('global:newPlayer', {
-        player: player.serialize(),
-        map: data.mapId
-      });
-    }
-  };
+    function onDisconnect() {
+      var player = playerById(this.id);
+      if (!player) {
+        console.log("Player not found: " + this.id);
+        return;
+      }
 
-  function updateRemotePlayers() {
-    var that = this;
-    for (var key in g.maps) {
-      var game = g.maps[key];
+      console.log("Client has disconnected: " + this.id);
 
-      var newData;
-        newData = {
-          mapId: game.id,
-          game: game.serialize(),
-          timestamp: new Date().getTime()
-        }
-        g.io.sockets.to(game.id).emit('updatePlayers', newData);
-    }
-  };
+      console.log('index', g.players.indexOf(player));
+      g.players.splice(g.players.indexOf(player), 1);
+      // this.leave(player.roomId);
 
-  function onDisconnect() {
-    var player = playerById(this.id);
-    if (!player) {
-      util.log("Player not found: " + this.id);
-      return;
-    }
+      if (!g.rooms[player.roomId]) {
+        console.log("Map not found: " + player.roomId);
+        return;
+      }
 
-    util.log("Client has disconnected: " + this.id);
+      var roomId = player.roomId,
+          room = g.rooms[roomId];
 
-    console.log('index', g.players.indexOf(player));
-    g.players.splice(g.players.indexOf(player), 1);
-    // this.leave(player.mapId);
+      // this.broadcast.to(player.roomId)
+      //   .emit('removePlayer', { 
+      //     id: this.id,
+      //     players: room.players
+      //   });
+      player.leaveMap(g.rooms[roomId]);
+      room.removePlayer(player);
 
-    if (!g.maps[player.mapId]) {
-      util.log("Map not found: " + player.mapId);
-      return;
-    }
-
-    var mapId = player.mapId,
-        map = g.maps[mapId];
-
-    // this.broadcast.to(player.mapId)
-    //   .emit('removePlayer', { 
-    //     id: this.id,
-    //     players: map.players
-    //   });
-    player.leaveMap(g.maps[mapId]);
-    map.removePlayer(player);
-
-    this.broadcast.to(mapId)
-      .emit('gameUpdated:remove', {
-        id: this.id,
-        map: mapId,
-        allPlayers: map.players,
-        removedPlayer: player
-      });
-
-  };
-
-  function onPlayerLeftMap() {
-    var player = playerById(this.id);
-    if (!player) {
-      util.log("Player not found: " + this.id);
-      return;
-    }
-
-    if (!g.maps[player.mapId]) {
-      util.log("Map not found: " + player.mapId);
-      return;
-    }
-
-    var mapId = player.mapId;
-    var map = g.maps[mapId];
-    map.removePlayer(player);
-    player.leaveMap(g.maps[mapId]);
-
-    g.io.emit('global:playerLeftMap', {
-      id: this.id,
-      mapId: mapId
-    });
-
-    // this.broadcast.to(player.mapId)
-    //   .emit('removePlayer', { 
-    //     id: this.id,
-    //     players: map.players
-    //   });
-  
-    console.log('onPlayerLeftMap', map.players.length);
-    if (map.players.length <= 0) {
-      g.io.emit('global:removeMap', {
-        mapId: mapId
-      });
-      delete g.maps[mapId];
-    } else {
-      this.broadcast.to(mapId)
+      this.broadcast.to(roomId)
         .emit('gameUpdated:remove', {
           id: this.id,
-          map: mapId,
-          allPlayers: map.players,
+          room: roomId,
+          allPlayers: room.players,
           removedPlayer: player
         });
-    }
-  }
 
-  function onGetMaps() {
-    var maps = [];
-    for (var k in g.maps) {
-      maps.push(g.maps[k].serialize());
-    }
-    this.emit('getAllMaps', maps);
-  };
+    };
 
-  function playerById(id) {
-    for (var i = 0; i < g.players.length; i++) {
-      if (g.players[i].id === id) {
-        return g.players[i];
+    function onPlayerLeftMap() {
+      var player = playerById(this.id);
+      if (!player) {
+        console.log("Player not found: " + this.id);
+        return;
+      }
+
+      if (!g.rooms[player.roomId]) {
+        console.log("Map not found: " + player.roomId);
+        return;
+      }
+
+      var roomId = player.roomId;
+      var room = g.rooms[roomId];
+      room.removePlayer(player);
+      player.leaveMap(g.rooms[roomId]);
+
+      socket.emit('global:playerLeftMap', {
+        id: this.id,
+        roomId: roomId
+      });
+
+      // this.broadcast.to(player.roomId)
+      //   .emit('removePlayer', { 
+      //     id: this.id,
+      //     players: room.players
+      //   });
+    
+      console.log('onPlayerLeftMap', room.players.length);
+      if (room.players.length <= 0) {
+        socket.emit('global:removeMap', {
+          roomId: roomId
+        });
+        delete g.rooms[roomId];
+      } else {
+        this.broadcast.to(roomId)
+          .emit('gameUpdated:remove', {
+            id: this.id,
+            room: roomId,
+            allPlayers: room.players,
+            removedPlayer: player
+          });
       }
     }
-    return false;
-  };
+
+    function onGetRooms() {
+      var rooms = [];
+      for (var k in g.rooms) {
+        rooms.push(g.rooms[k].serialize());
+      }
+      console.log('getting Rooms');
+      this.emit('getAllRooms', rooms);
+    };
+
+    function playerById(id) {
+      for (var i = 0; i < g.players.length; i++) {
+        if (g.players[i].id === id) {
+          return g.players[i];
+        }
+      }
+      return false;
+    };
+
+
+  });
+
 
 });

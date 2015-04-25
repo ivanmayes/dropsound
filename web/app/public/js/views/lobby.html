@@ -1,0 +1,16 @@
+<div class="row">
+	<div class="col-sm-12">
+		<a class="btn btn-primary pull-right">Create New Room</a>
+		<h2>Available Rooms</h2>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-sm-12">
+		<ul>
+			<li ng-repeat="room in rooms">
+				<a ui-sref="room({roomId: room.id, room: room})">{{ room.name }}</a>
+			</li>
+		</ul>
+	</div>
+</div>

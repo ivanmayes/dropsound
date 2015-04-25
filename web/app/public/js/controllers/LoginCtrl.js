@@ -25,7 +25,7 @@ define(function() {
                 var checkLogin = UserService.login(user.email, user.pass);
                 checkLogin.then(function(userInfo) {
                     console.log(userInfo);
-                    $state.go('dashboard');
+                    $state.go('lobby');
                 }, function(reason) {
                         console.log('Failed:', reason);
                         $scope.errorMsg = reason;
@@ -56,7 +56,7 @@ define(function() {
                 var checkLogin = UserService.signup(user.email, user.pass);
                 checkLogin.then(function(userInfo) {
                     console.log(userInfo);
-                    $state.go('dashboard');
+                    $state.go('lobby');
                 }, function(reason) {
                         console.log('Failed:', reason);
                         $scope.errorMsg = reason;

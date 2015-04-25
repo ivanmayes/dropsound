@@ -1,8 +1,28 @@
-<h1>DropSound</h1>
+<div class="row">
+	<div class="col-md-12">
+		Room {{ room.name }}
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-md-6">
+		Players
+		<ul>
+			<li ng-repeat="player in room.players">
+				{{player.name}} {{player.id}}
+			</li>
+		</ul>
+	</div>
+</div>
 
 <div class="row">
 	<div class="col-sm-6">
 		<h2>Whats Playing</h2>
+		<ul>
+			<li ng-repeat="item in room.playlist">
+				{{ item.snippet.title }}
+			</li>
+		</ul>
 	</div>
 	<div class="col-sm-6" ng-controller="SearchCtrl">
 		<h2>Add a song</h2>

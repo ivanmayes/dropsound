@@ -6,63 +6,36 @@ define(['app'], function(app) {
     app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider) {
 
             $stateProvider
-                .state('prestart', {
-                    url: "/prestart",
-                    templateUrl: "js/views/prestart.html",
-                    controller: 'StartCtrl',
-                    authenticate: false
-                })
-                .state('join', {
-                    url: "/join",
-                    templateUrl: "js/views/join.html",
-                    controller: 'StartCtrl',
-                    authenticate: false
-                })
-                .state('join/new', {
-                    url: "/join/new",
-                    templateUrl: "js/views/join-new.html",
-                    controller: 'StartCtrl',
-                    authenticate: false
-                })
-                .state('settings', {
-                    url: "/settings",
-                    templateUrl: "js/views/settings.html",
-                    controller: 'SettingsCtrl',
-                    authenticate: false
-                })
-                // Game Start
-                .state('tutorial/start', {
-                    url: "/tutorial/start",
-                    templateUrl: "js/views/start-tutorial.html",
-                    controller: 'TutorialsCtrl',
-                    authenticate: false
-                })
-                .state('stage/morning', {
-                    url: "/stage/morning",
-                    templateUrl: "js/views/stage-morning.html",
-                    controller: 'GameCtrl',
-                    authenticate: false
-                })
-                .state('stage/night', {
-                    url: "/stage/night",
-                    templateUrl: "js/views/stage-night.html",
-                    controller: 'GameCtrl',
-                    authenticate: false
-                })
-
-
-            /*.state('tab.pet-detail', {
-                url: '/pet/:petId',
-                views: {
-                    'fav-tab': {
-                        templateUrl: 'templates/pet-detail.html',
-                        controller: 'PetDetailCtrl'
+                .state('lobby', {
+                    url: "/lobby",
+                    templateUrl: "js/views/lobby.html",
+                    controller: 'LobbyCtrl',
+                    authenticate: true,
+                    onEnter: function(RoomService) {
+                        RoomService.queryForRooms();
                     }
-                }
-            })*/
+                })
+                .state('room', {
+                    url: "/room/:roomId",
+                    templateUrl: "js/views/room.html",
+                    controller: 'RoomCtrl',
+                    authenticate: true
+                })
+                .state('login', {
+                    url: '/login',
+                    templateUrl: 'js/views/login.html',
+                    controller: 'LoginCtrl',
+                    authenticate: false
+                })
+                .state('signup', {
+                    url: '/signup',
+                    templateUrl: 'js/views/signup.html',
+                    controller: 'LoginCtrl',
+                    authenticate: false
+                })
+                
 
-            $urlRouterProvider.otherwise("/prestart");
-
+            $urlRouterProvider.otherwise("/login");
     }]);
 
 
