@@ -5,10 +5,11 @@ define(function() {
 
     function ctrl($scope, $stateParams, $rootScope, SearchService, RoomService) {
     	$scope.addVideo = addVideo;
-    	$scope.search = {
+    	$scope.search = { 
     		q: '',
+            // Old api terms
     		maxResults: 10,
-    		part: 'snippet',
+    		part: 'snippet,contentDetails',//'snippet',
     		type: 'video',
     		videoEmbeddable: true,
     	}
@@ -21,7 +22,7 @@ define(function() {
     	}
 
         function searchVideos() {
-        	SearchService.searchVideos($scope.search)
+        	SearchService.searchVideos($scope.search.q)
         	.then(function(items) {
         		console.log(items);
         		$scope.videos = items;

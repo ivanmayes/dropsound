@@ -1,8 +1,10 @@
 // routes/io.js
 module.exports = (function(app, io, server) {
 
+  var _ = require('lodash');
   var Room = require('./../models/Room');
   var Player = require('./../models/Player');
+  var currentVideoTimer; // timeout timer for current video
 
   // Game data
   var g = {
@@ -17,6 +19,7 @@ module.exports = (function(app, io, server) {
     name: 'Shoptology DJ'
   });
   g.rooms[1234] = room;
+
 
   var s = io.listen(server);
 
@@ -37,6 +40,16 @@ module.exports = (function(app, io, server) {
     socket.on('newPlayer', onNewPlayer);
     socket.on('getRooms', onGetRooms);
     socket.on('disconnect', onDisconnect);
+
+
+    // @todo will have to add this 'on' event for all new rooms created
+    g.rooms[1234].on('videoUpdate', function(room) {
+        socket.to(1234)
+        .emit('roomUpdated', {
+          room: g.rooms[1234]
+        })
+    });
+    //
 
 
 
@@ -66,12 +79,12 @@ module.exports = (function(app, io, server) {
         this.join(data.roomId);
 
         // @todo we need to only send events to the room we're in
-        /*this.broadcast.to(data.roomId)
+        this.to(data.roomId)
           .emit('roomUpdated', {
             player: player.serialize(),
             room: g.rooms[data.roomId],
             allPlayers: g.rooms[data.roomId].players
-          });*/
+          });
 
         this.emit('roomUpdated', {
           room: g.rooms[data.roomId],
@@ -86,29 +99,28 @@ module.exports = (function(app, io, server) {
     };
 
     function onAddVideo(data) {
+      // @todo check if video already exists
+      // Assign votes
+
       g.rooms[data.room.id].playlist.push(data.video);
 
-      //this.broadcast.to(data.room.id)
-        socket.emit('roomUpdated', {
-          player: player.serialize(),
-          room: g.rooms[data.room.id],
-          allPlayers: g.rooms[data.room.id].players
-        });
-    };
-
-    function updateRemotePlayers() {
-      var that = this;
-      for (var key in g.rooms) {
-        var game = g.rooms[key];
-
-        var newData;
-          newData = {
-            roomId: game.id,
-            game: game.serialize(),
-            timestamp: new Date().getTime()
-          }
-          socket.sockets.to(game.id).emit('updatePlayers', newData);
+      // If there isn't a video playing, start one
+      if(g.rooms[data.room.id].currentVideo == null) {
+        console.log('No video playing, start one');
+        g.rooms[data.room.id].playVideo({index:0});
+        
+      }else{
+        console.log('Already video playing', g.rooms[data.room.id].currentVideo.title.$t)
       }
+
+      this.to(data.room.id)
+        .emit('roomUpdated', {
+          room: g.rooms[data.room.id]
+        });
+
+      this.emit('roomUpdated', {
+          room: g.rooms[data.room.id]
+        })
     };
 
     function onDisconnect() {
@@ -132,7 +144,7 @@ module.exports = (function(app, io, server) {
       var roomId = player.roomId,
           room = g.rooms[roomId];
 
-      // this.broadcast.to(player.roomId)
+      // this.to(player.roomId)
       //   .emit('removePlayer', { 
       //     id: this.id,
       //     players: room.players
@@ -140,7 +152,7 @@ module.exports = (function(app, io, server) {
       player.leaveMap(g.rooms[roomId]);
       room.removePlayer(player);
 
-      this.broadcast.to(roomId)
+      this.to(roomId)
         .emit('gameUpdated:remove', {
           id: this.id,
           room: roomId,
@@ -150,6 +162,7 @@ module.exports = (function(app, io, server) {
 
     };
 
+    // Not incorporated yet
     function onPlayerLeftMap() {
       var player = playerById(this.id);
       if (!player) {
@@ -179,12 +192,13 @@ module.exports = (function(app, io, server) {
       //   });
     
       console.log('onPlayerLeftMap', room.players.length);
+      /* Uncomment to remove rooms
       if (room.players.length <= 0) {
         socket.emit('global:removeMap', {
           roomId: roomId
         });
         delete g.rooms[roomId];
-      } else {
+      } else {*/
         this.broadcast.to(roomId)
           .emit('gameUpdated:remove', {
             id: this.id,
@@ -192,7 +206,7 @@ module.exports = (function(app, io, server) {
             allPlayers: room.players,
             removedPlayer: player
           });
-      }
+      //}
     }
 
     function onGetRooms() {

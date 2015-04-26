@@ -3,6 +3,7 @@
 define(['angular',
     'uiRouter',
     'socketIo',
+    'angularYoutube',
     'config',
     'filters/filters',
     'services/services',
@@ -18,7 +19,8 @@ define(['angular',
             'app.directives',
             'app.config',
             'ui.router',
-            'btford.socket-io'
+            'btford.socket-io',
+            'youtube-embed'
         ]);
 
         app.run(function($rootScope, $state, UserService, socket) {

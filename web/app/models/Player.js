@@ -10,7 +10,7 @@
     this.yRel = this.y        = 0;
     this.rotation    = 0;
     this.lastUpdate = 0;
-    this.mapId    = -1;
+    this.roomId    = -1;
     this.health   = 10;
     this.points   = 0;
 
@@ -45,23 +45,23 @@
     this.x = 0;
     this.y = 0;
     this.timestamp = new Date().getTime();
-    this.mapId = map.id;
+    this.roomId = map.id;
     map.addPlayer(this);
   };
 
   Player.prototype.inMap = function(id) {
-    return this.mapId === id;
+    return this.roomId === id;
   };
 
   Player.prototype.leaveMap = function() {
-    this.mapId = '';
+    this.roomId = '';
     if (this.map) {
       this.map.removePlayer(this);
     }
   };
 
   Player.prototype.reset = function() {
-    this.mapId = '';
+    this.roomId = '';
   };
 
   Player.prototype.isAlive = function() {

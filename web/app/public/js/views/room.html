@@ -18,9 +18,12 @@
 <div class="row">
 	<div class="col-sm-6">
 		<h2>Whats Playing</h2>
+
+		<youtube-video video-url="currentVideo.link[0].href" player-vars="playerVars"></youtube-video>
+
 		<ul>
 			<li ng-repeat="item in room.playlist">
-				{{ item.snippet.title }}
+				{{ item.title.$t }}
 			</li>
 		</ul>
 	</div>
@@ -39,8 +42,9 @@
 		<div class="search-list list-group">
 			<div class="list-group-item" ng-repeat="item in videos">
 				<span class="fa fa-plus" ng-click="addVideo(item)"></span>
-				<img class="pull-left" ng-src="{{item.snippet.thumbnails.default.url}}">
-				<h4>{{item.snippet.title}}</h4>
+				<img class="pull-left" ng-src="{{item.media$group.media$thumbnail[0].url}}">
+				<h4>{{item.title.$t}}</h4>
+				<p>{{ item.author[0].name.$t }} - {{ item.media$group.yt$duration.seconds }} seconds</p>
 			</div>
 		</div>
 	</div>
