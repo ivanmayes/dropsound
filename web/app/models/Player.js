@@ -4,8 +4,9 @@
 
     this.id       = config.id || '';
 
-    this.firstName     = config.firstName || '';
-    this.lastName     = config.firstName || '';
+    this.firstName      = config.firstName || '';
+    this.lastName       = config.firstName || '';
+    this.email          = config.email || '';
     this.lastUpdate = 0;
     this.roomId    = -1;
   };
@@ -13,8 +14,6 @@
   module.exports = Player;
 
   Player.prototype.joinMap = function(map) {
-    this.x = 0;
-    this.y = 0;
     this.timestamp = new Date().getTime();
     this.roomId = map.id;
     map.addPlayer(this);

@@ -10,8 +10,7 @@
 		<ul>
 			<li ng-repeat="player in room.players">
 				{{ player }}
-				{{player.name}} {{player.id}}
-				}
+				{{player.firstName || playet.email}} {{player.lastName}}
 			</li>
 		</ul>
 	</div>
@@ -43,26 +42,18 @@
 
 		<div class="search-list list-group">
 			<div class="list-group-item" ng-repeat="item in videos">
-				<span class="fa fa-plus" ng-click="addVideo(item)"></span>
-				<img class="pull-left" ng-src="{{item.media$group.media$thumbnail[0].url}}">
+
+				<div class="thumbnail" ng-click="addVideo(item)">
+					<div class="overlay">
+						<i class="fa fa-plus"></i>
+					</div>
+
+					<img ng-src="{{item.media$group.media$thumbnail[0].url}}">
+				</div>
+
 				<h4>{{item.title.$t}}</h4>
 				<p>{{ item.author[0].name.$t }} - {{ item.media$group.yt$duration.seconds | readableTime }}</p>
 			</div>
 		</div>
 	</div>
 </div>
-
-<style type="text/css">
-	.search-list .list-group-item {
-		min-height:110px;
-	}
-	.search-list img {
-		margin-right:5px;
-	}
-	.search-list .fa-plus {
-		float:left;
-		font-size:22px;
-		padding-right: 8px;
-		cursor: pointer;
-	}
-</style>

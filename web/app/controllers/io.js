@@ -55,10 +55,18 @@ module.exports = (function(app, io, server) {
 
     function onNewPlayer(data) {
       var player = playerById(this.id);
+      console.log('New Player', data);
 
       if (!player) {
         console.log("Player not found: " + this.id);
         return;
+      }
+
+      // Add user details
+      if(data.user) {
+        player.firstName = data.user.firstName;
+        player.lastName = data.user.lastName;
+        player.email = data.user.email;
       }
 
       if (!data.roomId) {
@@ -108,7 +116,7 @@ module.exports = (function(app, io, server) {
       if(g.rooms[data.room.id].currentVideo == null) {
         console.log('No video playing, start one');
         g.rooms[data.room.id].playVideo({index:0});
-        
+
       }else{
         console.log('Already video playing', g.rooms[data.room.id].currentVideo.title.$t)
       }
@@ -145,7 +153,7 @@ module.exports = (function(app, io, server) {
           room = g.rooms[roomId];
 
       // this.to(player.roomId)
-      //   .emit('removePlayer', { 
+      //   .emit('removePlayer', {
       //     id: this.id,
       //     players: room.players
       //   });
@@ -186,11 +194,11 @@ module.exports = (function(app, io, server) {
       });
 
       // this.broadcast.to(player.roomId)
-      //   .emit('removePlayer', { 
+      //   .emit('removePlayer', {
       //     id: this.id,
       //     players: room.players
       //   });
-    
+
       console.log('onPlayerLeftMap', room.players.length);
       /* Uncomment to remove rooms
       if (room.players.length <= 0) {

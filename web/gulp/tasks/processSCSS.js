@@ -8,7 +8,7 @@ var gulp = require('gulp'),
 
 
 gulp.task('processSCSS', function() {
-    return runSequence('backupStylesSCSS', 'globStyles', 'compass', 'prefix', 'restoreStylesSCSS', 'removeTempStylesSCSS');
+    return runSequence('compass', 'prefix');
 });
 
 // Backs up our stylesheet since our other scripts alter its source
