@@ -66,13 +66,10 @@ define(['angular'], function(angular) {
          * @param  {String} password User Password (Confirmed with Controller)
          * @return {String} access_token  A user access token to access other page data
          */
-        function signup(email, password) {
+        function signup(user) {
             var deferred = $q.defer();
 
-            $http.post(API_URL + 'signup', {
-                email: email,
-                password: password
-            }).then(function(result) {
+            $http.post(API_URL + 'signup', user).then(function(result) {
 
                 if (result.data && result.data.response && result.data.response) {
                     userInfo = {

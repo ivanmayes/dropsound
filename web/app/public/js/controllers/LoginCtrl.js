@@ -45,15 +45,17 @@ define(function() {
             // Create account and sync to local
             console.log('signing up');
 
-            if (user && user.email && user.pass && user.confirm) {
+            if (user && user.email && user.password && user.confirm) {
 
-                if (user.pass !== user.confirm) {
+                if (user.password !== user.confirm) {
                     $scope.errorMsg = 'Passwords do not match';
                     return false;
                 }
 
+                console.log('register user', user);
+
                 //TODO: Check passwords to match
-                var checkLogin = UserService.signup(user.email, user.pass);
+                var checkLogin = UserService.signup(user);
                 checkLogin.then(function(userInfo) {
                     console.log(userInfo);
                     $state.go('lobby');

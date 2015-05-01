@@ -9,7 +9,9 @@
 		Players
 		<ul>
 			<li ng-repeat="player in room.players">
+				{{ player }}
 				{{player.name}} {{player.id}}
+				}
 			</li>
 		</ul>
 	</div>
@@ -44,7 +46,7 @@
 				<span class="fa fa-plus" ng-click="addVideo(item)"></span>
 				<img class="pull-left" ng-src="{{item.media$group.media$thumbnail[0].url}}">
 				<h4>{{item.title.$t}}</h4>
-				<p>{{ item.author[0].name.$t }} - {{ item.media$group.yt$duration.seconds }} seconds</p>
+				<p>{{ item.author[0].name.$t }} - {{ item.media$group.yt$duration.seconds | readableTime }}</p>
 			</div>
 		</div>
 	</div>

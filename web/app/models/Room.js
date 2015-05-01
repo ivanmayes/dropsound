@@ -2,7 +2,7 @@
 
   var _ = require('lodash');
   var events = require('events');
-  
+
   var Room = function(config) {
     this.id = config.id;
     this.name = config.name;
