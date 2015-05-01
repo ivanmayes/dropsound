@@ -72,6 +72,13 @@ define(['angular'], function(angular) {
             $rootScope.$broadcast('room:update', data.room);
         });
 
+
+        // TODO pretty this up
+        socket.on('gameUpdated:remove', function(data) {
+            //alert('GAME UPDATED!!!');
+            currentRoom.players = data.allPlayers;
+        });
+
         // Return all our public functions
         return services;
 

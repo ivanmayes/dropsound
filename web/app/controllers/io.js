@@ -160,17 +160,21 @@ module.exports = (function(app, io, server) {
       player.leaveMap(g.rooms[roomId]);
       room.removePlayer(player);
 
+      console.log('disconnecting!', roomId);
+      console.log(_.filter(room.players, function(p) { return p.id != player.id }));
+
       this.to(roomId)
         .emit('gameUpdated:remove', {
           id: this.id,
           room: roomId,
-          allPlayers: room.players,
+          allPlayers: _.filter(room.players, function(p) { return p.id != player.id }),
           removedPlayer: player
         });
 
     };
 
     // Not incorporated yet
+    // TODO: If all payers have left, stop waiting on videos
     function onPlayerLeftMap() {
       var player = playerById(this.id);
       if (!player) {

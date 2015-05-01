@@ -16,6 +16,7 @@
     "angular-bootstrap": "~0.12.0",
     "angular-google-chart": "~0.0.11",
     "angular-socket-io": "~0.7.0",
-    "angular-youtube-mb": "~1.0.0"
+    "angular-youtube-mb": "~1.0.0",
+    "angular-readable-time": "~0.1.1"
   }
 }
