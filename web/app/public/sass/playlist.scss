@@ -1,0 +1,20 @@
+.playlist {
+	.currentVideo {
+		transition: max-height 500ms;
+		max-height: 1000px;
+
+		&.hide-video {
+			max-height: 33px;
+			overflow:hidden;
+
+			iframe {
+				max-height: 33px;
+			}
+		}
+
+		iframe {
+			transition: max-height 500ms;
+			max-height: 1000px;
+		}
+	}
+}

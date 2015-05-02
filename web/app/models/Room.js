@@ -26,7 +26,7 @@
   Room.prototype.playVideo = function(params) {
     // Check if there is a current video and return it to the playlist with 0 votes
     if(this.currentVideo) {
-      this.currentVideo.votes = 0;
+      this.currentVideo.votes = [];
       this.playlist.push(this.currentVideo);
     }
 
@@ -64,6 +64,52 @@
     }, duration);
   };
 
+  Room.prototype.getVideoIndex = function(id) {
+    return _.findIndex(this.playlist, function(video, k) {
+      return video.id.$t == id
+    });
+  };
+
+  Room.prototype.addVideoToPlaylist = function(video, player) {
+      video.votes = [player];
+      this.playlist.push(video);
+      this.playlist[this.playlist.length-1].modified = new Date().getTime();
+
+      this.sortPlaylist();
+
+      return this.playlist;
+  };
+
+  Room.prototype.addVoteToVideo = function(video, player) {
+    var index = this.getVideoIndex(video.id.$t);
+    var votes = this.playlist[index].votes
+    votes.push(player);
+    votes = _.uniq(votes);
+    this.playlist[index].votes = votes;
+
+    this.playlist[index].modified = new Date().getTime();
+    this.sortPlaylist();
+
+    return this.playlist;
+  };
+
+  Room.prototype.sortPlaylist = function() {
+
+    // Use the modified timestamp to add a decimal to make sure videos 
+    // that were modified last are behind older ones with the same vote
+    // Added * -1 for descending order
+    var playlist = _.sortBy(this.playlist, function(video) {
+      return parseInt(video.votes.length+'.'+video.modified, 10)*-1;
+    });
+
+    playlist = _.uniq(playlist, function(video) {
+      return video.id.$t;
+    });
+
+    this.playlist = playlist;
+
+    return playlist;
+  };
 
   Room.prototype.update = function() {
   };

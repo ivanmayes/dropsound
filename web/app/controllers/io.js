@@ -37,6 +37,7 @@ module.exports = (function(app, io, server) {
     g.players.push(player);
 
     socket.on('addVideo', onAddVideo);
+    socket.on('voteForVideo', onVoteForVideo);
     socket.on('newPlayer', onNewPlayer);
     socket.on('getRooms', onGetRooms);
     socket.on('disconnect', onDisconnect);
@@ -90,27 +91,19 @@ module.exports = (function(app, io, server) {
         this.to(data.roomId)
           .emit('roomUpdated', {
             player: player.serialize(),
-            room: g.rooms[data.roomId],
-            allPlayers: g.rooms[data.roomId].players
+            room: g.rooms[data.roomId]
           });
 
         this.emit('roomUpdated', {
-          room: g.rooms[data.roomId],
-          allPlayers: g.rooms[data.roomId].players
-        });
-
-        socket.emit('global:newPlayer', {
-          player: player.serialize(),
-          room: data.roomId
+          room: g.rooms[data.roomId]
         });
       }
     };
 
     function onAddVideo(data) {
-      // @todo check if video already exists
-      // Assign votes
+      var player = playerById(this.id);
 
-      g.rooms[data.room.id].playlist.push(data.video);
+      g.rooms[data.room.id].addVideoToPlaylist(data.video, player);
 
       // If there isn't a video playing, start one
       if(g.rooms[data.room.id].currentVideo == null) {
@@ -118,7 +111,7 @@ module.exports = (function(app, io, server) {
         g.rooms[data.room.id].playVideo({index:0});
 
       }else{
-        console.log('Already video playing', g.rooms[data.room.id].currentVideo.title.$t)
+        //console.log('Already video playing', g.rooms[data.room.id].currentVideo.title.$t)
       }
 
       this.to(data.room.id)
@@ -130,6 +123,28 @@ module.exports = (function(app, io, server) {
           room: g.rooms[data.room.id]
         })
     };
+
+    /**
+     * Adds a vote to a video and reoganizes the playlist
+     * @param  {object} Expecting {room:room, video: video} 
+     * @return true
+     */
+    function onVoteForVideo(data) {
+      var room = g.rooms[data.room.id];
+      var player = playerById(this.id);
+      // Add vote to video with user id
+      room.addVoteToVideo(data.video, player);
+
+      // Update other players
+      this.to(data.roomId)
+        .emit('roomUpdated', {
+          room: g.rooms[data.room.id]
+        });
+
+      this.emit('roomUpdated', {
+        room: g.rooms[data.room.id]
+      });
+    }
 
     function onDisconnect() {
       var player = playerById(this.id);

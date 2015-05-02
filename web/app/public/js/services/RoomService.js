@@ -11,17 +11,27 @@ define(['angular'], function(angular) {
                 currentRoom: currentRoom,
                 getRoom: getRoom,
                 getRooms: getRooms,
-                queryForRooms: queryForRooms
+                queryForRooms: queryForRooms,
+                voteForVideo: voteForVideo
             };
 
         function addVideoToPlaylist(video) {
             video.addedBy = $rootScope.user;
             console.log(currentRoom);
-            var data = {
+            var params = {
                 room: currentRoom,
                 video: video
             }
-            socket.emit('addVideo', data);
+            socket.emit('addVideo', params);
+        }
+
+        function voteForVideo(video) {
+            var params = {
+                room: currentRoom,
+                video: video
+            }
+            console.log('Voting for Video', video);
+            socket.emit('voteForVideo', params);
         }
 
         function getPlayerIndexById(id, map) {

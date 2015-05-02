@@ -7,11 +7,14 @@ define(function() {
         console.log('Room Id', $stateParams.roomId);
         
         $scope.currentVideo;
+        $scope.hideVideo = false;
         $scope.playerVars = {
 		    controls: 1,
 		    autoplay: 1
 		};
 		$scope.room;
+        $scope.toggleVideo = toggleVideo;
+        $scope.voteForVideo = RoomService.voteForVideo;
 
         // Announce theres a new player
         PlayersService.addPlayerToRoom({
@@ -25,6 +28,14 @@ define(function() {
             	$scope.currentVideo = room.currentVideo;
             }
         });
+
+        function toggleVideo() {
+            if($scope.hideVideo) {
+                $scope.hideVideo = false;
+            }else{
+                $scope.hideVideo = true;
+            }
+        }
 
     }
 
