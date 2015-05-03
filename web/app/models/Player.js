@@ -7,6 +7,7 @@
     this.firstName      = config.firstName || '';
     this.lastName       = config.firstName || '';
     this.email          = config.email || '';
+    this.photo          = config.photo || '';
     this.lastUpdate = 0;
     this.roomId    = -1;
   };

@@ -68,6 +68,7 @@ module.exports = (function(app, io, server) {
         player.firstName = data.user.firstName;
         player.lastName = data.user.lastName;
         player.email = data.user.email;
+        player.photo = data.user.photo;
       }
 
       if (!data.roomId) {
