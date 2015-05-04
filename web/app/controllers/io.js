@@ -79,7 +79,19 @@ module.exports = (function(app, io, server) {
 
       if (!g.rooms[data.roomId]) {
         console.log("Game doesn't exist yet. Creating game: " + data.roomId);
-        var room = new Room({id: data.roomId});
+
+        var params = {
+            id : data.roomId
+        };
+
+        if(data.roomName) {
+            params.name = data.roomName;
+            console.log(params.name);
+            console.log('&&&&&&&&&&&&&&&&&&&');
+        };
+
+        var room = new Room(params);
+
         g.rooms[data.roomId] = room;
         socket.emit('newMapCreated', room.serialize());
       };

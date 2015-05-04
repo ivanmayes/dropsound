@@ -20,7 +20,8 @@ define(function() {
 
         // Announce theres a new player
         PlayersService.addPlayerToRoom({
-        	roomId: $stateParams.roomId
+        	roomId: $stateParams.roomId,
+            roomName : $stateParams.roomName
         });
 
         $scope.$on('room:update', function(evt, room) {

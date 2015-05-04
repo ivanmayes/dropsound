@@ -8,7 +8,7 @@ define(['angular'], function(angular) {
         };
 
         function addPlayerToRoom(room) {
-            console.log('Adding player');
+            console.log('Adding player', room);
             room.user = $rootScope.user;
             socket.emit('newPlayer', room);
         }

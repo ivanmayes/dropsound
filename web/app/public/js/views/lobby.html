@@ -1,6 +1,11 @@
 <div class="row">
 	<div class="col-sm-12">
-		<a class="btn btn-primary pull-right">Create New Room</a>
+		<div class="col-sm-6 input-group pull-right">
+		   <input type="text" class="form-control" ng-model="newRoomName" placeholder="New Room Name">
+		   <span class="input-group-btn">
+		        <button class="btn btn-primary" ng-disabled="!newRoomName" ng-click="createRoom()">Create New Room</button>
+		   </span>
+		</div>
 		<h2>Available Rooms</h2>
 	</div>
 </div>
