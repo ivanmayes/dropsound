@@ -19,7 +19,13 @@ define(['app'], function(app) {
                     url: "/room/:roomId",
                     templateUrl: "js/views/room.html",
                     controller: 'RoomCtrl',
-                    authenticate: true
+                    authenticate: true,
+                    onEnter: function() {
+
+                    },
+                    onExit: function(RoomService) {
+                        RoomService.leaveRoom();
+                    }
                 })
                 .state('login', {
                     url: '/login',
@@ -33,7 +39,7 @@ define(['app'], function(app) {
                     controller: 'LoginCtrl',
                     authenticate: false
                 })
-                
+
 
             $urlRouterProvider.otherwise("/login");
     }]);

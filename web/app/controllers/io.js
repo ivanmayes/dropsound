@@ -41,6 +41,7 @@ module.exports = (function(app, io, server) {
     socket.on('newPlayer', onNewPlayer);
     socket.on('getRooms', onGetRooms);
     socket.on('disconnect', onDisconnect);
+    socket.on('playerLeftMap', onPlayerLeftMap);
 
 
     // @todo will have to add this 'on' event for all new rooms created
@@ -78,7 +79,19 @@ module.exports = (function(app, io, server) {
 
       if (!g.rooms[data.roomId]) {
         console.log("Game doesn't exist yet. Creating game: " + data.roomId);
-        var room = new Room({id: data.roomId});
+
+        var params = {
+            id : data.roomId
+        };
+
+        if(data.roomName) {
+            params.name = data.roomName;
+            console.log(params.name);
+            console.log('&&&&&&&&&&&&&&&&&&&');
+        };
+
+        var room = new Room(params);
+
         g.rooms[data.roomId] = room;
         socket.emit('newMapCreated', room.serialize());
       };
@@ -87,6 +100,14 @@ module.exports = (function(app, io, server) {
         player.joinMap(g.rooms[data.roomId]);
 
         this.join(data.roomId);
+
+        // Handle synchronization
+        if(g.rooms[data.roomId].currentVideoStartTime && g.rooms[data.roomId].currentVideo) {
+            var currentVideoSync = '&amp;start='
+                + Math.ceil((new Date().getTime() - g.rooms[data.roomId].currentVideoStartTime) / 1000);
+
+            g.rooms[data.roomId].currentVideoSync = currentVideoSync;
+        }
 
         // @todo we need to only send events to the room we're in
         this.to(data.roomId)
@@ -208,10 +229,11 @@ module.exports = (function(app, io, server) {
       room.removePlayer(player);
       player.leaveMap(g.rooms[roomId]);
 
+      /*
       socket.emit('global:playerLeftMap', {
         id: this.id,
         roomId: roomId
-      });
+      });*/
 
       // this.broadcast.to(player.roomId)
       //   .emit('removePlayer', {
@@ -227,7 +249,7 @@ module.exports = (function(app, io, server) {
         });
         delete g.rooms[roomId];
       } else {*/
-        this.broadcast.to(roomId)
+        this.to(roomId)
           .emit('gameUpdated:remove', {
             id: this.id,
             room: roomId,

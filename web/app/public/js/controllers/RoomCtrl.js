@@ -20,15 +20,32 @@ define(function() {
 
         // Announce theres a new player
         PlayersService.addPlayerToRoom({
-        	roomId: $stateParams.roomId
+        	roomId: $stateParams.roomId,
+            roomName : $stateParams.roomName
         });
 
         $scope.$on('room:update', function(evt, room) {
         	console.log('Room Updated!', room);
             $scope.room = room;
             if(room.currentVideo !== $scope.currentVideo) {
+                if($scope.currentVideo) {
+                    if(youtubeEmbedUtils.getIdFromURL(room.currentVideo.link[0].href) == youtubeEmbedUtils.getIdFromURL($scope.currentVideo.link[0].href)) {
+                        return false;
+                    }
+                }
+
             	$scope.currentVideo = room.currentVideo;
-                $scope.currentVideo.iframeLink = $sce.trustAsResourceUrl('https://www.youtube.com/embed/'+youtubeEmbedUtils.getIdFromURL(room.currentVideo.link[0].href)+'?controls=1&amp;autoplay=1&amp;start=0&amp;enablejsapi=1');
+
+                var url = 'https://www.youtube.com/embed/'+youtubeEmbedUtils.getIdFromURL(room.currentVideo.link[0].href)+'?controls=1&amp;autoplay=1&amp;&amp;enablejsapi=1';
+
+                // Sync video if there's a sync param
+                if(room.currentVideoSync) {
+                    url += room.currentVideoSync;
+                }
+
+                $scope.currentVideo.iframeLink = $sce.trustAsResourceUrl(url);
+
+                console.log($scope.currentVideo.iframeLink);
 
                 //$scope.currentVideoPlayer.playVideo();
             }

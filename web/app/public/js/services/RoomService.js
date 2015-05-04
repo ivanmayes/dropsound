@@ -12,7 +12,8 @@ define(['angular'], function(angular) {
                 getRoom: getRoom,
                 getRooms: getRooms,
                 queryForRooms: queryForRooms,
-                voteForVideo: voteForVideo
+                voteForVideo: voteForVideo,
+                leaveRoom: leaveRoom
             };
 
         function addVideoToPlaylist(video) {
@@ -42,6 +43,11 @@ define(['angular'], function(angular) {
               }
             }
         };
+
+        function leaveRoom() {
+            socket.emit('playerLeftMap');
+            currentRoom = null;
+        }
 
         function getRooms() {
             return currentRooms;
@@ -81,7 +87,6 @@ define(['angular'], function(angular) {
             currentRoom = data.room;
             $rootScope.$broadcast('room:update', data.room);
         });
-
 
         // TODO pretty this up
         socket.on('gameUpdated:remove', function(data) {

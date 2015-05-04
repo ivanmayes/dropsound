@@ -11,6 +11,8 @@
     this.createdAt = new Date().getTime();
 
     this.players = config.players || [];
+
+    this.currentVideoStartTime = false;
   };
 
   Room.super_ = events.EventEmitter;
@@ -50,6 +52,7 @@
     // Send event to play video
     // Start timer for length of video to switch to next video
     var milliseconds = this.currentVideo.media$group.yt$duration.seconds*1000;
+    this.currentVideoStartTime = new Date().getTime();
     this.waitForFinishedVideo(milliseconds);
     console.log('Waiting for '+milliseconds+' until next video');
   }
