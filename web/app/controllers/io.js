@@ -96,8 +96,16 @@ module.exports = (function(app, io, server) {
             room: g.rooms[data.roomId]
           });
 
-        this.emit('roomUpdated', {
-          room: g.rooms[data.roomId]
+        // Handle synchronization
+        var currentVideoSync;
+        if(g.rooms[data.roomId].currentVideoStartTime && g.rooms[data.roomId].currentVideo) {
+            currentVideoSync = '&amp;start='
+                + Math.ceil((new Date().getTime() - g.rooms[data.roomId].currentVideoStartTime) / 1000);
+        }
+
+        this.emit('roomInit', {
+          room: g.rooms[data.roomId],
+          currentVideoSync : currentVideoSync
         });
       }
     };

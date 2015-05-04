@@ -27,7 +27,15 @@ define(function() {
             $scope.room = room;
             if(room.currentVideo !== $scope.currentVideo) {
             	$scope.currentVideo = room.currentVideo;
-                $scope.currentVideo.iframeLink = $sce.trustAsResourceUrl('https://www.youtube.com/embed/'+youtubeEmbedUtils.getIdFromURL(room.currentVideo.link[0].href)+'?controls=1&amp;autoplay=1&amp;start=0&amp;enablejsapi=1');
+
+                var url = 'https://www.youtube.com/embed/'+youtubeEmbedUtils.getIdFromURL(room.currentVideo.link[0].href)+'?controls=1&amp;autoplay=1&amp;&amp;enablejsapi=1';
+
+                // Sync video if there's a sync param
+                if(room.currentVideoSync) {
+                    url += room.currentVideoSync;
+                }
+
+                $scope.currentVideo.iframeLink = $sce.trustAsResourceUrl(url);
 
                 //$scope.currentVideoPlayer.playVideo();
             }

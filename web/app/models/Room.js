@@ -11,6 +11,8 @@
     this.createdAt = new Date().getTime();
 
     this.players = config.players || [];
+
+    this.currentVideoStartTime = false;
   };
 
   Room.super_ = events.EventEmitter;
@@ -50,6 +52,7 @@
     // Send event to play video
     // Start timer for length of video to switch to next video
     var milliseconds = this.currentVideo.media$group.yt$duration.seconds*1000;
+    this.currentVideoStartTime = new Date().getTime();
     this.waitForFinishedVideo(milliseconds);
     console.log('Waiting for '+milliseconds+' until next video');
   }
@@ -95,7 +98,7 @@
 
   Room.prototype.sortPlaylist = function() {
 
-    // Use the modified timestamp to add a decimal to make sure videos 
+    // Use the modified timestamp to add a decimal to make sure videos
     // that were modified last are behind older ones with the same vote
     // Added * -1 for descending order
     var playlist = _.sortBy(this.playlist, function(video) {
