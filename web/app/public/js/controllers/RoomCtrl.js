@@ -3,10 +3,11 @@
 define(function() {
     'use strict';
 
-    function ctrl($scope, $state, $stateParams, $sce, UserService, RoomService, PlayersService, youtubeEmbedUtils) {
+    function ctrl($scope, $rootScope, $state, $stateParams, $sce, UserService, RoomService, PlayersService, youtubeEmbedUtils) {
         console.log('Room Id', $stateParams.roomId);
 
         $scope.currentVideo;
+        $scope.hasVotedForVideo = hasVotedForVideo;
         $scope.hideVideo = false;
         $scope.isVideoInPlaylist = isVideoInPlaylist;
         $scope.playerVars = {
@@ -58,6 +59,10 @@ define(function() {
         }
 
         function isVideoInPlaylist(video) {
+            if(video.id.$t == $scope.currentVideo.id.$t) {
+                return true;
+            }
+
             for (var i = $scope.room.playlist.length - 1; i >= 0; i--) {
                 console.log($scope.room.playlist[i].id.$t, video.id.$t)
                 if($scope.room.playlist[i].id.$t == video.id.$t) {
@@ -68,9 +73,20 @@ define(function() {
             return false;
         }
 
+        function hasVotedForVideo(video) {
+            for (var i = video.votes.length - 1; i >= 0; i--) {
+                console.log(video.votes[i].email, $rootScope.user.email);
+                if(video.votes[i].email == $rootScope.user.email) {
+                    return true;
+                }
+            };
+
+            return false;
+        }
+
     }
 
-    ctrl.$inject = ['$scope', '$state', '$stateParams', '$sce', 'UserService', 'RoomService', 'PlayersService', 'youtubeEmbedUtils'];
+    ctrl.$inject = ['$scope', '$rootScope', '$state', '$stateParams', '$sce', 'UserService', 'RoomService', 'PlayersService', 'youtubeEmbedUtils'];
     return ctrl;
 
 });

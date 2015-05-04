@@ -146,7 +146,7 @@ module.exports = (function(app, io, server) {
       room.addVoteToVideo(data.video, player);
 
       // Update other players
-      this.to(data.roomId)
+      this.to(data.room.id)
         .emit('roomUpdated', {
           room: g.rooms[data.room.id]
         });

@@ -87,7 +87,9 @@
     var index = this.getVideoIndex(video.id.$t);
     var votes = this.playlist[index].votes
     votes.push(player);
-    votes = _.uniq(votes);
+    votes = _.uniq(votes, function(player) {
+        return player.email;
+    });
     this.playlist[index].votes = votes;
 
     this.playlist[index].modified = new Date().getTime();

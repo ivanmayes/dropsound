@@ -6431,6 +6431,28 @@ iframe {
 .search-list .list-group-item {
   min-height: 110px;
   clear: both; }
+  .search-list .list-group-item.added > .overlay {
+    opacity: 1;
+    z-index: 10;
+    background: rgba(255, 255, 255, 0.7); }
+    .search-list .list-group-item.added > .overlay p {
+      position: absolute;
+      top: 50%;
+      left: 50px;
+      -webkit-transform: translateY(-50%);
+          -ms-transform: translateY(-50%);
+              transform: translateY(-50%);
+      color: black; }
+  .search-list .list-group-item .overlay {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.5);
+    color: white;
+    opacity: 0;
+    transition: opacity 300ms; }
   .search-list .list-group-item .thumbnail {
     position: relative;
     float: left;
@@ -6439,16 +6461,6 @@ iframe {
     margin-right: 5px; }
     .search-list .list-group-item .thumbnail:hover .overlay {
       opacity: 1; }
-    .search-list .list-group-item .thumbnail .overlay {
-      position: absolute;
-      top: 0;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      background: rgba(0, 0, 0, 0.5);
-      color: white;
-      opacity: 0;
-      transition: opacity 300ms; }
     .search-list .list-group-item .thumbnail .fa {
       display: block;
       position: absolute;
