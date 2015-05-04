@@ -41,6 +41,7 @@ module.exports = (function(app, io, server) {
     socket.on('newPlayer', onNewPlayer);
     socket.on('getRooms', onGetRooms);
     socket.on('disconnect', onDisconnect);
+    socket.on('playerLeftMap', onPlayerLeftMap);
 
 
     // @todo will have to add this 'on' event for all new rooms created
@@ -127,7 +128,7 @@ module.exports = (function(app, io, server) {
 
     /**
      * Adds a vote to a video and reoganizes the playlist
-     * @param  {object} Expecting {room:room, video: video} 
+     * @param  {object} Expecting {room:room, video: video}
      * @return true
      */
     function onVoteForVideo(data) {
@@ -208,10 +209,11 @@ module.exports = (function(app, io, server) {
       room.removePlayer(player);
       player.leaveMap(g.rooms[roomId]);
 
+      /*
       socket.emit('global:playerLeftMap', {
         id: this.id,
         roomId: roomId
-      });
+      });*/
 
       // this.broadcast.to(player.roomId)
       //   .emit('removePlayer', {
@@ -227,7 +229,7 @@ module.exports = (function(app, io, server) {
         });
         delete g.rooms[roomId];
       } else {*/
-        this.broadcast.to(roomId)
+        this.to(roomId)
           .emit('gameUpdated:remove', {
             id: this.id,
             room: roomId,
