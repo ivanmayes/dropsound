@@ -21,7 +21,8 @@
 		<a href ng-click="toggleVideo()">Toggle Video</a>
 
 		<div class="currentVideo" ng-class="{'hide-video': hideVideo}">
-			<youtube-video video-url="currentVideo.link[0].href" player-vars="playerVars"></youtube-video>
+			<p>{{currentVideo.title.$t}}</p>
+			<iframe ng-if="currentVideo" id="unique-youtube-embed-id-1" frameborder="0" allowfullscreen="1" title="YouTube video player" width="640" height="390" ng-src="{{currentVideo.iframeLink}}"></iframe>
 		</div>
 
 		<ul>
@@ -44,7 +45,7 @@
 		</form>
 
 		<div class="search-list list-group">
-			<div class="list-group-item" ng-repeat="item in videos">
+			<div class="list-group-item" ng-repeat="item in videos" ng-class="{'added': isVideoInPlaylist(item)}">
 
 				<div class="thumbnail" ng-click="addVideo(item)">
 					<div class="overlay">

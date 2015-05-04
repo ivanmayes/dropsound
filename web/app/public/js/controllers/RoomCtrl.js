@@ -3,11 +3,12 @@
 define(function() {
     'use strict';
 
-    function ctrl($scope, $state, $stateParams, UserService, RoomService, PlayersService) {
+    function ctrl($scope, $state, $stateParams, $sce, UserService, RoomService, PlayersService, youtubeEmbedUtils) {
         console.log('Room Id', $stateParams.roomId);
-        
+
         $scope.currentVideo;
         $scope.hideVideo = false;
+        $scope.isVideoInPlaylist = isVideoInPlaylist;
         $scope.playerVars = {
 		    controls: 1,
 		    autoplay: 1
@@ -26,6 +27,9 @@ define(function() {
             $scope.room = room;
             if(room.currentVideo !== $scope.currentVideo) {
             	$scope.currentVideo = room.currentVideo;
+                $scope.currentVideo.iframeLink = $sce.trustAsResourceUrl('https://www.youtube.com/embed/'+youtubeEmbedUtils.getIdFromURL(room.currentVideo.link[0].href)+'?controls=1&amp;autoplay=1&amp;start=0&amp;enablejsapi=1');
+
+                //$scope.currentVideoPlayer.playVideo();
             }
         });
 
@@ -37,9 +41,20 @@ define(function() {
             }
         }
 
+        function isVideoInPlaylist(video) {
+            for (var i = $scope.room.playlist.length - 1; i >= 0; i--) {
+                console.log($scope.room.playlist[i].id.$t, video.id.$t)
+                if($scope.room.playlist[i].id.$t == video.id.$t) {
+                    return true;
+                }
+            };
+
+            return false;
+        }
+
     }
 
-    ctrl.$inject = ['$scope', '$state', '$stateParams', 'UserService', 'RoomService', 'PlayersService'];
+    ctrl.$inject = ['$scope', '$state', '$stateParams', '$sce', 'UserService', 'RoomService', 'PlayersService', 'youtubeEmbedUtils'];
     return ctrl;
 
 });

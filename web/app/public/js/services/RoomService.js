@@ -77,7 +77,7 @@ define(['angular'], function(angular) {
         });
 
         socket.on('roomUpdated', function(data) {
-            console.log('roomUpdated', data);
+            //console.log('roomUpdated', data);
             currentRoom = data.room;
             $rootScope.$broadcast('room:update', data.room);
         });
