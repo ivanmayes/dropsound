@@ -127,7 +127,7 @@ module.exports = (function(app, io, server) {
 
     /**
      * Adds a vote to a video and reoganizes the playlist
-     * @param  {object} Expecting {room:room, video: video} 
+     * @param  {object} Expecting {room:room, video: video}
      * @return true
      */
     function onVoteForVideo(data) {
@@ -137,7 +137,7 @@ module.exports = (function(app, io, server) {
       room.addVoteToVideo(data.video, player);
 
       // Update other players
-      this.to(data.roomId)
+      this.to(data.room.id)
         .emit('roomUpdated', {
           room: g.rooms[data.room.id]
         });

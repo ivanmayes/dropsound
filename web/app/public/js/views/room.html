@@ -25,11 +25,17 @@
 			<iframe ng-if="currentVideo" id="unique-youtube-embed-id-1" frameborder="0" allowfullscreen="1" title="YouTube video player" width="640" height="390" ng-src="{{currentVideo.iframeLink}}"></iframe>
 		</div>
 
-		<ul>
-			<li ng-repeat="item in room.playlist">
-				{{ item.title.$t }} - {{ item.votes.length }} - <a href ng-click="voteForVideo(item)">Vote</a>
-			</li>
-		</ul>
+		<div class="search-list list-group">
+			<div class="list-group-item" ng-repeat="item in room.playlist">
+				<div class="thumbnail" ng-click="addVideo(item)">
+					<img ng-src="{{item.media$group.media$thumbnail[0].url}}">
+				</div>
+
+				<h4>{{ item.title.$t }}</h4>
+				<p>Added By: {{item.addedBy.firstName || item.addedBy.email}} {{item.addedBy.lastName}}</p>
+				<p>{{ item.votes.length }} - <a href ng-click="voteForVideo(item)" ng-if="!hasVotedForVideo(item)">Vote</a><span ng-if="hasVotedForVideo(item)">Voted!</span></p>
+			</div>
+		</div>
 	</div>
 
 	<div class="col-sm-6 search" ng-controller="SearchCtrl">
