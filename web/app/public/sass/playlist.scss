@@ -1,20 +1,25 @@
 .playlist {
-	.currentVideo {
-		transition: max-height 500ms;
-		max-height: 1000px;
+    .currentVideo {
+        transition: max-height 500ms;
+        max-height: 1000px;
 
-		&.hide-video {
-			max-height: 33px;
-			overflow:hidden;
+        &.hide-video {
+            max-height: 38px;
+            overflow: hidden;
 
-			iframe {
-				max-height: 33px;
-			}
-		}
+            iframe {
+                max-height: 33px;
+            }
+        }
 
-		iframe {
-			transition: max-height 500ms;
-			max-height: 1000px;
-		}
-	}
+        iframe {
+            transition: max-height 500ms;
+            max-height: 1000px;
+        }
+    }
+
+    .gravatar {
+        width: 30px;
+        margin: 5px;
+    }
 }

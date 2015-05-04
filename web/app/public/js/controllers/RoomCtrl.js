@@ -48,7 +48,7 @@ define(function() {
             }
 
             for (var i = $scope.room.playlist.length - 1; i >= 0; i--) {
-                console.log($scope.room.playlist[i].id.$t, video.id.$t)
+                //console.log($scope.room.playlist[i].id.$t, video.id.$t)
                 if($scope.room.playlist[i].id.$t == video.id.$t) {
                     return true;
                 }
@@ -59,7 +59,7 @@ define(function() {
 
         function hasVotedForVideo(video) {
             for (var i = video.votes.length - 1; i >= 0; i--) {
-                console.log(video.votes[i].email, $rootScope.user.email);
+                //console.log(video.votes[i].email, $rootScope.user.email);
                 if(video.votes[i].email == $rootScope.user.email) {
                     return true;
                 }

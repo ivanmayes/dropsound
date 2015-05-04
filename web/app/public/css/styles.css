@@ -6425,6 +6425,9 @@ iframe {
   border-radius: 0;
   box-shadow: 0 0 5px #ccc, inset 0 0 0 #000; }
 
+.gravatar {
+  border-radius: 100px; }
+
 .fa {
   margin-right: 5px; }
 
@@ -6479,10 +6482,13 @@ iframe {
   transition: max-height 500ms;
   max-height: 1000px; }
   .playlist .currentVideo.hide-video {
-    max-height: 33px;
+    max-height: 38px;
     overflow: hidden; }
     .playlist .currentVideo.hide-video iframe {
       max-height: 33px; }
   .playlist .currentVideo iframe {
     transition: max-height 500ms;
     max-height: 1000px; }
+.playlist .gravatar {
+  width: 30px;
+  margin: 5px; }

@@ -1,11 +1,11 @@
 /*global define */
 
-define(['angular', 'filters/InterpolateFilter', 'services/services'],
-    function (angular, InterpolateFilter) {
+define(['angular', 'filters/InterpolateFilter', 'filters/GravatarFilter', 'services/services'],
+    function (angular, InterpolateFilter, GravatarFilter) {
         'use strict';
-        
+
         var filters = angular.module('app.filters', ['app.services']);
-        filters.filter('interpolate', InterpolateFilter);
+        filters.filter('gravatar', GravatarFilter);
         return filters;
- 
+
     });

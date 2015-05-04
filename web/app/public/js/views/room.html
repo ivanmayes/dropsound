@@ -9,14 +9,14 @@
 		Players
 		<ul>
 			<li ng-repeat="player in room.players">
-				{{player.firstName || player.email}} {{player.lastName}}
+				<img class="gravatar" ng-src="{{ player.email | gravatar }}"  title="{{vote.firstName || vote.email }} {{vote.lastName}}" />
 			</li>
 		</ul>
 	</div>
 </div>
 
 <div class="row">
-	<div class="col-sm-6 playlist">
+	<div class="col-sm-7 playlist">
 		<h2>Whats Playing</h2>
 		<a href ng-click="toggleVideo()">Toggle Video</a>
 
@@ -32,13 +32,18 @@
 				</div>
 
 				<h4>{{ item.title.$t }}</h4>
-				<p>Added By: {{item.addedBy.firstName || item.addedBy.email}} {{item.addedBy.lastName}}</p>
-				<p>{{ item.votes.length }} - <a href ng-click="voteForVideo(item)" ng-if="!hasVotedForVideo(item)">Vote</a><span ng-if="hasVotedForVideo(item)">Voted!</span></p>
+				<p>Added By: <img class="gravatar" ng-src="{{ item.addedBy.email | gravatar }}" title="{{item.addedBy.firstName || item.addedBy.email }} {{item.addedBy.lastName}}" /> {{item.addedBy.firstName || item.addedBy.email}} {{item.addedBy.lastName}}</p>
+				<p>
+				{{ item.votes.length }} - <a href ng-click="voteForVideo(item)" ng-if="!hasVotedForVideo(item)">Vote</a><span ng-if="hasVotedForVideo(item)">Voted!</span>
+				<span ng-repeat="vote in item.votes" ng-if="$index !== 0">
+					<img class="gravatar" ng-src="{{ vote.email | gravatar }}" title="{{vote.firstName || vote.email }} {{vote.lastName}}" />
+				</span>
+				</p>
 			</div>
 		</div>
 	</div>
 
-	<div class="col-sm-6 search" ng-controller="SearchCtrl">
+	<div class="col-sm-5 search" ng-controller="SearchCtrl">
 		<h2>Add a song</h2>
 		<form class="form-inline" ng-submit="searchVideos()">
 		  <div class="form-group">
