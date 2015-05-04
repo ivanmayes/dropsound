@@ -42,6 +42,10 @@ define(function() {
         }
 
         function isVideoInPlaylist(video) {
+            if(video.id.$t == $scope.currentVideo.id.$t) {
+                return true;
+            }
+
             for (var i = $scope.room.playlist.length - 1; i >= 0; i--) {
                 console.log($scope.room.playlist[i].id.$t, video.id.$t)
                 if($scope.room.playlist[i].id.$t == video.id.$t) {

@@ -46,6 +46,9 @@
 
 		<div class="search-list list-group">
 			<div class="list-group-item" ng-repeat="item in videos" ng-class="{'added': isVideoInPlaylist(item)}">
+				<div class="overlay">
+					<p>Added!</p>
+				</div>
 
 				<div class="thumbnail" ng-click="addVideo(item)">
 					<div class="overlay">
