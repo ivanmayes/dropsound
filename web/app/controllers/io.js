@@ -89,6 +89,14 @@ module.exports = (function(app, io, server) {
 
         this.join(data.roomId);
 
+        // Handle synchronization
+        if(g.rooms[data.roomId].currentVideoStartTime && g.rooms[data.roomId].currentVideo) {
+            var currentVideoSync = '&amp;start='
+                + Math.ceil((new Date().getTime() - g.rooms[data.roomId].currentVideoStartTime) / 1000);
+
+            g.rooms[data.roomId].currentVideoSync = currentVideoSync;
+        }
+
         // @todo we need to only send events to the room we're in
         this.to(data.roomId)
           .emit('roomUpdated', {
@@ -96,16 +104,8 @@ module.exports = (function(app, io, server) {
             room: g.rooms[data.roomId]
           });
 
-        // Handle synchronization
-        var currentVideoSync;
-        if(g.rooms[data.roomId].currentVideoStartTime && g.rooms[data.roomId].currentVideo) {
-            currentVideoSync = '&amp;start='
-                + Math.ceil((new Date().getTime() - g.rooms[data.roomId].currentVideoStartTime) / 1000);
-        }
-
-        this.emit('roomInit', {
-          room: g.rooms[data.roomId],
-          currentVideoSync : currentVideoSync
+        this.emit('roomUpdated', {
+          room: g.rooms[data.roomId]
         });
       }
     };

@@ -85,19 +85,8 @@ define(['angular'], function(angular) {
         socket.on('roomUpdated', function(data) {
             //console.log('roomUpdated', data);
             currentRoom = data.room;
-
             $rootScope.$broadcast('room:update', data.room);
         });
-
-        socket.on('roomInit', function(data) {
-            if(data.currentVideoSync) {
-                data.room.currentVideoSync = data.currentVideoSync;
-            }
-
-            currentRoom = data.room;
-
-            $rootScope.$broadcast('room:update', data.room);
-        })
 
         // TODO pretty this up
         socket.on('gameUpdated:remove', function(data) {

@@ -26,6 +26,12 @@ define(function() {
         	console.log('Room Updated!', room);
             $scope.room = room;
             if(room.currentVideo !== $scope.currentVideo) {
+                if($scope.currentVideo) {
+                    if(youtubeEmbedUtils.getIdFromURL(room.currentVideo.link[0].href) == youtubeEmbedUtils.getIdFromURL($scope.currentVideo.link[0].href)) {
+                        return false;
+                    }
+                }
+
             	$scope.currentVideo = room.currentVideo;
 
                 var url = 'https://www.youtube.com/embed/'+youtubeEmbedUtils.getIdFromURL(room.currentVideo.link[0].href)+'?controls=1&amp;autoplay=1&amp;&amp;enablejsapi=1';
@@ -36,6 +42,8 @@ define(function() {
                 }
 
                 $scope.currentVideo.iframeLink = $sce.trustAsResourceUrl(url);
+
+                console.log($scope.currentVideo.iframeLink);
 
                 //$scope.currentVideoPlayer.playVideo();
             }
