@@ -13,7 +13,6 @@ define(function() {
         });
 
         function createRoom() {
-            console.log('here we be');
             $state.go('room', {
                 roomId : new Date().getTime(),
                 roomName : $scope.newRoomName
