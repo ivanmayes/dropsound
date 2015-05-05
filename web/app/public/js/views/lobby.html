@@ -14,7 +14,7 @@
 	<div class="col-sm-12">
 		<ul>
 			<li ng-repeat="room in rooms">
-				<a ui-sref="room({roomId: room.id, room: room})">{{ room.name }}</a>
+				<a ui-sref="room({roomId: room.id, roomName: room.name, room: room})">{{ room.name }}</a>
 			</li>
 		</ul>
 	</div>

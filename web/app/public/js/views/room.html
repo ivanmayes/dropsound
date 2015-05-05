@@ -11,11 +11,16 @@
 		<div class="col-md-8">
 			<p>MIXOLOGISTS</p>
 			<ul>
-				<li ng-repeat="player in room.players">
-					{{player.firstName || player.email }} {{player.lastName}} <span>//</span>
+				<li class="player" ng-repeat="player in room.players">
+					<img class="gravatar" ng-src="{{ player.email | gravatar }}" title="{{player.firstName || player.email }} {{player.lastName}}" /> {{player.firstName || player.email }} {{player.lastName}} <span class="slashes">//</span>
 				</li>
 			</ul>
 		</div>
+	</div>
+
+	<div class="row topic">
+		<h2>My Topic <a href> - Edit</a></h2>
+		<input type="text" value="My Topic"> <a href> - Save</a>
 	</div>
 
 	<div class="row">
@@ -29,35 +34,44 @@
 
 			<div class="search-list list-group">
 				<p>NEXT UP</p>
-				<div class="list-group-item" ng-repeat="item in room.playlist">
-					<div class="thumbnail" ng-click="addVideo(item)">
+
+				<div class="list-group-item" ng-repeat="item in room.playlist" ng-click="voteForVideo(item)" ng-class="{'first': $index == 0}">
+					<div class="thumbnail" ng-if="$index == 0">
 						<img ng-src="{{item.media$group.media$thumbnail[0].url}}">
 					</div>
 
 					<h4>{{ item.title.$t }}</h4>
-					<p>Added By: <img class="gravatar" ng-src="{{ item.addedBy.email | gravatar }}" title="{{item.addedBy.firstName || item.addedBy.email }} {{item.addedBy.lastName}}" /> {{item.addedBy.firstName || item.addedBy.email}} {{item.addedBy.lastName}}</p>
-					<p>
-					{{ item.votes.length }} - <a href ng-click="voteForVideo(item)" ng-if="!hasVotedForVideo(item)">Vote</a><span ng-if="hasVotedForVideo(item)">Voted!</span>
-					<span ng-repeat="vote in item.votes" ng-if="$index !== 0">
-						<img class="gravatar" ng-src="{{ vote.email | gravatar }}" title="{{vote.firstName || vote.email }} {{vote.lastName}}" />
-					</span>
-					</p>
+
+					<div class="row">
+						<div class="col-md-8">
+							<p class="added-by">Added By: <img class="gravatar" ng-src="{{ item.addedBy.email | gravatar }}" title="{{item.addedBy.firstName || item.addedBy.email }} {{item.addedBy.lastName}}" /> {{item.addedBy.firstName || item.addedBy.email}} {{item.addedBy.lastName}}</p>
+						</div>
+						<div class="col-md-4 votes" >
+							{{ item.votes.length }} <a href ng-if="!hasVotedForVideo(item)"><i class="fa fa-heart-o"></i></a><span ng-if="hasVotedForVideo(item)"><i class="fa fa-heart"></i></span>
+						</div>
+					</div>
+
+					<div>
+						<span ng-repeat="vote in item.votes" ng-if="$index !== 0">
+							<img class="gravatar" ng-src="{{ vote.email | gravatar }}" title="{{vote.firstName || vote.email }} {{vote.lastName}}" />
+						</span>
+					</div>
 				</div>
 			</div>
 		</div>
 
 		<div class="col-sm-5 search" ng-controller="SearchCtrl">
 			<form class="form-inline" ng-submit="searchVideos()">
+				<i class="search-icon"></i>
+				<i class="close-icon" ng-click="clearSearch()" ng-if="search.q.length > 0"></i>
 			  <div class="form-group">
 			    <label class="sr-only" for="videoSearch">Search songs here</label>
-			    <div class="input-group">
-			      <input type="text" ng-model="search.q" class="form-control" id="videoSearch" placeholder="Search songs here">
-			    </div>
+			    <input type="text" ng-model="search.q" class="form-control" id="videoSearch" placeholder="Search songs here">
 			  </div>
-			  <button type="submit" class="btn btn-primary">Search</button>
+			  <!--<button type="submit" class="btn btn-primary">Search</button>-->
 			</form>
 
-			<div class="help row">
+			<div class="help" ng-if="videos.length < 1">
 				<div class="col-md-6 add">
 					<h2>Add</h2>
 					<p>songs in the search field</p>
@@ -69,12 +83,12 @@
 			</div>
 
 			<div class="search-list list-group">
-				<div class="list-group-item" ng-repeat="item in videos" ng-class="{'added': isVideoInPlaylist(item)}">
+				<div class="list-group-item" ng-repeat="item in videos" ng-click="addVideo(item)" ng-class="{'added': isVideoInPlaylist(item)}">
 					<div class="overlay">
 						<p>Added!</p>
 					</div>
 
-					<div class="thumbnail" ng-click="addVideo(item)">
+					<div class="thumbnail">
 						<div class="overlay">
 							<i class="fa fa-plus"></i>
 						</div>

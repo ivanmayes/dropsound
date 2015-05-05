@@ -22,4 +22,41 @@
         width: 30px;
         margin: 5px;
     }
+
+    .list-group-item.first {
+        border: 2px solid #e15829;
+
+        h4 {
+            margin-left: 141px;
+        }
+
+        .row {
+            margin-left: 128px;
+        }
+    }
+
+    .list-group-item:hover {
+        color: purple;
+    }
+
+    .added-by {
+        color: #9a9a97;
+        margin-bottom: 0;
+        padding-top: 4px;
+
+        .gravatar {
+            width: 16px;
+            margin: 0 1px 0 5px;
+        }
+    }
+
+    .votes {
+        text-align: right;
+        color: #e15829;
+        font-size: 17px;
+
+        .fa {
+            color: #e15829;
+        }
+    }
 }
