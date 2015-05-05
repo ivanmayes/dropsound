@@ -1,77 +1,93 @@
-<div class="row">
-	<div class="col-md-12">
-		Room {{ room.name }}
+<div class="room">
+	<div class="header">
+		<h1>MIXOLOGY</h1>
 	</div>
-</div>
 
-<div class="row">
-	<div class="col-md-6">
-		Players
-		<ul>
-			<li ng-repeat="player in room.players">
-				<img class="gravatar" ng-src="{{ player.email | gravatar }}"  title="{{vote.firstName || vote.email }} {{vote.lastName}}" />
-			</li>
-		</ul>
-	</div>
-</div>
-
-<div class="row">
-	<div class="col-sm-7 playlist">
-		<h2>Whats Playing</h2>
-		<a href ng-click="toggleVideo()">Toggle Video</a>
-
-		<div class="currentVideo" ng-class="{'hide-video': hideVideo}">
-			<p>{{currentVideo.title.$t}}</p>
-			<iframe ng-if="currentVideo" id="unique-youtube-embed-id-1" frameborder="0" allowfullscreen="1" title="YouTube video player" width="640" height="390" ng-src="{{currentVideo.iframeLink}}"></iframe>
+	<div class="row room-info">
+		<div class="col-md-4">
+			<p>ROOM</p>
+			<a class="btn btn-default">{{ room.name }}</a>
 		</div>
+		<div class="col-md-8">
+			<p>MIXOLOGISTS</p>
+			<ul>
+				<li ng-repeat="player in room.players">
+					{{player.firstName || player.email }} {{player.lastName}} <span>//</span>
+				</li>
+			</ul>
+		</div>
+	</div>
 
-		<div class="search-list list-group">
-			<div class="list-group-item" ng-repeat="item in room.playlist">
-				<div class="thumbnail" ng-click="addVideo(item)">
-					<img ng-src="{{item.media$group.media$thumbnail[0].url}}">
-				</div>
+	<div class="row">
+		<div class="col-sm-7 playlist">
+			<a href ng-click="toggleVideo()">Toggle Video</a>
 
-				<h4>{{ item.title.$t }}</h4>
-				<p>Added By: <img class="gravatar" ng-src="{{ item.addedBy.email | gravatar }}" title="{{item.addedBy.firstName || item.addedBy.email }} {{item.addedBy.lastName}}" /> {{item.addedBy.firstName || item.addedBy.email}} {{item.addedBy.lastName}}</p>
-				<p>
-				{{ item.votes.length }} - <a href ng-click="voteForVideo(item)" ng-if="!hasVotedForVideo(item)">Vote</a><span ng-if="hasVotedForVideo(item)">Voted!</span>
-				<span ng-repeat="vote in item.votes" ng-if="$index !== 0">
-					<img class="gravatar" ng-src="{{ vote.email | gravatar }}" title="{{vote.firstName || vote.email }} {{vote.lastName}}" />
-				</span>
-				</p>
+			<div class="currentVideo" ng-class="{'hide-video': hideVideo}">
+				<p>{{currentVideo.title.$t}}</p>
+				<iframe ng-if="currentVideo" id="unique-youtube-embed-id-1" frameborder="0" allowfullscreen="1" title="YouTube video player" width="640" height="390" ng-src="{{currentVideo.iframeLink}}"></iframe>
 			</div>
-		</div>
-	</div>
 
-	<div class="col-sm-5 search" ng-controller="SearchCtrl">
-		<h2>Add a song</h2>
-		<form class="form-inline" ng-submit="searchVideos()">
-		  <div class="form-group">
-		    <label class="sr-only" for="videoSearch">Search Youtube</label>
-		    <div class="input-group">
-		      <input type="text" ng-model="search.q" class="form-control" id="videoSearch" placeholder="Search Youtube">
-		    </div>
-		  </div>
-		  <button type="submit" class="btn btn-primary">Search</button>
-		</form>
-
-		<div class="search-list list-group">
-			<div class="list-group-item" ng-repeat="item in videos" ng-class="{'added': isVideoInPlaylist(item)}">
-				<div class="overlay">
-					<p>Added!</p>
-				</div>
-
-				<div class="thumbnail" ng-click="addVideo(item)">
-					<div class="overlay">
-						<i class="fa fa-plus"></i>
+			<div class="search-list list-group">
+				<p>NEXT UP</p>
+				<div class="list-group-item" ng-repeat="item in room.playlist">
+					<div class="thumbnail" ng-click="addVideo(item)">
+						<img ng-src="{{item.media$group.media$thumbnail[0].url}}">
 					</div>
 
-					<img ng-src="{{item.media$group.media$thumbnail[0].url}}">
+					<h4>{{ item.title.$t }}</h4>
+					<p>Added By: <img class="gravatar" ng-src="{{ item.addedBy.email | gravatar }}" title="{{item.addedBy.firstName || item.addedBy.email }} {{item.addedBy.lastName}}" /> {{item.addedBy.firstName || item.addedBy.email}} {{item.addedBy.lastName}}</p>
+					<p>
+					{{ item.votes.length }} - <a href ng-click="voteForVideo(item)" ng-if="!hasVotedForVideo(item)">Vote</a><span ng-if="hasVotedForVideo(item)">Voted!</span>
+					<span ng-repeat="vote in item.votes" ng-if="$index !== 0">
+						<img class="gravatar" ng-src="{{ vote.email | gravatar }}" title="{{vote.firstName || vote.email }} {{vote.lastName}}" />
+					</span>
+					</p>
 				</div>
+			</div>
+		</div>
 
-				<h4>{{item.title.$t}}</h4>
-				<p>{{ item.author[0].name.$t }} - {{ item.media$group.yt$duration.seconds | readableTime }}</p>
+		<div class="col-sm-5 search" ng-controller="SearchCtrl">
+			<form class="form-inline" ng-submit="searchVideos()">
+			  <div class="form-group">
+			    <label class="sr-only" for="videoSearch">Search songs here</label>
+			    <div class="input-group">
+			      <input type="text" ng-model="search.q" class="form-control" id="videoSearch" placeholder="Search songs here">
+			    </div>
+			  </div>
+			  <button type="submit" class="btn btn-primary">Search</button>
+			</form>
+
+			<div class="help row">
+				<div class="col-md-6 add">
+					<h2>Add</h2>
+					<p>songs in the search field</p>
+				</div>
+				<div class="col-md-6 vote">
+					<h2>Vote</h2>
+					<p>for the songs you wanna hear play</p>
+				</div>
+			</div>
+
+			<div class="search-list list-group">
+				<div class="list-group-item" ng-repeat="item in videos" ng-class="{'added': isVideoInPlaylist(item)}">
+					<div class="overlay">
+						<p>Added!</p>
+					</div>
+
+					<div class="thumbnail" ng-click="addVideo(item)">
+						<div class="overlay">
+							<i class="fa fa-plus"></i>
+						</div>
+
+						<img ng-src="{{item.media$group.media$thumbnail[0].url}}">
+					</div>
+
+					<h4>{{item.title.$t}}</h4>
+					<p>{{ item.author[0].name.$t }} - {{ item.media$group.yt$duration.seconds | readableTime }}</p>
+					<div class="clearfix"></div>
+				</div>
 			</div>
 		</div>
 	</div>
 </div>
+

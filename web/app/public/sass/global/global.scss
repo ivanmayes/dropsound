@@ -5,15 +5,42 @@ html {
     position: relative;
     min-height: 100%;
     background-color: white;
+    font-family: 'Novecentosanswide-Light', 'Helvetica Neue', sans-serif;
 }
 
 body {
-    padding-top: 60px;
     margin-bottom: 120px;
+    font-family: 'Helvetica Neue', sans-serif;
 }
 
 iframe {
     width: 100%;
+}
+
+.room {
+    .header {
+        text-align: center;
+        font-family: 'Novecentosanswide-Bold', 'Helvetica Neue', sans-serif;
+        font-weight: 700;
+    }
+
+    .room-info {
+        margin: 50px -15px;
+    }
+
+    .currentVideo {
+        margin-bottom: 20px;
+    }
+}
+
+ul {
+    padding: 0;
+    margin: 0;
+    list-style-type: none;
+}
+
+.nova {
+    font-family: 'Novecentosanswide-Light', 'Helvetica Neue', sans-serif;
 }
 
 // Navbar

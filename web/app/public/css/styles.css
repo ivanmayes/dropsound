@@ -1,3 +1,5 @@
+@charset "UTF-8";
+@import url("//hello.myfonts.net/count/29bb1d");
 /*! normalize.css v3.0.1 | MIT License | git.io/normalize */
 html {
   font-family: sans-serif;
@@ -6397,14 +6399,32 @@ button.close {
 html {
   position: relative;
   min-height: 100%;
-  background-color: white; }
+  background-color: white;
+  font-family: 'Novecentosanswide-Light', 'Helvetica Neue', sans-serif; }
 
 body {
-  padding-top: 60px;
-  margin-bottom: 120px; }
+  margin-bottom: 120px;
+  font-family: 'Helvetica Neue', sans-serif; }
 
 iframe {
   width: 100%; }
+
+.room .header {
+  text-align: center;
+  font-family: 'Novecentosanswide-Bold', 'Helvetica Neue', sans-serif;
+  font-weight: 700; }
+.room .room-info {
+  margin: 50px -15px; }
+.room .currentVideo {
+  margin-bottom: 20px; }
+
+ul {
+  padding: 0;
+  margin: 0;
+  list-style-type: none; }
+
+.nova {
+  font-family: 'Novecentosanswide-Light', 'Helvetica Neue', sans-serif; }
 
 .navbar-nav img {
   width: 30px;
@@ -6430,6 +6450,151 @@ iframe {
 
 .fa {
   margin-right: 5px; }
+
+/**
+ * @license
+ * MyFonts Webfont Build ID 2734877, 2014-01-28T16:40:22-0500
+ *
+ * The fonts listed in this notice are subject to the End User License
+ * Agreement(s) entered into by the website owner. All other parties are
+ * explicitly restricted from using the Licensed Webfonts(s).
+ *
+ * You may obtain a valid license at the URLs below.
+ *
+ * Webfont: Novecento Sans Bold by Synthview
+ * URL: http://www.myfonts.com/fonts/synthview/novecento/bold/
+ *
+ * Webfont: Novecento Sans Book by Synthview
+ * URL: http://www.myfonts.com/fonts/synthview/novecento/book/
+ *
+ * Webfont: Novecento Sans DemiBold by Synthview
+ * URL: http://www.myfonts.com/fonts/synthview/novecento/demibold/
+ *
+ * Webfont: Novecento Sans Light by Synthview
+ * URL: http://www.myfonts.com/fonts/synthview/novecento/light/
+ *
+ * Webfont: Novecento Sans Medium by Synthview
+ * URL: http://www.myfonts.com/fonts/synthview/novecento/medium/
+ *
+ * Webfont: Novecento Sans Normal by Synthview
+ * URL: http://www.myfonts.com/fonts/synthview/novecento/normal/
+ *
+ * Webfont: Novecento Sans UltraBold by Synthview
+ * URL: http://www.myfonts.com/fonts/synthview/novecento/ultrabold/
+ *
+ * Webfont: Novecento Sans Cond DemiBold by Synthview
+ * URL: http://www.myfonts.com/fonts/synthview/novecento/cond-demibold/
+ *
+ * Webfont: Novecento Sans Cond Book by Synthview
+ * URL: http://www.myfonts.com/fonts/synthview/novecento/cond-book/
+ *
+ * Webfont: Novecento Sans UltraLight by Synthview
+ * URL: http://www.myfonts.com/fonts/synthview/novecento/ultralight/
+ *
+ * Webfont: Novecento Sans Cond Light by Synthview
+ * URL: http://www.myfonts.com/fonts/synthview/novecento/cond-light/
+ *
+ * Webfont: Novecento Sans Cond Bold by Synthview
+ * URL: http://www.myfonts.com/fonts/synthview/novecento/cond-bold/
+ *
+ * Webfont: Novecento Sans Cond Normal by Synthview
+ * URL: http://www.myfonts.com/fonts/synthview/novecento/cond-normal/
+ *
+ * Webfont: Novecento Sans Cond UltraBold by Synthview
+ * URL: http://www.myfonts.com/fonts/synthview/novecento/cond-ultrabold/
+ *
+ * Webfont: Novecento Sans Narrow Bold by Synthview
+ * URL: http://www.myfonts.com/fonts/synthview/novecento/narrow-bold/
+ *
+ * Webfont: Novecento Sans Narrow Book by Synthview
+ * URL: http://www.myfonts.com/fonts/synthview/novecento/narrow-book/
+ *
+ * Webfont: Novecento Sans Narrow Light by Synthview
+ * URL: http://www.myfonts.com/fonts/synthview/novecento/narrow-light/
+ *
+ * Webfont: Novecento Sans Narrow DemiBold by Synthview
+ * URL: http://www.myfonts.com/fonts/synthview/novecento/narrow-demibold/
+ *
+ * Webfont: Novecento Sans Narrow Normal by Synthview
+ * URL: http://www.myfonts.com/fonts/synthview/novecento/narrow-normal/
+ *
+ * Webfont: Novecento Sans Narrow UltraBold by Synthview
+ * URL: http://www.myfonts.com/fonts/synthview/novecento/narrow-ultrabold/
+ *
+ * Webfont: Novecento Sans Wide Bold by Synthview
+ * URL: http://www.myfonts.com/fonts/synthview/novecento/wide-bold/
+ *
+ * Webfont: Novecento Sans Wide Book by Synthview
+ * URL: http://www.myfonts.com/fonts/synthview/novecento/wide-book/
+ *
+ * Webfont: Novecento Sans Wide DemiBold by Synthview
+ * URL: http://www.myfonts.com/fonts/synthview/novecento/wide-demibold/
+ *
+ * Webfont: Novecento Sans Wide Light by Synthview
+ * URL: http://www.myfonts.com/fonts/synthview/novecento/wide-light/
+ *
+ * Webfont: Novecento Sans Wide Medium by Synthview
+ * URL: http://www.myfonts.com/fonts/synthview/novecento/wide-medium/
+ *
+ * Webfont: Novecento Sans Wide Normal by Synthview
+ * URL: http://www.myfonts.com/fonts/synthview/novecento/wide-normal/
+ *
+ * Webfont: Novecento Sans Wide UltraBold by Synthview
+ * URL: http://www.myfonts.com/fonts/synthview/novecento/wide-ultrabold/
+ *
+ * Webfont: Novecento Sans Wide UltraLight by Synthview
+ * URL: http://www.myfonts.com/fonts/synthview/novecento/wide-ultralight/
+ *
+ * Webfont: Novecento Sans Cond UltraLight by Synthview
+ * URL: http://www.myfonts.com/fonts/synthview/novecento/cond-ultralight/
+ *
+ * Webfont: Novecento Sans Cond Medium by Synthview
+ * URL: http://www.myfonts.com/fonts/synthview/novecento/cond-medium/
+ *
+ * Webfont: Novecento Sans Narrow UltraLight by Synthview
+ * URL: http://www.myfonts.com/fonts/synthview/novecento/narrow-ultralight/
+ *
+ * Webfont: Novecento Sans Narrow Medium by Synthview
+ * URL: http://www.myfonts.com/fonts/synthview/novecento/narrow-medium/
+ *
+ *
+ * License: http://www.myfonts.com/viewlicense?type=web&buildid=2734877
+ * Licensed pageviews: 10,000
+ * Webfonts copyright: Copyright &#x00A9; 2013 by Jan Tonellato. All rights reserved.
+ *
+ * © 2014 MyFonts Inc
+*/
+/* @import must be at top of file, otherwise CSS will not work */
+@font-face {
+  font-family: 'Novecentosans-Normal';
+  src: url('../fonts/novecento/29BB1D_5_0.eot');
+  src: url('../fonts/novecento/29BB1D_5_0.eot?#iefix') format('embedded-opentype'), url('../fonts/novecento/29BB1D_5_0.woff') format('woff'), url('../fonts/novecento/29BB1D_5_0.ttf') format('truetype'); }
+
+@font-face {
+  font-family: 'Novecentosanswide-Bold';
+  src: url('../fonts/novecento/29BB1D_14_0.eot');
+  src: url('../fonts/novecento/29BB1D_14_0.eot?#iefix') format('embedded-opentype'), url('../fonts/novecento/29BB1D_14_0.woff') format('woff'), url('../fonts/novecento/29BB1D_14_0.ttf') format('truetype'); }
+
+@font-face {
+  font-family: 'Novecentosanswide-Light';
+  src: url('../fonts/novecento/29BB1D_17_0.eot');
+  src: url('../fonts/novecento/29BB1D_17_0.eot?#iefix') format('embedded-opentype'), url('../fonts/novecento/29BB1D_17_0.woff') format('woff'), url('../fonts/novecento/29BB1D_17_0.ttf') format('truetype'); }
+
+.search .help {
+  text-align: center;
+  color: white; }
+  .search .help > div {
+    min-height: 300px;
+    padding-top: 70px; }
+  .search .help .add {
+    background: #8e47ad; }
+  .search .help .vote {
+    background: #e15829; }
+  .search .help h2 {
+    font-size: 75px;
+    margin-bottom: 0; }
+  .search .help p {
+    font-size: 18px; }
 
 .search-list .list-group-item {
   min-height: 110px;
