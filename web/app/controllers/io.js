@@ -16,7 +16,8 @@ module.exports = (function(app, io, server) {
   // Create room for now
   var room = new Room({
     id: 1234,
-    name: 'Shoptology DJ'
+    name: 'Shoptology DJ',
+    topic: 'Off Topic'
   });
   g.rooms[1234] = room;
 
@@ -43,6 +44,75 @@ module.exports = (function(app, io, server) {
     socket.on('disconnect', onDisconnect);
     socket.on('playerLeftMap', onPlayerLeftMap);
 
+    //Admin
+    var admin = {
+        changeTopic : function(data) {
+            var player = playerById(this.id);
+
+            if(player.isAdmin) {
+                g.rooms[data.room.id].topic = data.room.topic;
+
+                this.to(data.room.id)
+                    .emit('roomUpdated', {
+                        room: g.rooms[data.room.id]
+                    });
+                this.emit('roomUpdated', {
+                        room: g.rooms[data.room.id]
+                    });
+            }
+        },
+        removePlaylist : function(data) {
+            var player = playerById(this.id);
+
+            if(player.isAdmin) {
+                g.rooms[data.room.id].playlist = [];
+                g.rooms[data.room.id].currentVideo = null;
+                g.rooms[data.room.id].currentVideoStartTime = false;
+
+                console.log(g.rooms[data.room.id]);
+
+                this.to(data.room.id)
+                    .emit('roomUpdated', {
+                        room: g.rooms[data.room.id]
+                    });
+                this.emit('roomUpdated', {
+                        room: g.rooms[data.room.id]
+                    });
+            }
+        },
+        removeFromPlaylist : function(data) {
+            var player = playerById(this.id);
+
+            if(player.isAdmin) {
+                var r = g.rooms[data.room.id];
+
+                if(r.currentVideo.id.$t == data.video.id.$t) {
+                    r.currentVideo = null;
+                    r.playVideo({index:0});
+                }
+
+                for(var i in r.playlist) {
+                    var v  = r.playlist[i];
+
+                    if(v.id.$t == data.video.id.$t) {
+                        r.playlist.splice(i, 1);
+                        break;
+                    }
+                }
+                this.to(data.room.id)
+                    .emit('roomUpdated', {
+                        room: r
+                    });
+                this.emit('roomUpdated', {
+                        room: r
+                    });
+            }
+        }
+    };
+
+    socket.on('admin:changeTopic', admin.changeTopic);
+    socket.on('admin:removePlaylist', admin.removePlaylist);
+    socket.on('admin:removeFromPlaylist', admin.removeFromPlaylist);
 
     // @todo will have to add this 'on' event for all new rooms created
     g.rooms[1234].on('videoUpdate', function(room) {
@@ -70,6 +140,7 @@ module.exports = (function(app, io, server) {
         player.lastName = data.user.lastName;
         player.email = data.user.email;
         player.photo = data.user.photo;
+        player.isAdmin = data.user.isAdmin;
       }
 
       if (!data.roomId) {

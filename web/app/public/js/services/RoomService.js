@@ -2,8 +2,7 @@ define(['angular'], function(angular) {
     'use strict';
 
     var factory = function($http, $q, $window, $rootScope, socket) {
-
-        var currentRooms= [],
+        var currentRooms = [],
             currentRoom,
             currentRoomCount = 0,
             services = {
@@ -93,6 +92,11 @@ define(['angular'], function(angular) {
             //alert('GAME UPDATED!!!');
             currentRoom.players = data.allPlayers;
         });
+
+        //Admin
+        socket.on('admin:say', function(data) {
+            $rootScope.$broadcast('admin:say', data.msg);
+        })
 
         // Return all our public functions
         return services;

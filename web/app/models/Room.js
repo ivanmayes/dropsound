@@ -6,6 +6,7 @@
   var Room = function(config) {
     this.id = config.id;
     this.name = config.name;
+    this.topic = config.topic || '';
     this.playlist = config.playlist || [];
     this.currentVideo = config.currentVideo;
     this.createdAt = new Date().getTime();
