@@ -3,7 +3,7 @@
 define(function() {
     'use strict';
 
-    function ctrl($scope, $rootScope, $state, $stateParams, $sce, UserService, RoomService, PlayersService, youtubeEmbedUtils) {
+    function ctrl($scope, $rootScope, $state, $stateParams, $sce, UserService, RoomService, PlayersService, AdminService, youtubeEmbedUtils) {
         console.log('Room Id', $stateParams.roomId);
 
         $scope.currentVideo;
@@ -18,6 +18,10 @@ define(function() {
         $scope.toggleVideo = toggleVideo;
         $scope.voteForVideo = RoomService.voteForVideo;
 
+        $scope.user = $rootScope.user;
+
+        $scope.admin = AdminService;
+
         // Announce theres a new player
         PlayersService.addPlayerToRoom({
         	roomId: $stateParams.roomId,
@@ -28,6 +32,11 @@ define(function() {
         	console.log('Room Updated!', room);
             $scope.room = room;
             if(room.currentVideo !== $scope.currentVideo) {
+                if(!room.currentVideo) {
+                    $scope.currentVideo = false;
+                    return false;
+                }
+
                 if($scope.currentVideo) {
                     if(youtubeEmbedUtils.getIdFromURL(room.currentVideo.link[0].href) == youtubeEmbedUtils.getIdFromURL($scope.currentVideo.link[0].href)) {
                         return false;
@@ -51,6 +60,10 @@ define(function() {
             }
         });
 
+        $scope.$on('admin:say', function(evt, msg) {
+            alert(msg);
+        });
+
         function toggleVideo() {
             if($scope.hideVideo) {
                 $scope.hideVideo = false;
@@ -60,7 +73,7 @@ define(function() {
         }
 
         function isVideoInPlaylist(video) {
-            if(video.id.$t == $scope.currentVideo.id.$t) {
+            if($scope.currentVideo && video.id.$t == $scope.currentVideo.id.$t) {
                 return true;
             }
 
@@ -87,7 +100,7 @@ define(function() {
 
     }
 
-    ctrl.$inject = ['$scope', '$rootScope', '$state', '$stateParams', '$sce', 'UserService', 'RoomService', 'PlayersService', 'youtubeEmbedUtils'];
+    ctrl.$inject = ['$scope', '$rootScope', '$state', '$stateParams', '$sce', 'UserService', 'RoomService', 'PlayersService', 'AdminService', 'youtubeEmbedUtils'];
     return ctrl;
 
 });

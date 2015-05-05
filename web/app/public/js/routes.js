@@ -17,7 +17,7 @@ define(['app'], function(app) {
                 })
                 .state('room', {
                     url: "/room/:roomId",
-                    params: { roomName : '', roomId : '' },
+                    params: { roomName : 'Some Room', roomId : '' },
                     templateUrl: "js/views/room.html",
                     controller: 'RoomCtrl',
                     authenticate: true,

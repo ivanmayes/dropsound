@@ -1,6 +1,8 @@
 <div class="room">
 	<div class="header">
 		<h1>MIXOLOGY</h1>
+		<button ng-if="user.isAdmin" ng-click="admin.sayHi()">Say Hi!</button>
+		<button ng-if="user.isAdmin" ng-click="admin.removePlaylist(room)">Clear playlist</button>
 	</div>
 
 	<div class="row room-info">
@@ -22,7 +24,7 @@
 		<div class="col-sm-7 playlist">
 			<a href ng-click="toggleVideo()">Toggle Video</a>
 
-			<div class="currentVideo" ng-class="{'hide-video': hideVideo}">
+			<div class="currentVideo" ng-if="currentVideo" ng-class="{'hide-video': hideVideo}">
 				<p>{{currentVideo.title.$t}}</p>
 				<iframe ng-if="currentVideo" id="unique-youtube-embed-id-1" frameborder="0" allowfullscreen="1" title="YouTube video player" width="640" height="390" ng-src="{{currentVideo.iframeLink}}"></iframe>
 			</div>
@@ -37,11 +39,12 @@
 					<h4>{{ item.title.$t }}</h4>
 					<p>Added By: <img class="gravatar" ng-src="{{ item.addedBy.email | gravatar }}" title="{{item.addedBy.firstName || item.addedBy.email }} {{item.addedBy.lastName}}" /> {{item.addedBy.firstName || item.addedBy.email}} {{item.addedBy.lastName}}</p>
 					<p>
-					{{ item.votes.length }} - <a href ng-click="voteForVideo(item)" ng-if="!hasVotedForVideo(item)">Vote</a><span ng-if="hasVotedForVideo(item)">Voted!</span>
-					<span ng-repeat="vote in item.votes" ng-if="$index !== 0">
-						<img class="gravatar" ng-src="{{ vote.email | gravatar }}" title="{{vote.firstName || vote.email }} {{vote.lastName}}" />
-					</span>
+						{{ item.votes.length }} - <a href ng-click="voteForVideo(item)" ng-if="!hasVotedForVideo(item)">Vote</a><span ng-if="hasVotedForVideo(item)">Voted!</span>
+						<span ng-repeat="vote in item.votes" ng-if="$index !== 0">
+							<img class="gravatar" ng-src="{{ vote.email | gravatar }}" title="{{vote.firstName || vote.email }} {{vote.lastName}}" />
+						</span>
 					</p>
+					<button ng-if="user.isAdmin" ng-click="admin.removeFromPlaylist(item, room)">Remove from playlist</button>
 				</div>
 			</div>
 		</div>
@@ -69,7 +72,7 @@
 			</div>
 
 			<div class="search-list list-group">
-				<div class="list-group-item" ng-repeat="item in videos" ng-class="{'added': isVideoInPlaylist(item)}">
+				<div class="list-group-item" ng-if="videos.length" ng-repeat="item in videos" ng-class="{'added': isVideoInPlaylist(item)}">
 					<div class="overlay">
 						<p>Added!</p>
 					</div>
