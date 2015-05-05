@@ -5,7 +5,8 @@ define(function() {
 
     function ctrl($scope, $stateParams, $rootScope, SearchService, RoomService) {
     	$scope.addVideo = addVideo;
-    	$scope.search = { 
+        $scope.clearSearch = clearSearch;
+    	$scope.search = {
     		q: '',
             // Old api terms
     		maxResults: 10,
@@ -15,7 +16,7 @@ define(function() {
     	}
     	$scope.searchVideos = searchVideos;
     	$scope.videos = [];
-        
+
     	function addVideo(video) {
     		console.log('adding video');
             RoomService.addVideoToPlaylist(video);
@@ -29,6 +30,11 @@ define(function() {
         	}, function(error) {
         		console.log('searchVideos error', error);
         	})
+        }
+
+        function clearSearch() {
+            $scope.videos = [];
+            $scope.search.q = '';
         }
 
     }

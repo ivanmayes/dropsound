@@ -18,6 +18,10 @@ define(function() {
         $scope.toggleVideo = toggleVideo;
         $scope.voteForVideo = RoomService.voteForVideo;
 
+        $scope.editingTopic = false;
+        $scope.editTopic = editTopic;
+        $scope.changeTopic = changeTopic;
+
         $scope.user = $rootScope.user;
 
         $scope.admin = AdminService;
@@ -64,6 +68,15 @@ define(function() {
             alert(msg);
         });
 
+        function editTopic() {
+            $scope.editingTopic = true;
+        }
+
+        function changeTopic() {
+            $scope.admin.changeTopic($scope.room);
+            $scope.editingTopic = false;
+        }
+
         function toggleVideo() {
             if($scope.hideVideo) {
                 $scope.hideVideo = false;
@@ -97,7 +110,6 @@ define(function() {
 
             return false;
         }
-
     }
 
     ctrl.$inject = ['$scope', '$rootScope', '$state', '$stateParams', '$sce', 'UserService', 'RoomService', 'PlayersService', 'AdminService', 'youtubeEmbedUtils'];

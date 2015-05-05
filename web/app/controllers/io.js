@@ -16,7 +16,8 @@ module.exports = (function(app, io, server) {
   // Create room for now
   var room = new Room({
     id: 1234,
-    name: 'Shoptology DJ'
+    name: 'Shoptology DJ',
+    topic: 'Off Topic'
   });
   g.rooms[1234] = room;
 
@@ -45,14 +46,18 @@ module.exports = (function(app, io, server) {
 
     //Admin
     var admin = {
-        say : function(data) {
+        changeTopic : function(data) {
             var player = playerById(this.id);
 
             if(player.isAdmin) {
-                console.log('is admin, sending');
-                socket.to(1234)
-                    .emit('admin:say', {
-                        msg : data.msg
+                g.rooms[data.room.id].topic = data.room.topic;
+
+                this.to(data.room.id)
+                    .emit('roomUpdated', {
+                        room: g.rooms[data.room.id]
+                    });
+                this.emit('roomUpdated', {
+                        room: g.rooms[data.room.id]
                     });
             }
         },
@@ -105,7 +110,7 @@ module.exports = (function(app, io, server) {
         }
     };
 
-    socket.on('admin:say', admin.say);
+    socket.on('admin:changeTopic', admin.changeTopic);
     socket.on('admin:removePlaylist', admin.removePlaylist);
     socket.on('admin:removeFromPlaylist', admin.removeFromPlaylist);
 

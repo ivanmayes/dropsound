@@ -25,7 +25,26 @@ iframe {
     }
 
     .room-info {
-        margin: 50px -15px;
+        margin: 50px -15px 30px;
+
+        .player:last-child {
+            .slashes {
+                display: none;
+            }
+        }
+
+        .gravatar {
+            width: 16px;
+        }
+
+        li {
+            display: inline;
+        }
+    }
+
+    .topic {
+        margin: 0 0 60px 0;
+        text-align: center;
     }
 
     .currentVideo {
@@ -41,6 +60,24 @@ ul {
 
 .nova {
     font-family: 'Novecentosanswide-Light', 'Helvetica Neue', sans-serif;
+}
+
+::-webkit-input-placeholder {
+    color: #e15829;
+}
+
+:-moz-placeholder {
+    /* Firefox 18- */
+    color: #e15829;
+}
+
+::-moz-placeholder {
+    /* Firefox 19+ */
+    color: #e15829;
+}
+
+:-ms-input-placeholder {
+    color: #e15829;
 }
 
 // Navbar

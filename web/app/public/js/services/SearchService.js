@@ -20,6 +20,7 @@ define(['angular'], function(angular) {
                 v:2
             }
             //params.key = YOUTUBE_API_KEY;
+            params['_'+new Date().getTime()] = '';
 
             $http({
                 url: 'https://gdata.youtube.com/feeds/api/videos',
