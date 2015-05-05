@@ -27,6 +27,16 @@ iframe {
     .room-info {
         margin: 50px -15px 30px;
 
+        .who {
+            text-align: right;
+        }
+
+        .who, .room {
+            li {
+                color: #00aeef;
+            }
+        }
+
         .player:last-child {
             .slashes {
                 display: none;
@@ -45,6 +55,8 @@ iframe {
     .topic {
         margin: 0 0 60px 0;
         text-align: center;
+        color: #00aeef;
+        font-family: 'Novecentosanswide-Light', 'Helvetica Neue', sans-serif;
     }
 
     .currentVideo {

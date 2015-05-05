@@ -1,14 +1,14 @@
 <div class="room">
 	<div class="header">
-		<h1>MIXOLOGY</h1>
+		<h1>CO-LOUD</h1>
 	</div>
 
 	<div class="row room-info">
-		<div class="col-md-4">
+		<div class="col-md-4 room">
 			<p>ROOM</p>
-			<a class="btn btn-default">{{ room.name }}</a>
+			<li>{{ room.name }}</li>
 		</div>
-		<div class="col-md-8">
+		<div class="col-md-8 who">
 			<p>MIXOLOGISTS</p>
 			<ul>
 				<li class="player" ng-repeat="player in room.players">
@@ -90,7 +90,7 @@
 
 					<div class="thumbnail">
 						<div class="overlay">
-							<i class="fa fa-plus"></i>
+							<i class="close-icon"></i>
 						</div>
 
 						<img ng-src="{{item.media$group.media$thumbnail[0].url}}">
