@@ -86,8 +86,6 @@ module.exports = (function(app, io, server) {
 
         if(data.roomName) {
             params.name = data.roomName;
-            console.log(params.name);
-            console.log('&&&&&&&&&&&&&&&&&&&');
         };
 
         var room = new Room(params);
