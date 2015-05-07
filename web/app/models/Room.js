@@ -48,11 +48,11 @@
       console.log('Play video not passed id or index', params);
       return false;
     }
-    console.log('Playing '+this.currentVideo.title.$t);
+    console.log('Playing '+this.currentVideo.snippet.title);
 
     // Send event to play video
     // Start timer for length of video to switch to next video
-    var milliseconds = this.currentVideo.media$group.yt$duration.seconds*1000;
+    var milliseconds = this.currentVideo.durationSeconds*1000;
     this.currentVideoStartTime = new Date().getTime();
     this.waitForFinishedVideo(milliseconds);
     console.log('Waiting for '+milliseconds+' until next video');
@@ -109,7 +109,7 @@
     });
 
     playlist = _.uniq(playlist, function(video) {
-      return video.id.$t;
+      return video.id.videoId;
     });
 
     this.playlist = playlist;

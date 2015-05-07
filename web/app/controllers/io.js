@@ -4,22 +4,24 @@ module.exports = (function(app, io, server) {
   var _ = require('lodash');
   var Room = require('./../models/Room');
   var Player = require('./../models/Player');
+  var jf = require('jsonfile');
   var currentVideoTimer; // timeout timer for current video
+
+  //var g = require('./../config/state.json');
 
   // Game data
   var g = {
-    io: io,
-    players: [],
-    rooms: {}
+    "players": [],
+    "rooms": {}
   };
 
   // Create room for now
   var room = new Room({
-    id: 1234,
+    id: 1,
     name: 'Shoptology DJ',
     topic: 'Off Topic'
   });
-  g.rooms[1234] = room;
+  g.rooms[1] = room;
 
 
   var s = io.listen(server);
@@ -115,13 +117,14 @@ module.exports = (function(app, io, server) {
     socket.on('admin:removeFromPlaylist', admin.removeFromPlaylist);
 
     // @todo will have to add this 'on' event for all new rooms created
-    g.rooms[1234].on('videoUpdate', function(room) {
-        socket.to(1234)
-        .emit('roomUpdated', {
-          room: g.rooms[1234]
-        })
-    });
-    //
+    if(g.rooms[1]) {
+        g.rooms[1].on('videoUpdate', function(room) {
+            socket.to(1)
+            .emit('roomUpdated', {
+              room: g.rooms[1]
+            })
+        });
+    }
 
 
 
@@ -353,6 +356,15 @@ module.exports = (function(app, io, server) {
       }
       return false;
     };
+
+    function saveState() {
+        if(g !== null && typeof g === 'object') {
+            jf.writeFile('app/config/state.json', g);
+            console.log('State Saved');
+        }else{
+            console.log('g was not an object', g);
+        }
+    }
 
 
   });

@@ -42,14 +42,14 @@ define(function() {
                 }
 
                 if($scope.currentVideo) {
-                    if(youtubeEmbedUtils.getIdFromURL(room.currentVideo.link[0].href) == youtubeEmbedUtils.getIdFromURL($scope.currentVideo.link[0].href)) {
+                    if(room.currentVideo.id.videoId == $scope.currentVideo.id.videoId) {
                         return false;
                     }
                 }
 
             	$scope.currentVideo = room.currentVideo;
 
-                var url = 'https://www.youtube.com/embed/'+youtubeEmbedUtils.getIdFromURL(room.currentVideo.link[0].href)+'?controls=1&amp;autoplay=1&amp;&amp;enablejsapi=1';
+                var url = 'https://www.youtube.com/embed/'+room.currentVideo.id.videoId+'?controls=1&amp;autoplay=1&amp;&amp;enablejsapi=1';
 
                 // Sync video if there's a sync param
                 if(room.currentVideoSync) {
@@ -86,13 +86,13 @@ define(function() {
         }
 
         function isVideoInPlaylist(video) {
-            if($scope.currentVideo && video.id.$t == $scope.currentVideo.id.$t) {
+            if($scope.currentVideo && video.id.videoId == $scope.currentVideo.id.videoId) {
                 return true;
             }
 
             for (var i = $scope.room.playlist.length - 1; i >= 0; i--) {
-                //console.log($scope.room.playlist[i].id.$t, video.id.$t)
-                if($scope.room.playlist[i].id.$t == video.id.$t) {
+                //console.log($scope.room.playlist[i].id.videoId, video.id.videoId)
+                if($scope.room.playlist[i].id.videoId == video.id.videoId) {
                     return true;
                 }
             };

@@ -29,7 +29,7 @@
 			<a href ng-click="toggleVideo()">Toggle Video</a>
 
 			<div class="currentVideo" ng-class="{'hide-video': hideVideo}">
-				<p ng-if="hideVideo" class="hidden-title">{{currentVideo.title.$t}}</p>
+				<p ng-if="hideVideo" class="hidden-title">{{currentVideo.snippet.title}}</p>
 				<iframe ng-if="currentVideo" id="unique-youtube-embed-id-1" frameborder="0" allowfullscreen="1" title="YouTube video player" width="640" height="390" ng-src="{{currentVideo.iframeLink}}"></iframe>
 
 				<div class="meta" ng-if="currentVideo">
@@ -61,10 +61,10 @@
 
 				<div class="list-group-item" ng-repeat="item in room.playlist" ng-click="voteForVideo(item)" ng-class="{'first': $index == 0}">
 					<div class="thumbnail" ng-if="$index == 0">
-						<img ng-src="{{item.media$group.media$thumbnail[0].url}}">
+						<img ng-src="{{item.snippet.thumbnails.default.url}}">
 					</div>
 
-					<h4>{{ item.title.$t }}</h4>
+					<h4>{{ item.snippet.title }}</h4>
 
 					<div class="row">
 						<div class="col-md-8">
@@ -118,11 +118,11 @@
 							<i class="close-icon"></i>
 						</div>
 
-						<img ng-src="{{item.media$group.media$thumbnail[0].url}}">
+						<img ng-src="{{item.snippet.thumbnails.default.url}}">
 					</div>
 
-					<h4>{{item.title.$t}}</h4>
-					<p>{{ item.author[0].name.$t }} - {{ item.media$group.yt$duration.seconds | readableTime }}</p>
+					<h4>{{item.snippet.title}}</h4>
+					<p>{{ item.snippet.channelTitle }} - {{ item.durationString }}</p>
 					<div class="clearfix"></div>
 				</div>
 			</div>

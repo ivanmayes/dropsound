@@ -10,7 +10,9 @@ define(['angular'], function(angular) {
         function searchVideos(q) {
             var deferred = $q.defer();
 
-            var params = {
+            /*   Old Params
+
+             var params = {
                 alt: 'json',
                 format: '5',
                 'max-results': 10,
@@ -18,23 +20,69 @@ define(['angular'], function(angular) {
                 q: q,
                 'start-index': 1,
                 v:2
-            }
+            }*/
             //params.key = YOUTUBE_API_KEY;
-            params['_'+new Date().getTime()] = '';
+            //params['_'+new Date().getTime()] = '';
+
+            var params = {
+                maxResults: 20,
+                part: 'snippet',
+                q: q,
+                safeSearch: 'none',
+                type: 'video',
+                videoDuration: 'any',
+                videoEmbeddable: true,
+                //videoSyndicated: true,
+                order: 'viewCount',
+                //fields: 'items(id/videoId,snippet/title,snippet/thumbnails,snippet/channelTitle)',
+                key: YOUTUBE_API_KEY
+            }
+
 
             $http({
-                url: 'https://gdata.youtube.com/feeds/api/videos',
-                //url: 'https://www.googleapis.com/youtube/v3/search',
+                //url: 'https://gdata.youtube.com/feeds/api/videos',
+                url: 'https://www.googleapis.com/youtube/v3/search',
                 method: 'GET',
                 params: params
             }).then(function(result) {
-                if (result.data.feed && result.data.feed.entry) {
-                    var items = result.data.feed.entry;
+                if (result.data.items && result.data.items) {
+                    var items = result.data.items;
                     // if the first result contains support, remove it
-                    if(items[0] && items[0].title.$t == 'https://youtube.com/devicesupport') {
+                    if(items[0] && items[0].snippet.title == 'https://youtube.com/devicesupport') {
                         items.splice(0,1);
                     }
-                    deferred.resolve(items);
+
+                    var ids = [];
+                    for (var i = items.length - 1; i >= 0; i--) {
+                        ids.push(items[i].id.videoId);
+                    };
+
+                    // Get Durations
+                    $http({
+                        url: 'https://www.googleapis.com/youtube/v3/videos',
+                        method: 'GET',
+                        params: {
+                            id: ids.join(','),
+                            part: 'contentDetails',
+                            fields: 'items(id,contentDetails/duration)',
+                            key: YOUTUBE_API_KEY
+                        }
+                    }).then(function(result) {
+
+                        // Combine durations back into origical items
+                        var durationItems = result.data.items;
+                        for (var i = durationItems.length - 1; i >= 0; i--) {
+                            items[i].durationString = getTimeString(durationItems[i].contentDetails.duration);
+                            items[i].durationSeconds = getSeconds(durationItems[i].contentDetails.duration);
+                            //items[i].duration = durationItems[i].contentDetails.duration;
+                        };
+
+                        deferred.resolve(items);
+
+                    });
+
+
+
                 } else {
                     deferred.reject(result);
                 }
@@ -44,6 +92,33 @@ define(['angular'], function(angular) {
                 });
 
             return deferred.promise;
+        }
+
+        function getTimeString(duration) {
+            var string = duration.replace("PT","").replace("H",":").replace("M",":").replace("S","");
+            // Look for single digit seconds
+            var string_array = string.split(':');
+            if(string_array[string_array.length-1].length == 1) {
+                string_array[string_array.length-1] = '0'+string_array[string_array.length-1];
+            }
+
+            return string_array.join(':');
+        }
+
+        // Expects ISO 8601 duration string
+        function getSeconds(duration) {
+            var reptms = /^PT(?:(\d+)H)?(?:(\d+)M)?(?:(\d+)S)?$/;
+              var hours = 0, minutes = 0, seconds = 0, totalseconds;
+
+              if (reptms.test(duration)) {
+                var matches = reptms.exec(duration);
+                if (matches[1]) hours = Number(matches[1]);
+                if (matches[2]) minutes = Number(matches[2]);
+                if (matches[3]) seconds = Number(matches[3]);
+                totalseconds = hours * 3600  + minutes * 60 + seconds;
+              }
+
+            return totalseconds
         }
 
         // Return all our public functions
