@@ -28,13 +28,36 @@
 		<div class="col-sm-7 playlist">
 			<a href ng-click="toggleVideo()">Toggle Video</a>
 
-			<div class="currentVideo" ng-if="currentVideo" ng-class="{'hide-video': hideVideo}">
-				<p>{{currentVideo.title.$t}}</p>
+			<div class="currentVideo" ng-class="{'hide-video': hideVideo}">
+				<p ng-if="hideVideo" class="hidden-title">{{currentVideo.title.$t}}</p>
 				<iframe ng-if="currentVideo" id="unique-youtube-embed-id-1" frameborder="0" allowfullscreen="1" title="YouTube video player" width="640" height="390" ng-src="{{currentVideo.iframeLink}}"></iframe>
+
+				<div class="meta" ng-if="currentVideo">
+					<div class="row">
+						<div class="col-md-8">
+							<p class="added-by">Added By: <img class="gravatar" ng-src="{{ currentVideo.addedBy.email | gravatar }}" title="{{currentVideo.addedBy.firstName || currentVideo.addedBy.email }} {{currentVideo.addedBy.lastName}}" /> {{currentVideo.addedBy.firstName || currentVideo.addedBy.email}} {{currentVideo.addedBy.lastName}}</p>
+						</div>
+						<div class="col-md-4 votes" >
+							{{ currentVideo.votes.length }} <a href ng-if="!hasVotedForVideo(currentVideo)"><i class="fa fa-heart-o"></i></a><span ng-if="hasVotedForVideo(currentVideo)"><i class="fa fa-heart"></i></span>
+						</div>
+					</div>
+
+					<div>
+						<span ng-repeat="vote in currentVideo.votes" ng-if="vote.email !== currentVideo.addedBy.email">
+							<img class="gravatar" ng-src="{{ vote.email | gravatar }}" title="{{vote.firstName || vote.email }} {{vote.lastName}}" />
+						</span>
+
+						<button ng-if="user.isAdmin" ng-click="admin.removeFromPlaylist(currentVideo, room)">Remove from playlist</button>
+					</div>
+				</div>
+
+
+				<div class="empty-msg" ng-if="!currentVideo">No videos playing yet, add some!</div>
+
 			</div>
 
 			<div class="search-list list-group">
-				<p>NEXT UP</p>
+				<p ng-if="room.playlist.length > 0">NEXT UP</p>
 
 				<div class="list-group-item" ng-repeat="item in room.playlist" ng-click="voteForVideo(item)" ng-class="{'first': $index == 0}">
 					<div class="thumbnail" ng-if="$index == 0">
@@ -53,7 +76,7 @@
 					</div>
 
 					<div>
-						<span ng-repeat="vote in item.votes" ng-if="$index !== 0">
+						<span ng-repeat="vote in item.votes" ng-if="vote.email !== item.addedBy.email">
 							<img class="gravatar" ng-src="{{ vote.email | gravatar }}" title="{{vote.firstName || vote.email }} {{vote.lastName}}" />
 						</span>
 						<button ng-if="user.isAdmin" ng-click="admin.removeFromPlaylist(item, room)">Remove from playlist</button>
@@ -85,12 +108,12 @@
 			</div>
 
 			<div class="search-list list-group">
-				<div class="list-group-item" ng-if="videos.length" ng-repeat="item in videos" ng-click="addVideo(item)" ng-class="{'added': isVideoInPlaylist(item)}">
+				<div class="list-group-item" ng-if="videos.length" ng-repeat="item in videos" ng-class="{'added': isVideoInPlaylist(item)}">
 					<div class="overlay">
 						<p>Added!</p>
 					</div>
 
-					<div class="thumbnail">
+					<div class="thumbnail"  ng-click="addVideo(item)">
 						<div class="overlay">
 							<i class="close-icon"></i>
 						</div>

@@ -162,6 +162,14 @@ module.exports = (function(app, io, server) {
         var room = new Room(params);
 
         g.rooms[data.roomId] = room;
+
+        g.rooms[data.roomId].on('videoUpdate', function(room) {
+            socket.to(data.roomId)
+            .emit('roomUpdated', {
+              room: g.rooms[data.roomId]
+            })
+        });
+
         socket.emit('newMapCreated', room.serialize());
       };
 
@@ -331,7 +339,7 @@ module.exports = (function(app, io, server) {
     function onGetRooms() {
       var rooms = [];
       for (var k in g.rooms) {
-        rooms.push(g.rooms[k].serialize());
+        rooms.push(g.rooms[k]);
       }
       console.log('getting Rooms');
       this.emit('getAllRooms', rooms);

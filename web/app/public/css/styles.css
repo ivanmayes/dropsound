@@ -6409,10 +6409,11 @@ body {
 iframe {
   width: 100%; }
 
-.room .header {
+.header {
   text-align: center;
   font-family: 'Novecentosanswide-Bold', 'Helvetica Neue', sans-serif;
   font-weight: 700; }
+
 .room .room-info {
   margin: 50px -15px 30px; }
   .room .room-info .who {
@@ -6717,21 +6718,36 @@ ul {
               transform: translateX(-50%) translateY(-50%); }
   .search-list .list-group-item .close-icon {
     background: url("/img/plus-white.svg") no-repeat;
-    width: 20px;
-    height: 20px;
+    width: 50px;
+    height: 50px;
     display: block; }
 
 .playlist .currentVideo {
   transition: max-height 500ms;
-  max-height: 1000px; }
+  max-height: 1000px;
+  min-height: 350px;
+  background: #EEE; }
   .playlist .currentVideo.hide-video {
-    max-height: 38px;
+    max-height: 66px;
+    min-height: 1px;
     overflow: hidden; }
     .playlist .currentVideo.hide-video iframe {
-      max-height: 33px; }
+      max-height: 31px; }
   .playlist .currentVideo iframe {
     transition: max-height 500ms;
     max-height: 1000px; }
+  .playlist .currentVideo .empty-msg {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translateX(-50%) translateY(-50%);
+        -ms-transform: translateX(-50%) translateY(-50%);
+            transform: translateX(-50%) translateY(-50%); }
+  .playlist .currentVideo .meta {
+    padding: 5px 9px 10px; }
+  .playlist .currentVideo .hidden-title {
+    padding: 8px;
+    margin: 0; }
 .playlist .gravatar {
   width: 30px;
   margin: 5px; }

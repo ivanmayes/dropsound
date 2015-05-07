@@ -1,3 +1,7 @@
+<div class="header">
+	<h1>CO-LOUD</h1>
+</div>
+
 <div class="row">
 	<div class="col-sm-12">
 		<div class="col-sm-6 input-group pull-right">
@@ -15,6 +19,13 @@
 		<ul>
 			<li ng-repeat="room in rooms">
 				<a ui-sref="room({roomId: room.id, roomName: room.name, room: room})">{{ room.name }}</a>
+				<!--<div class="currentVideo" ng-if="room.currentVideo">
+					<div class="thumbnail" ng-if="$index == 0">
+						<img ng-src="{{room.currentVideo.media$group.media$thumbnail[0].url}}">
+					</div>
+
+					<h4>{{ room.currentVideo.title.$t }}</h4>
+				</div>-->
 			</li>
 		</ul>
 	</div>

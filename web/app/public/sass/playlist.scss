@@ -2,19 +2,38 @@
     .currentVideo {
         transition: max-height 500ms;
         max-height: 1000px;
+        min-height: 350px;
+        background: #EEE;
 
         &.hide-video {
-            max-height: 38px;
+            max-height: 66px;
+            min-height: 1px;
             overflow: hidden;
 
             iframe {
-                max-height: 33px;
+                max-height: 31px;
             }
         }
 
         iframe {
             transition: max-height 500ms;
             max-height: 1000px;
+        }
+
+        .empty-msg {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translateX(-50%) translateY(-50%);
+        }
+
+        .meta {
+            padding: 5px 9px 10px;
+        }
+
+        .hidden-title {
+            padding: 8px;
+            margin: 0;
         }
     }
 
