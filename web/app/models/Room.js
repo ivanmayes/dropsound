@@ -129,6 +129,11 @@
 
   Room.prototype.addPlayer = function(player) {
     this.players.push(player);
+
+    this.players = _.uniq(this.players, function(player) {
+      return player.email;
+    });
+
   };
 
   Room.prototype.removePlayer = function(player) {
