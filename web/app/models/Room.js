@@ -70,7 +70,7 @@
 
   Room.prototype.getVideoIndex = function(id) {
     return _.findIndex(this.playlist, function(video, k) {
-      return video.id.$t == id
+      return video.id.videoId == id
     });
   };
 
@@ -85,7 +85,7 @@
   };
 
   Room.prototype.addVoteToVideo = function(video, player) {
-    var index = this.getVideoIndex(video.id.$t);
+    var index = this.getVideoIndex(video.id.videoId);
     var votes = this.playlist[index].votes
     votes.push(player);
     votes = _.uniq(votes, function(player) {
