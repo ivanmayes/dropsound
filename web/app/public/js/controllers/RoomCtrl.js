@@ -17,6 +17,7 @@ define(function() {
 		$scope.room;
         $scope.toggleVideo = toggleVideo;
         $scope.voteForVideo = RoomService.voteForVideo;
+        $scope.isNew = true;
 
         $scope.editingTopic = false;
         $scope.editTopic = editTopic;
@@ -52,8 +53,9 @@ define(function() {
                 var url = 'https://www.youtube.com/embed/'+room.currentVideo.id.videoId+'?controls=1&amp;autoplay=1&amp;&amp;enablejsapi=1';
 
                 // Sync video if there's a sync param
-                if(room.currentVideoSync) {
+                if(room.currentVideoSync && $scope.isNew == true) {
                     url += room.currentVideoSync;
+                    $scope.isNew = false;
                 }
 
                 $scope.currentVideo.iframeLink = $sce.trustAsResourceUrl(url);

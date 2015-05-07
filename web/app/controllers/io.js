@@ -117,14 +117,12 @@ module.exports = (function(app, io, server) {
     socket.on('admin:removeFromPlaylist', admin.removeFromPlaylist);
 
     // @todo will have to add this 'on' event for all new rooms created
-    if(g.rooms[1]) {
-        g.rooms[1].on('videoUpdate', function(room) {
-            socket.to(1)
-            .emit('roomUpdated', {
-              room: g.rooms[1]
-            })
-        });
-    }
+    g.rooms[1].on('videoUpdate', function(room) {
+        socket.to(1)
+        .emit('roomUpdated', {
+          room: g.rooms[1]
+        })
+    });
 
 
 

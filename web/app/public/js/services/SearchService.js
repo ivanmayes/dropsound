@@ -72,9 +72,18 @@ define(['angular'], function(angular) {
                         // Combine durations back into origical items
                         var durationItems = result.data.items;
                         for (var i = durationItems.length - 1; i >= 0; i--) {
-                            items[i].durationString = getTimeString(durationItems[i].contentDetails.duration);
-                            items[i].durationSeconds = getSeconds(durationItems[i].contentDetails.duration);
-                            //items[i].duration = durationItems[i].contentDetails.duration;
+
+
+                            // Find the right original video
+                            for (var x = items.length - 1; x >= 0; x--) {
+                                if(items[x].id.videoId === durationItems[i].id) {
+                                    console.log(items[x].id.videoId, durationItems[i].id)
+                                    items[x].durationString = getTimeString(durationItems[i].contentDetails.duration);
+                                    items[x].durationSeconds = getSeconds(durationItems[i].contentDetails.duration);
+                                }
+                            };
+
+                            console.log(items[x]);
                         };
 
                         deferred.resolve(items);
@@ -116,9 +125,11 @@ define(['angular'], function(angular) {
                 if (matches[2]) minutes = Number(matches[2]);
                 if (matches[3]) seconds = Number(matches[3]);
                 totalseconds = hours * 3600  + minutes * 60 + seconds;
+                console.log(duration);
+                console.log(hours, minutes, seconds, totalseconds);
               }
 
-            return totalseconds
+            return totalseconds;
         }
 
         // Return all our public functions
