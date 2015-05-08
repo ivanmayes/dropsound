@@ -178,10 +178,11 @@ module.exports = (function(app, io, server) {
 
         g.rooms[data.roomId] = room;
 
-        g.rooms[data.roomId].on('videoUpdate', function(room) {
-            socket.to(room.id)
+        g.rooms[data.roomId].on('videoUpdate', function(id) {
+            console.log('Emitting videoUpdate to '+ id);
+            socket.to(id)
             .emit('roomUpdated', {
-              room: g.rooms[room.id]
+              room: g.rooms[id]
             })
         });
 

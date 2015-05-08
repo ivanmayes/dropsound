@@ -68,7 +68,7 @@
 
     videoTimeout = setTimeout(function() {
       self.playVideo({index:0});
-      self.emit('videoUpdate', this);
+      self.emit('videoUpdate', self.id);
     }, duration);
   };
 
