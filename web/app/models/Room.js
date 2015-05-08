@@ -2,6 +2,7 @@
 
   var _ = require('lodash');
   var events = require('events');
+  var videoTimeout;
 
   var Room = function(config) {
     this.id = config.id;
@@ -63,7 +64,9 @@
     // @todo need to build in a way to get how far in we are for new users
     var self = this;
 
-    setTimeout(function() {
+   	clearTimeout(videoTimeout);
+
+    videoTimeout = setTimeout(function() {
       self.playVideo({index:0});
       self.emit('videoUpdate', this);
     }, duration);

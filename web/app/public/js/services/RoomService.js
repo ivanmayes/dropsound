@@ -96,7 +96,11 @@ define(['angular'], function(angular) {
         //Admin
         socket.on('admin:say', function(data) {
             $rootScope.$broadcast('admin:say', data.msg);
-        })
+        });
+
+        socket.on('player:heartbeat:response', function(data) {
+        	$rootScope.$broadcast('player:heartbeat:response', data.msg);
+        });
 
         // Return all our public functions
         return services;

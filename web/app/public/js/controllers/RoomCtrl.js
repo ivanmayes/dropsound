@@ -3,8 +3,10 @@
 define(function() {
     'use strict';
 
-    function ctrl($scope, $rootScope, $state, $stateParams, $sce, UserService, RoomService, PlayersService, AdminService, youtubeEmbedUtils) {
+    function ctrl($scope, $rootScope, $state, $stateParams, $sce, UserService, RoomService, PlayersService, AdminService, youtubeEmbedUtils, socket) {
         console.log('Room Id', $stateParams.roomId);
+
+        var heartbeat;
 
         $scope.currentVideo;
         $scope.hasVotedForVideo = hasVotedForVideo;
@@ -62,15 +64,21 @@ define(function() {
                 console.log($scope.currentVideo.iframeLink);
                 $scope.isNew = false;
 
-                $scope.isNew = false;
-
                 //$scope.currentVideoPlayer.playVideo();
             }
         });
 
-        $scope.$on('admin:say', function(evt, msg) {
-            alert(msg);
-        });
+		$scope.$on('player:heartbeat:response', function(evt, data) {
+			console.log('scheduling heartbeat');
+			heartbeat = setTimeout(sendHeartbeat, 10000);
+		})
+
+		function sendHeartbeat() {
+			console.log('sending heartbeat');
+			socket.emit('player:heartbeat', {
+				msg : "I'm still alive"
+			});
+		}
 
         function editTopic() {
             $scope.editingTopic = true;
@@ -114,9 +122,11 @@ define(function() {
 
             return false;
         }
+
+        sendHeartbeat();
     }
 
-    ctrl.$inject = ['$scope', '$rootScope', '$state', '$stateParams', '$sce', 'UserService', 'RoomService', 'PlayersService', 'AdminService', 'youtubeEmbedUtils'];
+    ctrl.$inject = ['$scope', '$rootScope', '$state', '$stateParams', '$sce', 'UserService', 'RoomService', 'PlayersService', 'AdminService', 'youtubeEmbedUtils', 'socket'];
     return ctrl;
 
 });
