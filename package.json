@@ -41,7 +41,7 @@
     "lodash": "^2.4.1",
     "lusca": "^1.0.0",
     "method-override": "^2.0.2",
-    "mongoose": "^3.8.12",
+    "mongoose": "^4.0.2",
     "morgan": "^1.1.1",
     "node-foursquare": "^0.2.1",
     "node-linkedin": "^0.2.0",

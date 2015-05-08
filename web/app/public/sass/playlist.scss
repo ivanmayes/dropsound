@@ -1,4 +1,8 @@
 .playlist {
+	.toggle {
+		  position: absolute;
+  top: -25px;
+	}
     .currentVideo {
         transition: max-height 500ms;
         max-height: 1000px;

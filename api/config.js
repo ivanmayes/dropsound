@@ -19,5 +19,5 @@ module.exports = exports = {
     },
     logPath: process.env.LOG_PATH || path.resolve( __dirname + '/logs/api.log'),
     port: process.env.PORT || 3000,
-    versionPrefix: '/v1'
+    versionPrefix: process.env.versionPrefix || '/v1'
 };

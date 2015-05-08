@@ -62,6 +62,8 @@ define(function() {
                 console.log($scope.currentVideo.iframeLink);
                 $scope.isNew = false;
 
+                $scope.isNew = false;
+
                 //$scope.currentVideoPlayer.playVideo();
             }
         });
