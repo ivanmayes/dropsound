@@ -99,7 +99,7 @@ define(['angular'], function(angular) {
         });
 
         socket.on('player:heartbeat:response', function(data) {
-        	$rootScope.$broadcast('player:heartbeat:response', data.msg);
+            $rootScope.$broadcast('player:heartbeat:response', data.msg);
         });
 
         // Return all our public functions

@@ -22,8 +22,8 @@ module.exports = (function(app, io, server) {
   };
 
   if(r) {
-  	rData = r;
-  	rData.players = [];
+    rData = r;
+    rData.players = [];
   }
 
   // Create room for now
@@ -134,14 +134,14 @@ module.exports = (function(app, io, server) {
     });
 
     function onPlayerHeartbeat(data) {
-    	console.log('heartbeat received, responding');
-    	socket.emit('player:heartbeat:response', {
-    		msg : 'kthx'
-    	});
+        console.log('heartbeat received, responding');
+        socket.emit('player:heartbeat:response', {
+            msg : 'kthx'
+        });
     }
 
     function onNewPlayer(data) {
-      var player = playerById(this.email);
+      var player = playerById(this.id);
       console.log('New Player', data);
 
       if (!player) {

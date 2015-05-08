@@ -64,7 +64,7 @@
     // @todo need to build in a way to get how far in we are for new users
     var self = this;
 
-   	clearTimeout(videoTimeout);
+    clearTimeout(videoTimeout);
 
     videoTimeout = setTimeout(function() {
       self.playVideo({index:0});

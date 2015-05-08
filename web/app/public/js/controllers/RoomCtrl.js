@@ -13,10 +13,10 @@ define(function() {
         $scope.hideVideo = false;
         $scope.isVideoInPlaylist = isVideoInPlaylist;
         $scope.playerVars = {
-		    controls: 1,
-		    autoplay: 1
-		};
-		$scope.room;
+            controls: 1,
+            autoplay: 1
+        };
+        $scope.room;
         $scope.toggleVideo = toggleVideo;
         $scope.voteForVideo = RoomService.voteForVideo;
         $scope.isNew = true;
@@ -31,12 +31,12 @@ define(function() {
 
         // Announce theres a new player
         PlayersService.addPlayerToRoom({
-        	roomId: $stateParams.roomId,
+            roomId: $stateParams.roomId,
             roomName : $stateParams.roomName
         });
 
         $scope.$on('room:update', function(evt, room) {
-        	console.log('Room Updated!', room);
+            console.log('Room Updated!', room);
             $scope.room = room;
             if(room.currentVideo !== $scope.currentVideo) {
                 if(!room.currentVideo) {
@@ -50,7 +50,7 @@ define(function() {
                     }
                 }
 
-            	$scope.currentVideo = room.currentVideo;
+                $scope.currentVideo = room.currentVideo;
 
                 var url = 'https://www.youtube.com/embed/'+room.currentVideo.id.videoId+'?controls=1&amp;autoplay=1&amp;&amp;enablejsapi=1';
 
@@ -61,24 +61,25 @@ define(function() {
 
                 $scope.currentVideo.iframeLink = $sce.trustAsResourceUrl(url);
 
-                console.log($scope.currentVideo.iframeLink);
+                //console.log($scope.currentVideo.iframeLink);
+
                 $scope.isNew = false;
 
                 //$scope.currentVideoPlayer.playVideo();
             }
         });
 
-		$scope.$on('player:heartbeat:response', function(evt, data) {
-			console.log('scheduling heartbeat');
-			heartbeat = setTimeout(sendHeartbeat, 10000);
-		})
+        $scope.$on('player:heartbeat:response', function(evt, data) {
+            console.log('scheduling heartbeat');
+            heartbeat = setTimeout(sendHeartbeat, 10000);
+        })
 
-		function sendHeartbeat() {
-			console.log('sending heartbeat');
-			socket.emit('player:heartbeat', {
-				msg : "I'm still alive"
-			});
-		}
+        function sendHeartbeat() {
+            console.log('sending heartbeat');
+            socket.emit('player:heartbeat', {
+                msg : "I'm still alive"
+            });
+        }
 
         function editTopic() {
             $scope.editingTopic = true;
