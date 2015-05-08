@@ -1,8 +1,15 @@
 .playlist {
-	.toggle {
-		  position: absolute;
-  top: -25px;
-	}
+    .toggle {
+        position: absolute;
+        top: -25px;
+    }
+
+    .clear {
+        position: absolute;
+        top: -25px;
+        right: 15px;
+    }
+
     .currentVideo {
         transition: max-height 500ms;
         max-height: 1000px;
@@ -55,6 +62,16 @@
 
         .row {
             margin-left: 128px;
+        }
+    }
+
+    .list-group-item.gray {
+        h4, .votes, .votes .fa {
+            color: #ABABAB;
+        }
+
+        .gravatar {
+            opacity: 0.5;
         }
     }
 

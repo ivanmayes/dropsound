@@ -3542,8 +3542,7 @@ a.list-group-item {
 
 .list-group-item.disabled, .list-group-item.disabled:hover, .list-group-item.disabled:focus {
   background-color: #eeeeee;
-  color: #777777;
-  cursor: not-allowed; }
+  color: #777777; }
   .list-group-item.disabled .list-group-item-heading, .list-group-item.disabled:hover .list-group-item-heading, .list-group-item.disabled:focus .list-group-item-heading {
     color: inherit; }
   .list-group-item.disabled .list-group-item-text, .list-group-item.disabled:hover .list-group-item-text, .list-group-item.disabled:focus .list-group-item-text {
@@ -6726,6 +6725,10 @@ ul {
 .playlist .toggle {
   position: absolute;
   top: -25px; }
+.playlist .clear {
+  position: absolute;
+  top: -25px;
+  right: 15px; }
 .playlist .currentVideo {
   transition: max-height 500ms;
   max-height: 1000px;
@@ -6761,6 +6764,10 @@ ul {
     margin-left: 141px; }
   .playlist .list-group-item.first .row {
     margin-left: 128px; }
+.playlist .list-group-item.gray h4, .playlist .list-group-item.gray .votes, .playlist .list-group-item.gray .votes .fa {
+  color: #ABABAB; }
+.playlist .list-group-item.gray .gravatar {
+  opacity: 0.5; }
 .playlist .list-group-item:hover {
   color: purple; }
 .playlist .added-by {

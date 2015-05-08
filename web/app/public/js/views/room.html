@@ -1,7 +1,6 @@
 <div class="room">
 	<div class="header">
 		<h1>CO-LOUD</h1>
-		<button ng-if="user.isAdmin" ng-click="admin.removePlaylist(room)">Clear playlist</button>
 	</div>
 
 	<div class="row room-info">
@@ -26,7 +25,8 @@
 
 	<div class="row">
 		<div class="col-sm-7 playlist">
-			<a class="toggle" href ng-click="toggleVideo()">Toggle Video</a>
+			<a class="btn btn-default btn-xs toggle" href ng-click="toggleVideo()">Toggle Video</a>
+			<a class="btn btn-danger btn-xs clear" ng-if="user.isAdmin" ng-click="admin.removePlaylist(room)">Clear playlist</a>
 
 			<div class="currentVideo" ng-class="{'hide-video': hideVideo}">
 				<p ng-if="hideVideo" class="hidden-title">{{currentVideo.snippet.title}}</p>
@@ -35,7 +35,7 @@
 				<div class="meta" ng-if="currentVideo">
 					<div class="row">
 						<div class="col-md-8">
-							<p class="added-by">Added By: <img class="gravatar" ng-src="{{ currentVideo.addedBy.email | gravatar }}" title="{{currentVideo.addedBy.firstName || currentVideo.addedBy.email }} {{currentVideo.addedBy.lastName}}" /> {{currentVideo.addedBy.firstName || currentVideo.addedBy.email}} {{currentVideo.addedBy.lastName}} <a class="btn btn-danger" ng-if="user.isAdmin" ng-click="admin.removeFromPlaylist(currentVideo, room)">-</a></p>
+							<p class="added-by">Added By: <img class="gravatar" ng-src="{{ currentVideo.addedBy.email | gravatar }}" title="{{currentVideo.addedBy.firstName || currentVideo.addedBy.email }} {{currentVideo.addedBy.lastName}}" /> {{currentVideo.addedBy.firstName || currentVideo.addedBy.email}} {{currentVideo.addedBy.lastName}} <a class="btn btn-danger btn-xs" ng-if="user.isAdmin" ng-click="admin.removeFromPlaylist(currentVideo, room)">Remove</a></p>
 						</div>
 						<div class="col-md-4 votes" >
 							{{ currentVideo.votes.length }} <a href ng-if="!hasVotedForVideo(currentVideo)"><i class="fa fa-heart-o"></i></a><span ng-if="hasVotedForVideo(currentVideo)"><i class="fa fa-heart"></i></span>
@@ -57,7 +57,7 @@
 			<div class="search-list list-group">
 				<p ng-if="room.playlist.length > 0">NEXT UP</p>
 
-				<div class="list-group-item" ng-repeat="item in room.playlist" ng-click="voteForVideo(item)" ng-class="{'first': $index == 0}">
+				<div class="list-group-item" ng-repeat="item in room.playlist" ng-click="voteForVideo(item)" ng-class="{'first': $index == 0, 'gray': item.votes.length < 1}">
 					<div class="thumbnail" ng-if="$index == 0">
 						<img ng-src="{{item.snippet.thumbnails.default.url}}">
 					</div>
@@ -66,7 +66,7 @@
 
 					<div class="row">
 						<div class="col-md-8">
-							<p class="added-by">Added By: <img class="gravatar" ng-src="{{ item.addedBy.email | gravatar }}" title="{{item.addedBy.firstName || item.addedBy.email }} {{item.addedBy.lastName}}" /> {{item.addedBy.firstName || item.addedBy.email}} {{item.addedBy.lastName}} <a class="btn btn-danger" ng-if="user.isAdmin" ng-click="admin.removeFromPlaylist(item, room)">-</a></p>
+							<p class="added-by">Added By: <img class="gravatar" ng-src="{{ item.addedBy.email | gravatar }}" title="{{item.addedBy.firstName || item.addedBy.email }} {{item.addedBy.lastName}}" /> {{item.addedBy.firstName || item.addedBy.email}} {{item.addedBy.lastName}} <a class="btn btn-danger btn-xs" ng-if="user.isAdmin" ng-click="admin.removeFromPlaylist(item, room)">Remove</a></p>
 						</div>
 						<div class="col-md-4 votes" >
 							{{ item.votes.length }} <a href ng-if="!hasVotedForVideo(item)"><i class="fa fa-heart-o"></i></a><span ng-if="hasVotedForVideo(item)"><i class="fa fa-heart"></i></span>
