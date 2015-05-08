@@ -6735,7 +6735,7 @@ ul {
   min-height: 350px;
   background: #EEE; }
   .playlist .currentVideo.hide-video {
-    max-height: 66px;
+    max-height: 112px;
     min-height: 1px;
     overflow: hidden; }
     .playlist .currentVideo.hide-video iframe {
