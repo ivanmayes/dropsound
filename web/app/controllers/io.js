@@ -19,7 +19,7 @@ module.exports = (function(app, io, server) {
   var room = new Room({
     id: 1,
     name: 'Shoptology DJ',
-    topic: 'Off Topic'
+    topic: 'Off Topic',
   });
   g.rooms[1] = room;
 
@@ -165,9 +165,9 @@ module.exports = (function(app, io, server) {
         g.rooms[data.roomId] = room;
 
         g.rooms[data.roomId].on('videoUpdate', function(room) {
-            socket.to(data.roomId)
+            socket.to(room.id)
             .emit('roomUpdated', {
-              room: g.rooms[data.roomId]
+              room: g.rooms[room.id]
             })
         });
 

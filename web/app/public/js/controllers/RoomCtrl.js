@@ -55,12 +55,13 @@ define(function() {
                 // Sync video if there's a sync param
                 if(room.currentVideoSync && $scope.isNew == true) {
                     url += room.currentVideoSync;
-                    $scope.isNew = false;
                 }
 
                 $scope.currentVideo.iframeLink = $sce.trustAsResourceUrl(url);
 
                 console.log($scope.currentVideo.iframeLink);
+
+                $scope.isNew = false;
 
                 //$scope.currentVideoPlayer.playVideo();
             }

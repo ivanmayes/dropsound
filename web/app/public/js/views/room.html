@@ -26,7 +26,7 @@
 
 	<div class="row">
 		<div class="col-sm-7 playlist">
-			<a href ng-click="toggleVideo()">Toggle Video</a>
+			<a class="toggle" href ng-click="toggleVideo()">Toggle Video</a>
 
 			<div class="currentVideo" ng-class="{'hide-video': hideVideo}">
 				<p ng-if="hideVideo" class="hidden-title">{{currentVideo.snippet.title}}</p>

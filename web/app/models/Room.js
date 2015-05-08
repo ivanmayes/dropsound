@@ -7,6 +7,7 @@
     this.id = config.id;
     this.name = config.name;
     this.topic = config.topic || '';
+    this.io = config.io || null;
     this.playlist = config.playlist || [];
     this.currentVideo = config.currentVideo;
     this.createdAt = new Date().getTime();
@@ -48,14 +49,14 @@
       console.log('Play video not passed id or index', params);
       return false;
     }
-    console.log('Playing '+this.currentVideo.snippet.title);
+    console.log('Playing '+this.currentVideo.snippet.title+' in '+this.name);
 
     // Send event to play video
     // Start timer for length of video to switch to next video
     var milliseconds = this.currentVideo.durationSeconds*1000;
     this.currentVideoStartTime = new Date().getTime();
     this.waitForFinishedVideo(milliseconds);
-    console.log('Waiting for '+milliseconds+' until next video');
+    console.log('Waiting for '+this.currentVideo.durationString+' until next video, or '+milliseconds+' milliseconds');
   }
 
   Room.prototype.waitForFinishedVideo = function(duration) {
