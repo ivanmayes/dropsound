@@ -127,7 +127,7 @@ module.exports = (function(app, io, server) {
 
 
     function onNewPlayer(data) {
-      var player = playerById(this.id);
+      var player = playerById(this.email);
       console.log('New Player', data);
 
       if (!player) {
