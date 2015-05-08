@@ -7,7 +7,7 @@ module.exports = (function(app, io, server) {
   var jf = require('jsonfile');
   var currentVideoTimer; // timeout timer for current video
 
-  //var g = require('./../config/state.json');
+  var r = require('./../config/state.json');
 
   // Game data
   var g = {
@@ -15,12 +15,20 @@ module.exports = (function(app, io, server) {
     "rooms": {}
   };
 
-  // Create room for now
-  var room = new Room({
+  var rData = {
     id: 1,
     name: 'Shoptology DJ',
     topic: 'Off Topic',
-  });
+  };
+
+  if(r) {
+  	rData = r;
+  	rData.players = [];
+  }
+
+  // Create room for now
+  var room = new Room(rData);
+
   g.rooms[1] = room;
 
 
@@ -45,6 +53,7 @@ module.exports = (function(app, io, server) {
     socket.on('getRooms', onGetRooms);
     socket.on('disconnect', onDisconnect);
     socket.on('playerLeftMap', onPlayerLeftMap);
+    socket.on('player:heartbeat', onPlayerHeartbeat);
 
     //Admin
     var admin = {
@@ -124,7 +133,12 @@ module.exports = (function(app, io, server) {
         })
     });
 
-
+    function onPlayerHeartbeat(data) {
+    	console.log('heartbeat received, responding');
+    	socket.emit('player:heartbeat:response', {
+    		msg : 'kthx'
+    	});
+    }
 
     function onNewPlayer(data) {
       var player = playerById(this.id);
