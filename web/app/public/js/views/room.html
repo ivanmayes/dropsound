@@ -29,7 +29,7 @@
 			<a class="btn btn-danger btn-xs clear" ng-if="user.isAdmin" ng-click="admin.removePlaylist(room)">Clear playlist</a>
 
 			<div class="currentVideo" ng-class="{'hide-video': hideVideo}">
-				<p ng-if="hideVideo" class="hidden-title">{{currentVideo.snippet.title}}</p>
+				<p class="hidden-title">{{currentVideo.snippet.title}}</p>
 				<iframe ng-if="currentVideo" id="unique-youtube-embed-id-1" frameborder="0" allowfullscreen="1" title="YouTube video player" width="640" height="390" ng-src="{{currentVideo.iframeLink}}"></iframe>
 
 				<div class="meta" ng-if="currentVideo">
