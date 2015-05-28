@@ -50,6 +50,7 @@
 
     .gravatar {
         width: 30px;
+        height: 30px;
         margin: 5px;
     }
 
@@ -63,6 +64,11 @@
         .row {
             margin-left: 128px;
         }
+    }
+
+    .list-group-item .vote-avatars {
+        display: block;
+        height: 38px;
     }
 
     .list-group-item.gray {
@@ -86,6 +92,7 @@
 
         .gravatar {
             width: 16px;
+            height: 16px;
             margin: 0 1px 0 5px;
         }
     }

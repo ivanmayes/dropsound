@@ -20,6 +20,9 @@ define(function() {
         $scope.toggleVideo = toggleVideo;
         $scope.voteForVideo = RoomService.voteForVideo;
         $scope.isNew = true;
+        $scope.search = {
+            q: ''
+        }
 
         $scope.editingTopic = false;
         $scope.editTopic = editTopic;
@@ -72,7 +75,7 @@ define(function() {
         $scope.$on('player:heartbeat:response', function(evt, data) {
             console.log('scheduling heartbeat');
             heartbeat = setTimeout(sendHeartbeat, 10000);
-        })
+        });
 
         function sendHeartbeat() {
             console.log('sending heartbeat');

@@ -32,6 +32,7 @@ define(['angular'], function(angular) {
             }
             console.log('Voting for Video', video);
             socket.emit('voteForVideo', params);
+            video.votes++;
         }
 
         function getPlayerIndexById(id, map) {

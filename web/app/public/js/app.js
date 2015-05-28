@@ -5,6 +5,7 @@ define(['angular',
     'socketIo',
     'angularYoutube',
     'angularReadableTime',
+    'ngAnimate',
     'config',
     'filters/filters',
     'services/services',
@@ -22,7 +23,8 @@ define(['angular',
             'ui.router',
             'btford.socket-io',
             'youtube-embed',
-            'readableTime'
+            'readableTime',
+            'ngAnimate'
         ]);
 
         app.run(function($rootScope, $state, UserService, socket) {

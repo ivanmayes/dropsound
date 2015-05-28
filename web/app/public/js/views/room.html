@@ -55,30 +55,31 @@
 			</div>
 
 			<div class="search-list list-group">
-				<p ng-if="room.playlist.length > 0">NEXT UP</p>
-
-				<div class="list-group-item" ng-repeat="item in room.playlist" ng-click="voteForVideo(item)" ng-class="{'first': $index == 0, 'gray': item.votes.length < 1}">
-					<div class="thumbnail" ng-if="$index == 0">
-						<img ng-src="{{item.snippet.thumbnails.default.url}}">
+				<div class="row" ng-if="room.playlist.length > 0">
+					<div class="col-sm-6">
+						<p>NEXT UP</p>
 					</div>
-
-					<h4>{{ item.snippet.title }}</h4>
-
-					<div class="row">
-						<div class="col-md-8">
-							<p class="added-by">Added By: <img class="gravatar" ng-src="{{ item.addedBy.email | gravatar }}" title="{{item.addedBy.firstName || item.addedBy.email }} {{item.addedBy.lastName}}" /> {{item.addedBy.firstName || item.addedBy.email}} {{item.addedBy.lastName}} <a class="btn btn-danger btn-xs" ng-if="user.isAdmin" ng-click="admin.removeFromPlaylist(item, room)">Remove</a></p>
-						</div>
-						<div class="col-md-4 votes" >
-							{{ item.votes.length }} <a href ng-if="!hasVotedForVideo(item)"><i class="fa fa-heart-o"></i></a><span ng-if="hasVotedForVideo(item)"><i class="fa fa-heart"></i></span>
-						</div>
-					</div>
-
-					<div>
-						<span ng-repeat="vote in item.votes" ng-if="vote.email !== item.addedBy.email">
-							<img class="gravatar" ng-src="{{ vote.email | gravatar }}" title="{{vote.firstName || vote.email }} {{vote.lastName}}" />
-						</span>
+					<div class="col-sm-6">
+						<div class="search input-group" style="width:100%;">
+					      <input type="text" ng-model="search.q" class="form-control" placeholder="Search playlist">
+					      <span class="input-group-btn" >
+					        <button ng-if="search.q.length > 0"  ng-click="search.q = ''" class="btn btn-default" type="button">
+					        	<i class="fa fa-times"></i>
+					        </button>
+					      </span>
+					    </div>
 					</div>
 				</div>
+
+				<div class="playlist-items">
+					<div class="list-group-item"
+					ng-repeat="item in room.playlist | filter:{snippet:{title:search.q}}"
+					ng-click="voteForVideo(item)"
+					ng-class="{'first': $index == 0, 'gray': item.votes.length < 1}"
+					ng-include="'js/views/partials/playlist-item.html'"
+					ng-animate="{enter: 'animate-enter', leave: 'animate-leave'}"></div>
+				</div>
+
 			</div>
 		</div>
 
