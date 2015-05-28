@@ -48,6 +48,12 @@
         }
     }
 
+    .search {
+        input, button {
+            border-radius: 0;
+        }
+    }
+
     .gravatar {
         width: 30px;
         height: 30px;

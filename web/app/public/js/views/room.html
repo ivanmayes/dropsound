@@ -73,7 +73,7 @@
 
 				<div class="playlist-items">
 					<div class="list-group-item"
-					ng-repeat="item in room.playlist | filter:{snippet:{title:search.q}}"
+					ng-repeat="item in (filteredItems = room.playlist | filter:{snippet:{title:search.q}} )"
 					ng-click="voteForVideo(item)"
 					ng-class="{'first': $index == 0, 'gray': item.votes.length < 1}"
 					ng-include="'js/views/partials/playlist-item.html'"
@@ -94,17 +94,6 @@
 			  <!--<button type="submit" class="btn btn-primary">Search</button>-->
 			</form>
 
-			<div class="help" ng-if="videos.length < 1">
-				<div class="col-md-6 add">
-					<h2>Add</h2>
-					<p>songs in the search field</p>
-				</div>
-				<div class="col-md-6 vote">
-					<h2>Vote</h2>
-					<p>for the songs you wanna hear play</p>
-				</div>
-			</div>
-
 			<div class="search-list list-group">
 				<div class="list-group-item" ng-if="videos.length" ng-repeat="item in videos" ng-class="{'added': isVideoInPlaylist(item)}">
 					<div class="overlay">
@@ -124,6 +113,18 @@
 					<div class="clearfix"></div>
 				</div>
 			</div>
+
+			<div class="help list-group-item" ng-if="videos.length < 1">
+				<div class="col-md-6 add">
+					<h2>Add</h2>
+					<p>songs in the search field</p>
+				</div>
+				<div class="col-md-6 vote">
+					<h2>Vote</h2>
+					<p>for the songs you wanna hear play</p>
+				</div>
+			</div>
+
 		</div>
 	</div>
 </div>
