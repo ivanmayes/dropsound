@@ -1,0 +1,132 @@
+<div class="room">
+  <div class="header">
+    <h1>CO-LOUD</h1>
+  </div>
+
+  <div class="row room-info">
+    <div class="col-md-4 room">
+      <p>ROOM</p>
+      <li>{{ party.name }}</li>
+    </div>
+    <div class="col-md-8 who">
+      <p>MIXOLOGISTS</p>
+      <ul>
+        <li class="player" ng-repeat="player in room.players">
+          <img class="gravatar" ng-src="{{ player.email}}" title="{{player.firstName || player.email }} {{player.lastName}}" /> {{player.firstName || player.email }} {{player.lastName}} <span class="slashes">//</span>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="row topic">
+    <h2 ng-if="!editingTopic">{{room.topic}} <a href ng-if="user.isAdmin" ng-click="editTopic()"> - Edit</a></h2>
+    <input type="text" value="My Topic" ng-if="editingTopic && user.isAdmin" ng-model="room.topic"> <a href ng-if="editingTopic && user.isAdmin" ng-click="changeTopic()"> - Save</a>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-7 playlist">
+      <a class="btn btn-default btn-xs toggle" href ng-click="toggleVideo()">Toggle Video</a>
+      <a class="btn btn-danger btn-xs clear" ng-if="user.isAdmin" ng-click="admin.removePlaylist(room)">Clear playlist</a>
+
+      <div class="currentVideo" ng-class="{'hide-video': hideVideo}">
+        <p class="hidden-title">{{currentVideo.snippet.title}}</p>
+        <iframe ng-if="party.currentVideo" id="unique-youtube-embed-id-1" frameborder="0" allowfullscreen="1" title="YouTube video player" width="640" height="390" src="{{party.currentVideo.id.videoId | youtube}}"></iframe>
+
+        <div class="meta" ng-if="party.currentVideo">
+          <div class="row">
+            <div class="col-md-8">
+              <p class="added-by">Added By: <img class="gravatar" ng-src="{{ party.currentVideo.addedBy.email | gravatar }}" title="{{party.currentVideo.addedBy.firstName || party.currentVideo.addedBy.email }} {{party.currentVideo.addedBy.lastName}}" /> {{party.currentVideo.addedBy.firstName || party.currentVideo.addedBy.email}} {{party.currentVideo.addedBy.lastName}} <a class="btn btn-danger btn-xs" ng-if="user.isAdmin" ng-click="admin.removeFromPlaylist(currentVideo, room)">Remove</a></p>
+            </div>
+            <div class="col-md-4 votes" >
+              {{ party.currentVideo.votes.length }} <a href ng-if="!hasVotedForVideo(currentVideo)"><i class="fa fa-heart-o"></i></a><span ng-if="hasVotedForVideo(currentVideo)"><i class="fa fa-heart"></i></span>
+            </div>
+          </div>
+
+          <div>
+            <span ng-repeat="vote in currentVideo.votes" ng-if="vote.email !== currentVideo.addedBy.email">
+              <img class="gravatar" ng-src="{{ vote.email | gravatar }}" title="{{vote.firstName || vote.email }} {{vote.lastName}}" />
+            </span>
+          </div>
+        </div>
+
+
+        <div class="empty-msg" ng-if="!currentVideo">No videos playing yet, add some!</div>
+
+      </div>
+
+      <div class="search-list list-group">
+        <div class="row" ng-if="room.playlist.length > 0">
+          <div class="col-sm-6">
+            <p>NEXT UP</p>
+          </div>
+          <div class="col-sm-6">
+            <div class="search input-group" style="width:100%;">
+                <input type="text" ng-model="search.q" class="form-control" placeholder="Search playlist">
+                <span class="input-group-btn" >
+                  <button ng-if="search.q.length > 0"  ng-click="search.q = ''" class="btn btn-default" type="button">
+                    <i class="fa fa-times"></i>
+                  </button>
+                </span>
+              </div>
+          </div>
+        </div>
+
+        <div class="playlist-items">
+
+          <div class="list-group-item"
+          ng-repeat="item in (filteredItems = party.playlist | filter:{snippet:{title:search.q}} )"
+          ng-click="voteForVideo(item)"
+          ng-class="{'first': $index == 0, 'gray': item.votes.length < 1}"
+          ng-include="'client/parties/views/partials/playlist-item.ng.html'"
+          ng-animate="{enter: 'animate-enter', leave: 'animate-leave'}"></div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="col-sm-5 search" ng-controller="SearchCtrl">
+      <form class="form-inline" ng-submit="searchVideos()">
+        <i class="search-icon"></i>
+        <i class="close-icon" ng-click="clearSearch()" ng-if="search.q.length > 0"></i>
+        <div class="form-group">
+          <label class="sr-only" for="videoSearch">Search songs here</label>
+          <input type="text" ng-model="search.q" class="form-control" id="videoSearch" placeholder="Search songs here">
+        </div>
+        <!--<button type="submit" class="btn btn-primary">Search</button>-->
+      </form>
+
+      <div class="search-list list-group">
+        <div class="list-group-item" ng-if="videos.length" ng-repeat="item in videos" ng-class="{'added': isVideoInPlaylist(item)}">
+          <div class="overlay">
+            <p>Added!</p>
+          </div>
+
+          <div class="thumbnail"  ng-click="addVideo(item)">
+            <div class="overlay">
+              <i class="close-icon"></i>
+            </div>
+
+            <img ng-src="{{item.snippet.thumbnails.default.url}}">
+          </div>
+
+          <h4>{{item.snippet.title}}</h4>
+          <p>{{ item.snippet.channelTitle }} - {{ item.durationString }}</p>
+          <div class="clearfix"></div>
+        </div>
+      </div>
+
+      <div class="help list-group-item" ng-if="videos.length < 1">
+        <div class="col-md-6 add">
+          <h2>Add</h2>
+          <p>songs in the search field</p>
+        </div>
+        <div class="col-md-6 vote">
+          <h2>Vote</h2>
+          <p>for the songs you wanna hear play</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+

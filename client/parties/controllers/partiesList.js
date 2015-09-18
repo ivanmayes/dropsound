@@ -1,0 +1,8 @@
+angular.module("socially").controller("PartiesListCtrl", function($scope, $meteor) {
+
+    $scope.parties = $meteor.collection(Parties).subscribe('parties');
+
+    $scope.remove = function(party) {
+        $scope.parties.splice($scope.parties.indexOf(party), 1);
+    };
+});
