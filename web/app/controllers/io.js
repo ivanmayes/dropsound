@@ -31,11 +31,19 @@ module.exports = (function(app, io, server) {
 
     g.rooms[1] = room;
 
-
     var s = io.listen(server);
 
+    // This function sends updated room data to the specified room id
+    function videoSync(id) {
+        s
+            .to(id)
+            .emit('roomUpdated', {
+                room: g.rooms[id]
+            })
+    }
+
     s.on('connection', function onConnection(socket) {
-        console.log("Client has connected: " + socket.id);
+        console.log('Client has connected: ' + socket.id);
 
         socket.emit('connected', {
             id: socket.id
@@ -131,16 +139,8 @@ module.exports = (function(app, io, server) {
         socket.on('admin:removePlaylist', admin.removePlaylist);
         socket.on('admin:removeFromPlaylist', admin.removeFromPlaylist);
 
-        // @todo will have to add this 'on' event for all new rooms created
-        g.rooms[1].on('videoUpdate', function(room) {
-            socket.to(1)
-                .emit('roomUpdated', {
-                    room: g.rooms[1]
-                })
-        });
-
         function onPlayerHeartbeat(data) {
-            var player = playerById(this.id);
+            var player = playerById(socket.id);
             console.log('heartbeat received from ' + player.firstName + ', responding');
             socket.emit('player:heartbeat:response', {
                 msg: 'kthx'
@@ -148,11 +148,11 @@ module.exports = (function(app, io, server) {
         }
 
         function onNewPlayer(data) {
-            var player = playerById(this.id);
+            var player = playerById(socket.id);
             console.log('New Player', data);
 
             if (!player) {
-                console.log("Player not found: " + this.id);
+                console.log("Player not found: " + socket.id);
                 return;
             }
 
@@ -185,22 +185,22 @@ module.exports = (function(app, io, server) {
 
                 g.rooms[data.roomId] = room;
 
-                g.rooms[data.roomId].on('videoUpdate', function(id) {
-                    console.log('Emitting videoUpdate to ' + id);
-                    socket.to(id)
-                        .emit('roomUpdated', {
-                            room: g.rooms[id]
-                        })
-                });
-
                 socket.emit('newMapCreated', room.serialize());
             }
-            ;
+
+            // Sets up the video sync listener for this room if it doesn't exist
+            if (!g.rooms[data.roomId].videoUpdate) {
+                g.rooms[data.roomId].videoUpdate = true;
+                g.rooms[data.roomId].on('videoUpdate', videoSync);
+            }
 
             if (!player.inMap(data.roomId)) {
+                console.log('$$$$$$$$$$$$$$$$$$');
+                console.log(player.firstName + ' (' + player.id + ') joining ' + data.roomId);
+                console.log('$$$$$$$$$$$$$$$$$$');
                 player.joinMap(g.rooms[data.roomId]);
 
-                this.join(data.roomId);
+                socket.join(data.roomId);
 
                 // Handle synchronization
                 if (g.rooms[data.roomId].currentVideoStartTime && g.rooms[data.roomId].currentVideo) {
@@ -210,19 +210,19 @@ module.exports = (function(app, io, server) {
                     g.rooms[data.roomId].currentVideoSync = currentVideoSync;
                 }
 
-                // @todo we need to only send events to the room we're in
-                this.to(data.roomId)
+                s.to(data.roomId)
                     .emit('roomUpdated', {
                         player: player.serialize(),
                         room: g.rooms[data.roomId]
                     });
 
-                this.emit('roomUpdated', {
+                console.log(g.rooms[data.roomId].players);
+
+                /*this.emit('roomUpdated', {
                     room: g.rooms[data.roomId]
-                });
+                });*/
             }
         }
-        ;
 
         function onAddVideo(data) {
             var player = playerById(this.id);
@@ -318,7 +318,6 @@ module.exports = (function(app, io, server) {
                 });
 
         }
-        ;
 
         // Not incorporated yet
         // TODO: If all payers have left, stop waiting on videos
