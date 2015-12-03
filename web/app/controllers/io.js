@@ -109,7 +109,7 @@ module.exports = (function(app, io, server) {
                 if (player.isAdmin) {
                     var r = g.rooms[data.room.id];
 
-                    if (r.currentVideo.id.$t == data.video.id.$t) {
+                    if (r.currentVideo.id.videoId == data.video.id.videoId) {
                         r.currentVideo = null;
                         r.playVideo({
                             index: 0
@@ -119,7 +119,7 @@ module.exports = (function(app, io, server) {
                     for (var i in r.playlist) {
                         var v = r.playlist[i];
 
-                        if (v.id.$t == data.video.id.$t) {
+                        if (v.id.videoId == data.video.id.videoId) {
                             r.playlist.splice(i, 1);
                             break;
                         }

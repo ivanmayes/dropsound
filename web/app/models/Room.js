@@ -52,6 +52,11 @@
             console.log('Play video not passed id or index', params);
             return false;
         }
+
+        if (!this.currentVideo) {
+            return false;
+        }
+
         console.log('Playing ' + this.currentVideo.snippet.title + ' in ' + this.name);
 
         // Send event to play video
