@@ -31,11 +31,26 @@ module.exports = (function(app, io, server) {
 
     g.rooms[1] = room;
 
-
     var s = io.listen(server);
 
+    // This function sends updated room data to the specified room id
+    function videoSync(id, syncPlaylist) {
+        var data = {
+            currentVideo: g.rooms[id].currentVideo,
+            currentVideoStartTime: g.rooms[id].currentVideoStartTime
+        };
+
+        if (syncPlaylist) {
+            //data.playlist = g.rooms[id].playlist;
+        }
+
+        s
+            .to(id)
+            .emit('room:update:videos', data);
+    }
+
     s.on('connection', function onConnection(socket) {
-        console.log("Client has connected: " + socket.id);
+        console.log('Client has connected: ' + socket.id);
 
         socket.emit('connected', {
             id: socket.id
@@ -67,13 +82,11 @@ module.exports = (function(app, io, server) {
                 if (player.isAdmin) {
                     g.rooms[data.room.id].topic = data.room.topic;
 
-                    this.to(data.room.id)
-                        .emit('roomUpdated', {
-                            room: g.rooms[data.room.id]
+                    s
+                        .to(data.room.id)
+                        .emit('room:update:topic', {
+                            topic: data.room.topic
                         });
-                    this.emit('roomUpdated', {
-                        room: g.rooms[data.room.id]
-                    });
                 }
             },
             removePlaylist: function(data) {
@@ -101,7 +114,7 @@ module.exports = (function(app, io, server) {
                 if (player.isAdmin) {
                     var r = g.rooms[data.room.id];
 
-                    if (r.currentVideo.id.$t == data.video.id.$t) {
+                    if (r.currentVideo.id.videoId == data.video.id.videoId) {
                         r.currentVideo = null;
                         r.playVideo({
                             index: 0
@@ -111,7 +124,7 @@ module.exports = (function(app, io, server) {
                     for (var i in r.playlist) {
                         var v = r.playlist[i];
 
-                        if (v.id.$t == data.video.id.$t) {
+                        if (v.id.videoId == data.video.id.videoId) {
                             r.playlist.splice(i, 1);
                             break;
                         }
@@ -131,16 +144,8 @@ module.exports = (function(app, io, server) {
         socket.on('admin:removePlaylist', admin.removePlaylist);
         socket.on('admin:removeFromPlaylist', admin.removeFromPlaylist);
 
-        // @todo will have to add this 'on' event for all new rooms created
-        g.rooms[1].on('videoUpdate', function(room) {
-            socket.to(1)
-                .emit('roomUpdated', {
-                    room: g.rooms[1]
-                })
-        });
-
         function onPlayerHeartbeat(data) {
-            var player = playerById(this.id);
+            var player = playerById(socket.id);
             console.log('heartbeat received from ' + player.firstName + ', responding');
             socket.emit('player:heartbeat:response', {
                 msg: 'kthx'
@@ -148,11 +153,11 @@ module.exports = (function(app, io, server) {
         }
 
         function onNewPlayer(data) {
-            var player = playerById(this.id);
+            var player = playerById(socket.id);
             console.log('New Player', data);
 
             if (!player) {
-                console.log("Player not found: " + this.id);
+                console.log('Player not found: ' + socket.id);
                 return;
             }
 
@@ -166,12 +171,12 @@ module.exports = (function(app, io, server) {
             }
 
             if (!data.roomId) {
-                console.log("Cannot join an empty game?", data.roomId);
+                console.log('Cannot join an empty game?', data.roomId);
                 return;
             }
 
             if (!g.rooms[data.roomId]) {
-                console.log("Game doesn't exist yet. Creating game: " + data.roomId);
+                console.log('Game doesn\'t exist yet. Creating game: ' + data.roomId);
 
                 var params = {
                     id: data.roomId
@@ -185,22 +190,22 @@ module.exports = (function(app, io, server) {
 
                 g.rooms[data.roomId] = room;
 
-                g.rooms[data.roomId].on('videoUpdate', function(id) {
-                    console.log('Emitting videoUpdate to ' + id);
-                    socket.to(id)
-                        .emit('roomUpdated', {
-                            room: g.rooms[id]
-                        })
-                });
-
                 socket.emit('newMapCreated', room.serialize());
             }
-            ;
+
+            // Sets up the video sync listener for this room if it doesn't exist
+            if (!g.rooms[data.roomId].videoUpdate) {
+                g.rooms[data.roomId].videoUpdate = true;
+                g.rooms[data.roomId].on('videoUpdate', videoSync);
+            }
 
             if (!player.inMap(data.roomId)) {
+                console.log('$$$$$$$$$$$$$$$$$$');
+                console.log(player.firstName + ' (' + player.id + ') joining ' + data.roomId);
+                console.log('$$$$$$$$$$$$$$$$$$');
                 player.joinMap(g.rooms[data.roomId]);
 
-                this.join(data.roomId);
+                socket.join(data.roomId);
 
                 // Handle synchronization
                 if (g.rooms[data.roomId].currentVideoStartTime && g.rooms[data.roomId].currentVideo) {
@@ -210,46 +215,47 @@ module.exports = (function(app, io, server) {
                     g.rooms[data.roomId].currentVideoSync = currentVideoSync;
                 }
 
-                // @todo we need to only send events to the room we're in
                 this.to(data.roomId)
-                    .emit('roomUpdated', {
-                        player: player.serialize(),
-                        room: g.rooms[data.roomId]
+                    .emit('room:update:player:add', {
+                        player: player
                     });
 
                 this.emit('roomUpdated', {
                     room: g.rooms[data.roomId]
                 });
+
+                console.log(g.rooms[data.roomId].players);
             }
         }
-        ;
 
         function onAddVideo(data) {
-            var player = playerById(this.id);
+            var player = playerById(this.id),
+                video = data.video;
 
-            g.rooms[data.room.id].addVideoToPlaylist(data.video, player);
+            //g.rooms[data.room.id].addVideoToPlaylist(data.video, player);
 
-            // If there isn't a video playing, start one
+            video.votes = [player];
+            video.modified = new Date().getTime();
+
+            g.rooms[data.room.id].playlist.push(video);
+            g.rooms[data.room.id].sortPlaylist();
+            //g.rooms[data.room.id].addVideoToPlaylist(video);
+
+            // If no videos are playing, play one
             if (g.rooms[data.room.id].currentVideo == null) {
-                console.log('No video playing, start one');
                 g.rooms[data.room.id].playVideo({
                     index: 0
                 });
 
+                videoSync(data.room.id);
             } else {
-                //console.log('Already video playing', g.rooms[data.room.id].currentVideo.title.$t)
+                s
+                    .to(data.room.id)
+                    .emit('room:update:videos:add', {
+                        video: video
+                    });
             }
-
-            this.to(data.room.id)
-                .emit('roomUpdated', {
-                    room: g.rooms[data.room.id]
-                });
-
-            this.emit('roomUpdated', {
-                room: g.rooms[data.room.id]
-            })
         }
-        ;
 
         /**
          * Adds a vote to a video and reoganizes the playlist
@@ -257,11 +263,14 @@ module.exports = (function(app, io, server) {
          * @return true
          */
         function onVoteForVideo(data) {
-            var room = g.rooms[data.room.id];
-            var player = playerById(this.id);
-            // Add vote to video with user id
-            room.addVoteToVideo(data.video, player);
+            var room = g.rooms[data.room.id],
+                player = playerById(this.id),
+                video = room.addVoteToVideo(data.video, player);
 
+            s
+                .to(data.room.id)
+                .emit('room:update:video:votes', video);
+            /*
             // Update other players
             this.to(data.room.id)
                 .emit('roomUpdated', {
@@ -270,7 +279,7 @@ module.exports = (function(app, io, server) {
 
             this.emit('roomUpdated', {
                 room: g.rooms[data.room.id]
-            });
+            });*/
         }
 
         function onDisconnect() {
@@ -307,6 +316,12 @@ module.exports = (function(app, io, server) {
                 return p.id != player.id
             }));
 
+            s
+                .to(roomId)
+                .emit('room:update:player:remove', {
+                    player: player
+                });
+            /*
             this.to(roomId)
                 .emit('gameUpdated:remove', {
                     id: this.id,
@@ -315,10 +330,9 @@ module.exports = (function(app, io, server) {
                         return p.id != player.id
                     }),
                     removedPlayer: player
-                });
+                });*/
 
         }
-        ;
 
         // Not incorporated yet
         // TODO: If all payers have left, stop waiting on videos

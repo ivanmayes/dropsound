@@ -35,30 +35,35 @@ define(function() {
         // Announce theres a new player
         PlayersService.addPlayerToRoom({
             roomId: $stateParams.roomId,
-            roomName : $stateParams.roomName
+            roomName: $stateParams.roomName
+        });
+
+        $scope.$on('room:update:topic', function(evt, data) {
+            console.log(data);
+            console.log('Topic Changed!', topic)
         });
 
         $scope.$on('room:update', function(evt, room) {
             console.log('Room Updated!', room);
             $scope.room = room;
-            if(room.currentVideo !== $scope.currentVideo) {
-                if(!room.currentVideo) {
+            if (room.currentVideo !== $scope.currentVideo) {
+                if (!room.currentVideo) {
                     $scope.currentVideo = false;
                     return false;
                 }
 
-                if($scope.currentVideo) {
-                    if(room.currentVideo.id.videoId == $scope.currentVideo.id.videoId) {
+                if ($scope.currentVideo) {
+                    if (room.currentVideo.id.videoId == $scope.currentVideo.id.videoId) {
                         return false;
                     }
                 }
 
                 $scope.currentVideo = room.currentVideo;
 
-                var url = 'https://www.youtube.com/embed/'+room.currentVideo.id.videoId+'?controls=1&amp;autoplay=1&amp;&amp;enablejsapi=1';
+                var url = 'https://www.youtube.com/embed/' + room.currentVideo.id.videoId + '?controls=1&amp;autoplay=1&amp;&amp;enablejsapi=1';
 
                 // Sync video if there's a sync param
-                if(room.currentVideoSync && $scope.isNew == true) {
+                if (room.currentVideoSync && $scope.isNew == true) {
                     url += room.currentVideoSync;
                 }
 
@@ -80,7 +85,7 @@ define(function() {
         function sendHeartbeat() {
             console.log('sending heartbeat');
             socket.emit('player:heartbeat', {
-                msg : "I'm still alive"
+                msg: 'I\'m still alive'
             });
         }
 
@@ -94,24 +99,25 @@ define(function() {
         }
 
         function toggleVideo() {
-            if($scope.hideVideo) {
+            if ($scope.hideVideo) {
                 $scope.hideVideo = false;
-            }else{
+            } else {
                 $scope.hideVideo = true;
             }
         }
 
         function isVideoInPlaylist(video) {
-            if($scope.currentVideo && video.id.videoId == $scope.currentVideo.id.videoId) {
+            if ($scope.currentVideo && video.id.videoId == $scope.currentVideo.id.videoId) {
                 return true;
             }
 
             for (var i = $scope.room.playlist.length - 1; i >= 0; i--) {
                 //console.log($scope.room.playlist[i].id.videoId, video.id.videoId)
-                if($scope.room.playlist[i].id.videoId == video.id.videoId) {
+                if ($scope.room.playlist[i].id.videoId == video.id.videoId) {
                     return true;
                 }
-            };
+            }
+            ;
 
             return false;
         }
@@ -119,10 +125,11 @@ define(function() {
         function hasVotedForVideo(video) {
             for (var i = video.votes.length - 1; i >= 0; i--) {
                 //console.log(video.votes[i].email, $rootScope.user.email);
-                if(video.votes[i].email == $rootScope.user.email) {
+                if (video.votes[i].email == $rootScope.user.email) {
                     return true;
                 }
-            };
+            }
+            ;
 
             return false;
         }

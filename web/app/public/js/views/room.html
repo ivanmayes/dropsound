@@ -73,11 +73,12 @@
 
 				<div class="playlist-items">
 					<div class="list-group-item"
-					ng-repeat="item in (filteredItems = room.playlist | filter:{snippet:{title:search.q}} )"
+					ng-repeat="item in (filteredItems = room.playlist | filter:{snippet:{title:search.q}} | orderBy : '-votes.length' )"
 					ng-click="voteForVideo(item)"
 					ng-class="{'first': $index == 0, 'gray': item.votes.length < 1}"
 					ng-include="'js/views/partials/playlist-item.html'"
-					ng-animate="{enter: 'animate-enter', leave: 'animate-leave'}"></div>
+					ng-animate="{enter: 'animate-enter', leave: 'animate-leave'}">
+					</div>
 				</div>
 
 			</div>

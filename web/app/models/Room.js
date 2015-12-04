@@ -1,163 +1,173 @@
 (function() {
 
-  var _ = require('lodash');
-  var events = require('events');
-  var videoTimeout;
+    var _ = require('lodash');
+    var events = require('events');
+    var videoTimeout;
 
-  var Room = function(config) {
-    this.id = config.id;
-    this.name = config.name;
-    this.topic = config.topic || '';
-    this.io = config.io || null;
-    this.playlist = config.playlist || [];
-    this.currentVideo = config.currentVideo;
-    this.createdAt = new Date().getTime();
+    var Room = function(config) {
+        this.id = config.id;
+        this.name = config.name;
+        this.topic = config.topic || '';
+        this.io = config.io || null;
+        this.playlist = config.playlist || [];
+        this.currentVideo = config.currentVideo;
+        this.createdAt = new Date().getTime();
 
-    this.players = config.players || [];
+        this.players = config.players || [];
 
-    this.currentVideoStartTime = false;
-  };
+        this.currentVideoStartTime = false;
+    };
 
-  Room.super_ = events.EventEmitter;
-  Room.prototype = Object.create(events.EventEmitter.prototype, {
-      constructor: {
-          value: Room,
-          enumerable: false
-      }
-  });
+    Room.super_ = events.EventEmitter;
+    Room.prototype = Object.create(events.EventEmitter.prototype, {
+        constructor: {
+            value: Room,
+            enumerable: false
+        }
+    });
 
-  module.exports = Room;
+    module.exports = Room;
 
-  Room.prototype.playVideo = function(params) {
-    // Check if there is a current video and return it to the playlist with 0 votes
-    if(this.currentVideo) {
-      this.currentVideo.votes = [];
-      this.playlist.push(this.currentVideo);
+    Room.prototype.playVideo = function(params) {
+        // Check if there is a current video and return it to the playlist with 0 votes
+        if (this.currentVideo) {
+            this.currentVideo.votes = [];
+            this.playlist.push(this.currentVideo);
+        }
+
+        var index = params.index;
+        var id = params.id;
+        // Pull video off the top of the list
+        if (_.isNumber(index)) {
+            this.currentVideo = this.playlist[index];
+            this.playlist.splice(index, 1);
+        } else if (id) {
+            this.currentVideo = _.findWhere(this.playlist, {
+                'id.videoId': id
+            });
+            this.playlist = _.remove(array, function(n) {
+                return n == this.currentVideo;
+            });
+        } else {
+            console.log('Play video not passed id or index', params);
+            return false;
+        }
+
+        if (!this.currentVideo) {
+            return false;
+        }
+
+        console.log('Playing ' + this.currentVideo.snippet.title + ' in ' + this.name);
+
+        // Send event to play video
+        // Start timer for length of video to switch to next video
+        var milliseconds = this.currentVideo.durationSeconds * 1000;
+        this.currentVideoStartTime = new Date().getTime();
+        this.waitForFinishedVideo(milliseconds);
+        console.log('Waiting for ' + this.currentVideo.durationString + ' until next video, or ' + milliseconds + ' milliseconds');
     }
 
-    var index = params.index;
-    var id = params.id;
-    // Pull video off the top of the list
-    if(_.isNumber(index)) {
-      this.currentVideo = this.playlist[index];
-      this.playlist.splice(index, 1);
-    }else if(id) {
-      this.currentVideo = _.findWhere(this.playlist, {'id.videoId': id});
-      this.playlist = _.remove(array, function(n) {
-        return n == this.currentVideo;
-      });
-    }else{
-      console.log('Play video not passed id or index', params);
-      return false;
-    }
-    console.log('Playing '+this.currentVideo.snippet.title+' in '+this.name);
+    Room.prototype.waitForFinishedVideo = function(duration) {
+        var self = this;
 
-    // Send event to play video
-    // Start timer for length of video to switch to next video
-    var milliseconds = this.currentVideo.durationSeconds*1000;
-    this.currentVideoStartTime = new Date().getTime();
-    this.waitForFinishedVideo(milliseconds);
-    console.log('Waiting for '+this.currentVideo.durationString+' until next video, or '+milliseconds+' milliseconds');
-  }
+        clearTimeout(videoTimeout);
 
-  Room.prototype.waitForFinishedVideo = function(duration) {
-    // @todo need to build in a way to get how far in we are for new users
-    var self = this;
+        videoTimeout = setTimeout(function() {
+            self.playVideo({
+                index: 0
+            });
+            self.emit('videoUpdate', self.id, true);
+        }, duration);
+    };
 
-    clearTimeout(videoTimeout);
+    Room.prototype.getVideoIndex = function(id) {
+        return _.findIndex(this.playlist, function(video, k) {
+            return video.id.videoId == id
+        });
+    };
 
-    videoTimeout = setTimeout(function() {
-      self.playVideo({index:0});
-      self.emit('videoUpdate', self.id);
-    }, duration);
-  };
+    Room.prototype.addVideoToPlaylist = function(video, player) {
+        video.votes = [player];
+        this.playlist.push(video);
+        this.playlist[this.playlist.length - 1].modified = new Date().getTime();
 
-  Room.prototype.getVideoIndex = function(id) {
-    return _.findIndex(this.playlist, function(video, k) {
-      return video.id.videoId == id
-    });
-  };
+        this.sortPlaylist();
 
-  Room.prototype.addVideoToPlaylist = function(video, player) {
-      video.votes = [player];
-      this.playlist.push(video);
-      this.playlist[this.playlist.length-1].modified = new Date().getTime();
+        return this.playlist;
+    };
 
-      this.sortPlaylist();
+    Room.prototype.addVoteToVideo = function(video, player) {
+        var index = this.getVideoIndex(video.id.videoId);
+        var votes = this.playlist[index].votes,
+            data = {};
+        votes.push(player);
+        votes = _.uniq(votes, function(player) {
+            return player.email;
+        });
+        this.playlist[index].votes = votes;
+        this.playlist[index].modified = new Date().getTime();
 
-      return this.playlist;
-  };
+        data.id = this.playlist[index].id.videoId;
+        data.votes = votes;
+        data.modified = this.playlist[index].modified;
 
-  Room.prototype.addVoteToVideo = function(video, player) {
-    var index = this.getVideoIndex(video.id.videoId);
-    var votes = this.playlist[index].votes
-    votes.push(player);
-    votes = _.uniq(votes, function(player) {
-        return player.email;
-    });
-    this.playlist[index].votes = votes;
+        this.sortPlaylist();
 
-    this.playlist[index].modified = new Date().getTime();
-    this.sortPlaylist();
+        //return this.playlist;
+        return data;
+    };
 
-    return this.playlist;
-  };
+    Room.prototype.sortPlaylist = function() {
 
-  Room.prototype.sortPlaylist = function() {
+        // Use the modified timestamp to add a decimal to make sure videos
+        // that were modified last are behind older ones with the same vote
+        // Added * -1 for descending order
+        var playlist = _.sortBy(this.playlist, function(video) {
+            return parseInt(video.votes.length + '.' + video.modified, 10) * -1;
+        });
 
-    // Use the modified timestamp to add a decimal to make sure videos
-    // that were modified last are behind older ones with the same vote
-    // Added * -1 for descending order
-    var playlist = _.sortBy(this.playlist, function(video) {
-      return parseInt(video.votes.length+'.'+video.modified, 10)*-1;
-    });
+        playlist = _.uniq(playlist, function(video) {
+            return video.id.videoId;
+        });
 
-    playlist = _.uniq(playlist, function(video) {
-      return video.id.videoId;
-    });
+        this.playlist = playlist;
 
-    this.playlist = playlist;
+        return playlist;
+    };
 
-    return playlist;
-  };
+    Room.prototype.update = function() {};
 
-  Room.prototype.update = function() {
-  };
+    Room.prototype.reset = function() {
+        _.map(this.players, function(player) {
+            player.reset();
+        });
+        this.players = [];
+    };
 
-  Room.prototype.reset = function() {
-    _.map(this.players, function(player) {
-      player.reset();
-    });
-    this.players = [];
-  };
+    Room.prototype.addPlayer = function(player) {
+        this.players.push(player);
+        /*
+        this.players = _.uniq(this.players, function(player) {
+          return player.email;
+        });*/
 
-  Room.prototype.addPlayer = function(player) {
-    this.players.push(player);
+    };
 
-    this.players = _.uniq(this.players, function(player) {
-      return player.email;
-    });
+    Room.prototype.removePlayer = function(player) {
+        this.players.splice(this.players.indexOf(player), 1);
+    };
 
-  };
+    Room.prototype.serialize = function() {
+        var players = _.map(this.players, function(player) {
+            return player.serialize();
+        });
 
-  Room.prototype.removePlayer = function(player) {
-    this.players.splice(this.players.indexOf(player), 1);
-  };
-
-  Room.prototype.serialize = function() {
-    var players = _.map(this.players, function(player) {
-      return player.serialize();
-    });
-
-
-
-
-    return {
-      id: this.id,
-      name: this.name,
-      createdAt: this.createdAt,
-      players: players
-    }
-  };
+        return {
+            id: this.id,
+            name: this.name,
+            createdAt: this.createdAt,
+            players: players
+        }
+    };
 
 })();

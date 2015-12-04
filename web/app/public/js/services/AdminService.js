@@ -3,30 +3,31 @@ define(['angular'], function(angular) {
 
     var factory = function($http, $q, $window, $rootScope, RoomService, socket) {
         var services = {
-            changeTopic : changeTopic,
-            removePlaylist : removePlaylist,
-            removeFromPlaylist : removeFromPlaylist
+            changeTopic: changeTopic,
+            removePlaylist: removePlaylist,
+            removeFromPlaylist: removeFromPlaylist
         };
 
         function changeTopic(room) {
             var params = {
-                room : room
+                room: room
             }
             socket.emit('admin:changeTopic', params);
         }
 
         function removePlaylist(room) {
             var params = {
-                room : room,
-                test : 'test'
+                room: room,
+                test: 'test'
             };
             socket.emit('admin:removePlaylist', params);
         }
 
-        function removeFromPlaylist(video, room) {
+        function removeFromPlaylist($event, video, room) {
+            $event.stopPropagation();
             var params = {
-                video : video,
-                room : room
+                video: video,
+                room: room
             };
             socket.emit('admin:removeFromPlaylist', params);
         }
