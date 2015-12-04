@@ -68,7 +68,6 @@
     }
 
     Room.prototype.waitForFinishedVideo = function(duration) {
-        // @todo need to build in a way to get how far in we are for new users
         var self = this;
 
         clearTimeout(videoTimeout);
@@ -77,7 +76,7 @@
             self.playVideo({
                 index: 0
             });
-            self.emit('videoUpdate', self.id);
+            self.emit('videoUpdate', self.id, true);
         }, duration);
     };
 
@@ -99,17 +98,23 @@
 
     Room.prototype.addVoteToVideo = function(video, player) {
         var index = this.getVideoIndex(video.id.videoId);
-        var votes = this.playlist[index].votes
+        var votes = this.playlist[index].votes,
+            data = {};
         votes.push(player);
         votes = _.uniq(votes, function(player) {
             return player.email;
         });
         this.playlist[index].votes = votes;
-
         this.playlist[index].modified = new Date().getTime();
+
+        data.id = this.playlist[index].id.videoId;
+        data.votes = votes;
+        data.modified = this.playlist[index].modified;
+
         this.sortPlaylist();
 
-        return this.playlist;
+        //return this.playlist;
+        return data;
     };
 
     Room.prototype.sortPlaylist = function() {
