@@ -6,7 +6,7 @@
 
 <div class="row">
 	<div class="col-md-8">
-		<p class="added-by">Added By: <img class="gravatar" ng-src="{{ item.addedBy.email | gravatar }}" title="{{item.addedBy.firstName || item.addedBy.email }} {{item.addedBy.lastName}}" /> {{item.addedBy.firstName || item.addedBy.email}} {{item.addedBy.lastName}} <a class="btn btn-danger btn-xs" ng-if="user.isAdmin" ng-click="admin.removeFromPlaylist($event, item, room)">Remove</a></p>
+		<p class="added-by">Added By: <img class="gravatar" ng-src="{{ item.addedBy.email | gravatar }}" title="{{item.addedBy.firstName || item.addedBy.email }} {{item.addedBy.lastName}}" /> {{item.addedBy.firstName || item.addedBy.email}} {{item.addedBy.lastName}} <a class="btn btn-danger btn-xs" ng-if="user.isAdmin" ng-click="admin.removeFromPlaylist(item, room); $event.stopPropagation();">Remove</a></p>
 	</div>
 	<div class="col-md-4 votes" >
 		{{ item.votes.length }} <a href ng-if="!hasVotedForVideo(item)"><i class="fa fa-heart-o"></i></a><span ng-if="hasVotedForVideo(item)"><i class="fa fa-heart"></i></span>
