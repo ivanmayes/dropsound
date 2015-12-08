@@ -12,8 +12,8 @@
 			<p>MIXOLOGISTS</p>
 			<ul>
 				<li class="player" ng-repeat="player in room.players">
-					<!--<img class="gravatar" ng-if="player.avatar" ng-src="{{player.avatar}}" title="{{player.firstName || player.email }} {{player.lastName}}">-->
-					<img class="gravatar" ng-if="!player.avatar" ng-src="{{ player.email | gravatar }}" title="{{player.firstName || player.email }} {{player.lastName}}"> {{player.firstName || player.email }} {{player.lastName}} <span class="slashes">//</span>
+					<img class="gravatar" ng-if="player.avatar" ng-src="{{player.avatar}}" title="{{player.name}}" />
+					{{player.name}} <span class="slashes">//</span>
 				</li>
 			</ul>
 		</div>

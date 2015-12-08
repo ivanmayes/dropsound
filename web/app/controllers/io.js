@@ -146,7 +146,7 @@ module.exports = (function(app, io, server) {
 
         function onPlayerHeartbeat(data) {
             var player = playerById(socket.id);
-            console.log('heartbeat received from ' + player.firstName + ', responding');
+            console.log('heartbeat received from ' + player.name + ', responding');
             socket.emit('player:heartbeat:response', {
                 msg: 'kthx'
             });
@@ -163,11 +163,9 @@ module.exports = (function(app, io, server) {
 
             // Add user details
             if (data.user) {
-                player.firstName = data.user.firstName;
-                player.lastName = data.user.lastName;
+                player.name = data.user.name;
                 player.avatar = data.user.avatar;
                 player.email = data.user.email;
-                player.photo = data.user.photo;
                 player.isAdmin = data.user.isAdmin;
             }
 

@@ -10,42 +10,19 @@ define(['angular'], function(angular) {
 
         /**
          * Logs a user into the application
-         * @param  {String} email User Email Address
-         * @param  {String} password User Password
+         * @param  {Object} user
          * @return {String} access_token  A user access token to access other page data
          */
-        function login(email, password) {
+        function login(user) {
             var deferred = $q.defer();
 
-            $http.post(
-                API_URL + 'login',
-                {
-                    email: email,
-                    password: password
-                } /*,
-                {
-                    headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded'
-                    }
-                }*/
-            ).then(function(result) {
-                if (result.data && result.data.response && result.data.response.token) {
-                    userInfo = {
-                        accessToken: result.data.response.token.token,
-                        user: result.data.response.token.user
-                    };
-                    setToken(result.data.response.token.token);
-                    setUserSettings(result.data.response.token.user);
+            setToken(user.token);
 
-                    deferred.resolve(userInfo);
-                } else {
-                    deferred.reject(result.data.meta.errorDetail[0]);
-                }
+            delete user.token;
 
+            setUserSettings(user);
 
-            }, function(error) {
-                    deferred.reject(error);
-                });
+            deferred.resolve(user.token);
 
             return deferred.promise;
         }

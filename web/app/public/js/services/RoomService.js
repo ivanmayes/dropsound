@@ -102,13 +102,18 @@ define(['angular'], function(angular) {
         });
 
         socket.on('room:update:player:add', function(data) {
+            var audio = new Audio('snd/login.mp3');
+            audio.play();
+
             currentRoom.players.push(data.player);
             $rootScope.$broadcast('room:update', currentRoom);
         });
 
         socket.on('room:update:player:remove', function(data) {
-            var index = getPlayerIndexById(data.player.id, currentRoom);
+            var audio = new Audio('snd/logout.mp3');
+            audio.play();
 
+            var index = getPlayerIndexById(data.player.id, currentRoom);
             currentRoom.players.splice(index, 1);
         });
 

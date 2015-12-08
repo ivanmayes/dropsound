@@ -14,102 +14,73 @@ define(function() {
             $state.go('login');
         };
 
-        $scope.signUp = function() {
-            $state.go('signup');
-        };
-
         $scope.login = function(user) {
             console.log('logging in');
 
-            if (user && user.email && user.pass) {
-                var checkLogin = UserService.login(user.email, user.pass);
-                checkLogin.then(function(userInfo) {
-                    console.log(userInfo);
-                    $state.go('room', {
-                        roomId: 1
-                    });
-                }, function(reason) {
-                        console.log('Failed:', reason);
-                        $scope.errorMsg = reason;
-                    });
-            } else {
-                $scope.errorMsg = 'Please add your email and password.';
-            }
 
+            if (user.name) {
+                if ($scope.selectAvatar) {
+                    var status = (Math.random() > .5) ? 'Nice' : 'Naughty',
+                        avatars = $scope.avatars[status.toLowerCase()],
+                        index = Math.floor(Math.random() * ((avatars.length - 1) - 0 + 1));
 
-        };
-
-        $scope.facebookLogin = function() {
-            // Launch OAUTH process
-        };
-
-        $scope.register = function(user) {
-            // Create account and sync to local
-            console.log('signing up');
-
-            if (user && user.email && user.password && user.confirm) {
-
-                if (user.password !== user.confirm) {
-                    $scope.errorMsg = 'Passwords do not match';
-                    return false;
+                    user.avatar = avatars[index].img;
+                    user.status = status;
+                } else {
+                    user.avatar = $scope.selectedAvatar.img;
+                    user.status = $scope.selectedAvatar.cat;
                 }
 
-                user.avatar = $scope.selectedAvatar;
+                user.token = (user.name + user.status + new Date().getTime()).replace(/\s/g, '_');
+                user.email = user.token + '@goshoptology.com';
 
-                console.log('register user', user);
-
-                //TODO: Check passwords to match
-                var checkLogin = UserService.signup(user);
-                checkLogin.then(function(userInfo) {
-                    console.log(userInfo);
-                    $state.go('lobby');
-                }, function(reason) {
-                        console.log('Failed:', reason);
-                        $scope.errorMsg = reason;
-                    });
-
+                UserService.login(user)
+                    .then(function(userInfo) {
+                        console.log(userInfo);
+                        $state.go('room', {
+                            roomId: 1
+                        });
+                    }, function(reason) {
+                            console.log('Failed:', reason);
+                            $scope.errorMsg = reason;
+                        });
             } else {
-                $scope.errorMsg = 'Please fill in all fields';
+                $scope.errorMsg = 'Please enter your name.';
             }
-
-
         };
 
-        $scope.facebookRegister = function() {
-            // Launch OAUTH process
-        };
-
-        $scope.selectRole = function(role) {
-            // Log role locally, push to server if needed
-            console.log(role);
-
-            // Go to school selection
-            $state.go('search');
-        };
-
-        $scope.selectAvatar = function(avatar) {
+        $scope.selectAvatar = function(avatar, cat) {
             if (avatar.name == 'Gravatar') {
                 console.log('gravatar');
             }
 
             $scope.selectedAvatar = avatar;
+            $scope.selectedAvatar.cat = cat;
         };
 
-        $scope.avatars = [
-            {
-                name: 'Gravatar',
-                img: 'http://www.gravatar.com/avatar/00000000000000000000000000000000'
-            },
-            {
-                name: 'Cow',
-                img: 'cow.jpg'
-            },
-            {
-                name: 'Moose',
-                img: 'moose.jpg'
-            }
-        ];
-        $scope.selectedAvatar = $scope.avatars[0];
+        $scope.avatars = {
+            nice: [
+                {
+                    name: 'Cow',
+                    img: 'cow.jpg'
+                },
+                {
+                    name: 'Moose',
+                    img: 'moose.jpg'
+                }
+            ],
+            naughty: [
+                {
+                    name: 'Hitler',
+                    img: 'hitler.jpg'
+                },
+                {
+                    name: 'Stalin',
+                    img: 'stalin.jpg'
+                }
+            ]
+        };
+        $scope.selectedAvatar = false;
     }
 
     ctrl.$inject = ['$scope', '$state', 'UserService'];
