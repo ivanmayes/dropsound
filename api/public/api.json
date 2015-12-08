@@ -93,6 +93,13 @@
                         "description": "The user's email address.",
                         "required": true,
                         "type": "string"
+                    },
+                    {
+                        "name": "avatar",
+                        "in": "formData",
+                        "description": "The user's avatar.",
+                        "required": false,
+                        "type": "object"
                     }
                 ],
                 "responses": {
