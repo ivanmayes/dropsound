@@ -5,6 +5,7 @@ define(function() {
 
     function ctrl($scope, $stateParams, $rootScope, SearchService, RoomService) {
     	$scope.addVideo = addVideo;
+        $scope.hideSearch = hideSearch;
         $scope.clearSearch = clearSearch;
     	$scope.search = {
     		q: '',
@@ -35,6 +36,11 @@ define(function() {
         function clearSearch() {
             $scope.videos = [];
             $scope.search.q = '';
+        }
+
+        function hideSearch() {
+            console.log('HIDE');
+            $scope.search.showSearchPage = false;
         }
 
     }

@@ -1,7 +1,6 @@
 .playlist {
     .toggle {
-        position: absolute;
-        top: -25px;
+        margin-right: 20px;
     }
 
     .clear {
@@ -17,12 +16,11 @@
         background: #EEE;
 
         &.hide-video {
-            max-height: 112px;
             min-height: 1px;
             overflow: hidden;
 
             iframe {
-                max-height: 31px;
+                max-height: 0px;
             }
         }
 
@@ -45,6 +43,9 @@
         .hidden-title {
             padding: 8px;
             margin: 0;
+            font-size: 26px;
+            background: white;
+            text-align: center;
         }
     }
 
@@ -111,5 +112,19 @@
         .fa {
             color: #e15829;
         }
+    }
+}
+
+.btn.add {
+        border: purple 1px solid;
+    color: purple;
+    font-size: 21px;
+    padding: 10px;
+    margin-bottom: 22px;
+    transition: all 300ms;
+
+    &:hover {
+        background: purple;
+        color:white;
     }
 }
