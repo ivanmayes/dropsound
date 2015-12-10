@@ -27,6 +27,7 @@
         iframe {
             transition: max-height 500ms;
             max-height: 1000px;
+            height: 488px;
         }
 
         .empty-msg {
@@ -128,3 +129,10 @@
         color:white;
     }
 }
+
+@media (min-width: 1200px) {
+    .container {
+        width: 900px;
+    }
+}
+

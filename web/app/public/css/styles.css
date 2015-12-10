@@ -7145,7 +7145,8 @@ class
       max-height: 0px; }
   .playlist .currentVideo iframe {
     transition: max-height 500ms;
-    max-height: 1000px; }
+    max-height: 1000px;
+    height: 488px; }
   .playlist .currentVideo .empty-msg {
     position: absolute;
     top: 50%;
@@ -7216,3 +7217,7 @@ class
   .btn.add:hover {
     background: purple;
     color: white; }
+
+@media (min-width: 1200px) {
+  .container {
+    width: 900px; } }
