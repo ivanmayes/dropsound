@@ -6737,7 +6737,7 @@ iframe {
   font-weight: 700; }
 
 .room .room-info {
-  margin: 50px -15px 30px; }
+  margin: 0px -15px 30px; }
   .room .room-info .who {
     text-align: right; }
   .room .room-info .who li, .room .room-info .room li {
@@ -7072,7 +7072,6 @@ class
         box-shadow: none; }
 
 .search-list .list-group-item {
-  min-height: 70px;
   clear: both;
   margin: 5px 0;
   border: 0;
@@ -7167,20 +7166,22 @@ class
   border-radius: 0; }
 
 .playlist .gravatar {
-  width: 30px;
-  height: 30px;
-  margin: 5px; }
+  width: 16px;
+  height: 16px; }
+
+.playlist .list-group-item .thumb {
+  width: 100%; }
 
 .playlist .list-group-item.first {
-  border: 2px solid #e15829; }
-  .playlist .list-group-item.first h4 {
-    margin-left: 141px; }
-  .playlist .list-group-item.first .row {
-    margin-left: 128px; }
+  border: 2px solid #e15829;
+  margin-bottom: 30px; }
 
 .playlist .list-group-item .vote-avatars {
   display: block;
-  height: 38px; }
+  margin-top: 10px; }
+  .playlist .list-group-item .vote-avatars .player {
+    margin-right: 8px;
+    color: #9a9a97; }
 
 .playlist .list-group-item.gray h4, .playlist .list-group-item.gray .votes, .playlist .list-group-item.gray .votes .fa {
   color: #ABABAB; }
