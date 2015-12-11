@@ -1,6 +1,6 @@
 <div class="room">
 	<div class="header">
-		<h1>CO-LOUD</h1>
+		<h1>CO-LOUD - {{$root.group}}</h1>
 	</div>
 
 	<div class="row room-info">
@@ -19,9 +19,19 @@
 		</div>
 	</div>
 
-	<div class="row topic">
+	<div class="row topic" ng-if="user.isAdmin">
 		<h2 ng-if="!editingTopic">{{room.topic}} <a href ng-if="user.isAdmin" ng-click="editTopic()"> - Edit</a></h2>
 		<input type="text" value="My Topic" ng-if="editingTopic && user.isAdmin" ng-model="room.topic"> <a href ng-if="editingTopic && user.isAdmin" ng-click="changeTopic()"> - Save</a>
+		<br>
+		<!--<h2>Stream URLs</h2>
+		<input type="text" placeholder="Public Stream URL" ng-model="room.streams.pub">
+		<input type="text" placeholder="Shoptology Stream URL" ng-model="room.streams.shp">-->
+		<button ng-if="$root.isLive" ng-click="toggleLive()">
+			Take Offline
+		</button>
+		<button ng-if="!$root.isLive" ng-click="toggleLive()">
+			Push Live
+		</button>
 	</div>
 
 	<div class="row">
@@ -29,7 +39,7 @@
 			<a class="btn btn-default btn-xs toggle" href ng-click="toggleVideo()">Toggle Video</a>
 			<a class="btn btn-danger btn-xs clear" ng-if="user.isAdmin" ng-click="admin.removePlaylist(room)">Clear playlist</a>
 
-			<div class="currentVideo" ng-class="{'hide-video': hideVideo}">
+			<div class="currentVideo" ng-class="{'hide-video': hideVideo}" ng-if="$root.group == 'cam'">
 				<p class="hidden-title">{{currentVideo.snippet.title}}</p>
 				<iframe ng-if="currentVideo" id="unique-youtube-embed-id-1" frameborder="0" allowfullscreen="1" title="YouTube video player" width="640" height="390" ng-src="{{currentVideo.iframeLink}}"></iframe>
 
@@ -49,10 +59,15 @@
 						</span>
 					</div>
 				</div>
-
-
 				<div class="empty-msg" ng-if="!currentVideo">No videos playing yet, add some!</div>
+			</div>
 
+			<div class="currentVideo" ng-if="$root.group == 'shp'">
+				<iframe id="unique-youtube-embed-id-1" frameborder="0" allowfullscreen="1" title="YouTube video player" width="640" height="390" ng-src="{{streams.shp}}"></iframe>
+			</div>
+
+			<div class="currentVideo" ng-if="$root.group == 'pub'">
+				<iframe id="unique-youtube-embed-id-1" frameborder="0" allowfullscreen="1" title="YouTube video player" width="640" height="390" ng-src="{{streams.pub}}"></iframe>
 			</div>
 
 			<div class="search-list list-group">

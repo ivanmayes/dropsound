@@ -18,7 +18,7 @@ module.exports = (function(app, io, server) {
     var rData = {
         id: 1,
         name: 'Shoptology DJ',
-        topic: 'Off Topic',
+        topic: 'Off Topic'
     };
 
     /*if(r) {
@@ -137,8 +137,32 @@ module.exports = (function(app, io, server) {
                         room: r
                     });
                 }
+            },
+            toggleLive: function(data) {
+                var player = playerById(this.id);
+
+                if (player.isAdmin) {
+                    app.locals.isLive = (data.isLive) ? true : false;
+
+                    s.sockets
+                        .emit('update:isLive', {
+                            isLive: app.locals.isLive
+                        });
+
+                    /*s
+                        .to(data.room.id)
+                        .emit('room:update:isLive', {
+                            isLive: app.locals.isLive
+                        });*/
+                }
             }
         };
+
+        //TODO:
+        //socket.on('admin:changeStreamPub', admin.changeStreamPub);
+        //socket.on('admin:changeStreamShp', admin.changeStreamShp);
+
+        socket.on('admin:toggleLive', admin.toggleLive);
 
         socket.on('admin:changeTopic', admin.changeTopic);
         socket.on('admin:removePlaylist', admin.removePlaylist);
@@ -168,6 +192,8 @@ module.exports = (function(app, io, server) {
                 player.email = data.user.email;
                 player.isAdmin = data.user.isAdmin;
             }
+
+            data.roomId = 1;
 
             if (!data.roomId) {
                 console.log('Cannot join an empty game?', data.roomId);

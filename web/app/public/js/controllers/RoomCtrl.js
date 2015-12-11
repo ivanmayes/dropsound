@@ -6,6 +6,10 @@ define(function() {
     function ctrl($scope, $rootScope, $state, $stateParams, $sce, UserService, RoomService, PlayersService, AdminService, youtubeEmbedUtils, socket) {
         console.log('Room Id', $stateParams.roomId);
 
+        if (!$rootScope.user.isAdmin && !$rootScope.isLive) {
+            $state.go('login');
+        }
+
         var heartbeat;
 
         $scope.currentVideo;
@@ -18,11 +22,17 @@ define(function() {
         };
         $scope.room;
         $scope.toggleVideo = toggleVideo;
+        $scope.toggleLive = toggleLive;
         $scope.voteForVideo = RoomService.voteForVideo;
         $scope.isNew = true;
         $scope.search = {
             q: ''
         }
+
+        $scope.streams = {
+            shp: $sce.trustAsResourceUrl('http://player.twitch.tv/?channel=shoptology'),
+            pub: $sce.trustAsResourceUrl('http://www.ustream.tv/embed/21661769?html5ui')
+        };
 
         $scope.editingTopic = false;
         $scope.editTopic = editTopic;
@@ -44,6 +54,14 @@ define(function() {
         });
 
         $scope.$on('room:update', function(evt, room) {
+
+
+            /*// Kick if not live
+            if (!$scope.user.isAdmin && !$rootScope.isLive) {
+                alert('not broadcasting');
+                $state.go('login');
+            }*/
+
             console.log('Room Updated!', room);
             $scope.room = room;
             if (room.currentVideo !== $scope.currentVideo) {
@@ -96,6 +114,10 @@ define(function() {
         function changeTopic() {
             $scope.admin.changeTopic($scope.room);
             $scope.editingTopic = false;
+        }
+
+        function toggleLive() {
+            $scope.admin.toggleLive($scope.room);
         }
 
         function toggleVideo() {

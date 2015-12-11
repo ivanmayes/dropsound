@@ -37,9 +37,7 @@ define(function() {
                 UserService.login(user)
                     .then(function(userInfo) {
                         console.log(userInfo);
-                        $state.go('room', {
-                            roomId: 1
-                        });
+                        $state.go('room');
                     }, function(reason) {
                             console.log('Failed:', reason);
                             $scope.errorMsg = reason;

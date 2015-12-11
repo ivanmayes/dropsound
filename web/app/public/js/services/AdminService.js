@@ -5,7 +5,8 @@ define(['angular'], function(angular) {
         var services = {
             changeTopic: changeTopic,
             removePlaylist: removePlaylist,
-            removeFromPlaylist: removeFromPlaylist
+            removeFromPlaylist: removeFromPlaylist,
+            toggleLive: toggleLive
         };
 
         function changeTopic(room) {
@@ -29,6 +30,15 @@ define(['angular'], function(angular) {
                 room: room
             };
             socket.emit('admin:removeFromPlaylist', params);
+        }
+
+        function toggleLive(room) {
+            var params = {
+                room: room,
+                isLive: ($rootScope.isLive) ? false : true
+            };
+
+            socket.emit('admin:toggleLive', params);
         }
 
         return services;

@@ -12,6 +12,11 @@
         this.playlist = config.playlist || [];
         this.currentVideo = config.currentVideo;
         this.createdAt = new Date().getTime();
+        this.isLive = false;
+        this.streams = config.streams || {
+            shp: 'http://player.twitch.tv/?channel=shoptology',
+            pub: 'http://www.ustream.tv/embed/21661769?html5ui'
+        }
 
         this.players = config.players || [];
 

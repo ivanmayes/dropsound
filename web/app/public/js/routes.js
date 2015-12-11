@@ -16,14 +16,14 @@ define(['app'], function(app) {
                     }
                 })
                 .state('room', {
-                    url: "/room/:roomId",
-                    params: { roomName : 'Some Room', roomId : '' },
+                    url: "/room/",
+                    params: {
+                        roomName: 'Some Room'
+                    },
                     templateUrl: "js/views/room.html",
                     controller: 'RoomCtrl',
                     authenticate: true,
-                    onEnter: function() {
-
-                    },
+                    onEnter: function() {},
                     onExit: function(RoomService) {
                         RoomService.leaveRoom();
                     }

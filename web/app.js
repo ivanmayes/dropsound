@@ -165,6 +165,10 @@ app.use(express.static(path.join(__dirname, 'app/public'), {
  * Routes.
  */
 
+//-----Holiday card event tracking
+app.locals.isLive = false;
+//--------------------------------//
+
 require('./app/config/routes')(app, passport, passportConf);
 
 /**

@@ -132,9 +132,6 @@ define(['angular'], function(angular) {
             }
         }
 
-
-
-
         // Return all our public functions
         return {
             getAccessToken: getAccessToken,
