@@ -3,7 +3,7 @@
 define(function() {
     'use strict';
 
-    function ctrl($scope, $rootScope, $state, $stateParams, $sce, UserService, RoomService, PlayersService, AdminService, youtubeEmbedUtils, socket) {
+    function ctrl($scope, $rootScope, $state, $stateParams, $sce, UserService, RoomService, PlayersService, AdminService, youtubeEmbedUtils, socket, $timeout, $window) {
         console.log('Room Id', $stateParams.roomId);
 
         if (!$rootScope.user.isAdmin && !$rootScope.isLive) {
@@ -28,6 +28,7 @@ define(function() {
         $scope.search = {
             q: ''
         }
+        $scope.showSearch = showSearch;
 
         $scope.streams = {
             shp: $sce.trustAsResourceUrl('http://player.twitch.tv/?channel=shoptology'),
@@ -156,10 +157,19 @@ define(function() {
             return false;
         }
 
+        function showSearch() {
+            $timeout(function() {
+                console.log('focussing');
+                var element = $window.document.getElementById('searchInput');
+                if(element)
+                  element.focus();
+              });
+        }
+
         sendHeartbeat();
     }
 
-    ctrl.$inject = ['$scope', '$rootScope', '$state', '$stateParams', '$sce', 'UserService', 'RoomService', 'PlayersService', 'AdminService', 'youtubeEmbedUtils', 'socket'];
+    ctrl.$inject = ['$scope', '$rootScope', '$state', '$stateParams', '$sce', 'UserService', 'RoomService', 'PlayersService', 'AdminService', 'youtubeEmbedUtils', 'socket', '$timeout', '$window'];
     return ctrl;
 
 });
