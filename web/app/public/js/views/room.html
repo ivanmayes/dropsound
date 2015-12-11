@@ -22,12 +22,6 @@
 	</div>
 
 	<div class="row topic" ng-if="user.isAdmin">
-		<h2 ng-if="!editingTopic">{{room.topic}} <a href ng-if="user.isAdmin" ng-click="editTopic()"> - Edit</a></h2>
-		<input type="text" value="My Topic" ng-if="editingTopic && user.isAdmin" ng-model="room.topic"> <a href ng-if="editingTopic && user.isAdmin" ng-click="changeTopic()"> - Save</a>
-		<br>
-		<!--<h2>Stream URLs</h2>
-		<input type="text" placeholder="Public Stream URL" ng-model="room.streams.pub">
-		<input type="text" placeholder="Shoptology Stream URL" ng-model="room.streams.shp">-->
 		<button ng-if="$root.isLive" ng-click="toggleLive()">
 			Take Offline
 		</button>
@@ -38,8 +32,6 @@
 
 	<div class="row">
 		<div class="col-sm-12 playlist">
-
-
 
 			<div class="currentVideo" ng-class="{'hide-video': hideVideo}" ng-if="$root.group == 'cam'">
 				<p class="hidden-title">{{currentVideo.snippet.title}}</p>
