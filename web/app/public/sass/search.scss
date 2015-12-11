@@ -1,4 +1,30 @@
 .search {
+
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0,0,0,0.8);
+    z-index: 99;
+
+    ::-webkit-input-placeholder { color: white; } :-moz-placeholder { /* Firefox 18- */ color: white; } ::-moz-placeholder { /* Firefox 19+ */ color: white; } :-ms-input-placeholder { color: white; }
+
+    .search-body {
+        margin: 0 10%;
+    }
+
+    a.back {
+        color: white;
+        margin: 20px 10%;
+        display: block;
+
+        &:hover {
+            text-decoration: none;
+            opacity: 0.7;
+        }
+    }
+
     .help {
         text-align: center;
         color: white;
@@ -30,9 +56,15 @@
     }
 
     form {
-        border: 3px solid #f0f0f0;
         height: 60px;
         padding: 5px;
+        position: relative;
+        margin-bottom: 22px;
+
+        .btn.clear {
+            position: absolute;
+            right: 0;
+            top: 28px;        }
 
         .search-icon {
             background: url("/img/zoom.svg") no-repeat;
@@ -63,15 +95,15 @@
         }
 
         input {
-            height: 46px;
+            height: 70px;
+            background: transparent;
+            color: white;
+            font-size: 40px;
+            width: 100% !important;
+            margin: 0;
             border: none;
             box-shadow: none;
-            font-size: 18px;
-            width: 80% !important;
-            margin-left: 10%;
-            margin-right: 10%;
             padding: 0;
-            color: #e15829;
 
             &:focus {
                 border: none;
@@ -83,7 +115,7 @@
 
 .search-list {
     .list-group-item {
-        min-height: 70px;
+        //min-height: 70px;
         clear: both;
         margin: 5px 0;
         border: 0;

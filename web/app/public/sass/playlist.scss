@@ -1,7 +1,6 @@
 .playlist {
     .toggle {
-        position: absolute;
-        top: -25px;
+        margin-right: 20px;
     }
 
     .clear {
@@ -17,18 +16,18 @@
         background: #EEE;
 
         &.hide-video {
-            max-height: 112px;
             min-height: 1px;
             overflow: hidden;
 
             iframe {
-                max-height: 31px;
+                max-height: 0px;
             }
         }
 
         iframe {
             transition: max-height 500ms;
             max-height: 1000px;
+            height: 488px;
         }
 
         .empty-msg {
@@ -45,6 +44,9 @@
         .hidden-title {
             padding: 8px;
             margin: 0;
+            font-size: 26px;
+            background: white;
+            text-align: center;
         }
     }
 
@@ -55,26 +57,27 @@
     }
 
     .gravatar {
-        width: 30px;
-        height: 30px;
-        margin: 5px;
+        width: 16px;
+        height: 16px;
+    }
+
+    .list-group-item .thumb {
+        width: 100%;
     }
 
     .list-group-item.first {
         border: 2px solid #e15829;
-
-        h4 {
-            margin-left: 141px;
-        }
-
-        .row {
-            margin-left: 128px;
-        }
+        margin-bottom: 30px;
     }
 
     .list-group-item .vote-avatars {
         display: block;
-        height: 38px;
+            margin-top: 10px;
+
+        .player {
+            margin-right: 8px;
+            color: #9a9a97;
+        }
     }
 
     .list-group-item.gray {
@@ -113,3 +116,24 @@
         }
     }
 }
+
+.btn.add {
+        border: purple 1px solid;
+    color: purple;
+    font-size: 21px;
+    padding: 10px;
+    margin-bottom: 22px;
+    transition: all 300ms;
+
+    &:hover {
+        background: purple;
+        color:white;
+    }
+}
+
+@media (min-width: 1200px) {
+    .container {
+        width: 900px;
+    }
+}
+

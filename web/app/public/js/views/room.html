@@ -5,8 +5,10 @@
 
 	<div class="row room-info">
 		<div class="col-md-4 room">
-			<p>ROOM</p>
-			<li>{{ room.name }}</li>
+			<p>THEME</p>
+			<li ng-if="!editingTopic">{{room.topic}} <a href class="btn btn-warning btn-xs" ng-if="user.isAdmin" ng-click="editTopic()">Edit</a></li>
+			<li><input type="text" value="My Topic" ng-if="editingTopic && user.isAdmin" ng-model="room.topic"> <a href class="btn btn-success btn-xs" ng-if="editingTopic && user.isAdmin" ng-click="changeTopic()">Save</a></li>
+			<a class="btn btn-danger btn-xs clear" ng-if="user.isAdmin" ng-click="admin.removePlaylist(room)">Clear playlist</a>
 		</div>
 		<div class="col-md-8 who">
 			<p>MIXOLOGISTS</p>
@@ -19,15 +21,10 @@
 		</div>
 	</div>
 
-	<div class="row topic">
-		<h2 ng-if="!editingTopic">{{room.topic}} <a href ng-if="user.isAdmin" ng-click="editTopic()"> - Edit</a></h2>
-		<input type="text" value="My Topic" ng-if="editingTopic && user.isAdmin" ng-model="room.topic"> <a href ng-if="editingTopic && user.isAdmin" ng-click="changeTopic()"> - Save</a>
-	</div>
-
 	<div class="row">
-		<div class="col-sm-7 playlist">
-			<a class="btn btn-default btn-xs toggle" href ng-click="toggleVideo()">Toggle Video</a>
-			<a class="btn btn-danger btn-xs clear" ng-if="user.isAdmin" ng-click="admin.removePlaylist(room)">Clear playlist</a>
+		<div class="col-sm-12 playlist">
+
+
 
 			<div class="currentVideo" ng-class="{'hide-video': hideVideo}">
 				<p class="hidden-title">{{currentVideo.snippet.title}}</p>
@@ -39,13 +36,15 @@
 							<p class="added-by">Added By: <img class="gravatar" ng-src="{{ currentVideo.addedBy.email | gravatar }}" title="{{currentVideo.addedBy.firstName || currentVideo.addedBy.email }} {{currentVideo.addedBy.lastName}}" /> {{currentVideo.addedBy.firstName || currentVideo.addedBy.email}} {{currentVideo.addedBy.lastName}} <a class="btn btn-danger btn-xs" ng-if="user.isAdmin" ng-click="admin.removeFromPlaylist(currentVideo, room)">Remove</a></p>
 						</div>
 						<div class="col-md-4 votes" >
+							<a class="btn btn-default btn-xs toggle" href ng-click="toggleVideo()">Toggle Video</a>
 							{{ currentVideo.votes.length }} <a href ng-if="!hasVotedForVideo(currentVideo)"><i class="fa fa-heart-o"></i></a><span ng-if="hasVotedForVideo(currentVideo)"><i class="fa fa-heart"></i></span>
 						</div>
 					</div>
 
 					<div>
+						<span ng-if="currentVideo.votes.length > 1">Votes:</span>
 						<span ng-repeat="vote in currentVideo.votes" ng-if="vote.email !== currentVideo.addedBy.email">
-							<img class="gravatar" ng-src="{{ vote.email | gravatar }}" title="{{vote.firstName || vote.email }} {{vote.lastName}}" />
+							<img class="gravatar" ng-src="{{ vote.email | gravatar }}" title="{{vote.firstName || vote.email }} {{vote.lastName}}" /> {{item.addedBy.firstName || item.addedBy.email}} {{item.addedBy.lastName}}
 						</span>
 					</div>
 				</div>
@@ -55,13 +54,15 @@
 
 			</div>
 
+			<a class="btn btn-default btn-block btn-xs add" href ng-click="showSearchPage = true; showSearch();"><i class="fa fa-plus"></i> Add Song</a>
+
 			<div class="search-list list-group">
 				<div class="row" ng-if="room.playlist.length > 0">
 					<div class="col-sm-6">
 						<p>NEXT UP</p>
 					</div>
 					<div class="col-sm-6">
-						<div class="search input-group" style="width:100%;">
+						<div class="input-group" style="width:100%;">
 					      <input type="text" ng-model="search.q" class="form-control" placeholder="Search playlist">
 					      <span class="input-group-btn" >
 					        <button ng-if="search.q.length > 0"  ng-click="search.q = ''" class="btn btn-default" type="button">
@@ -85,49 +86,48 @@
 			</div>
 		</div>
 
-		<div class="col-sm-5 search" ng-controller="SearchCtrl">
-			<form class="form-inline" ng-submit="searchVideos()">
-				<i class="search-icon"></i>
-				<i class="close-icon" ng-click="clearSearch()" ng-if="search.q.length > 0"></i>
-			  <div class="form-group">
-			    <label class="sr-only" for="videoSearch">Search songs here</label>
-			    <input type="text" ng-model="search.q" class="form-control" id="videoSearch" placeholder="Search songs here">
-			  </div>
-			  <!--<button type="submit" class="btn btn-primary">Search</button>-->
-			</form>
+		<div ng-show="showSearchPage == true">
+			<div class="col-sm-12 search">
+				<i class="close-icon" ></i>
+				<a href class="back" ng-click="showSearchPage = false"><i class="fa fa-arrow-circle-o-left"></i> Back to Playlist {{
+					search.showSearchPage.toString()}}</a>
+				<div class="search-body" ng-controller="SearchCtrl as search">
 
-			<div class="search-list list-group">
-				<div class="list-group-item" ng-if="videos.length" ng-repeat="item in videos" ng-class="{'added': isVideoInPlaylist(item)}">
-					<div class="overlay">
-						<p>Added!</p>
-					</div>
+					<form class="form-inline" ng-submit="searchVideos()">
+						<a class="btn btn-default btn-xs clear" href ng-click="clearSearch()" ng-if="search.q.length > 0">Clear</a>
+					  <div class="form-group">
+					    <label class="sr-only" for="videoSearch">Start Typing to Search</label>
+					    <input id="searchInput" type="text" ng-model="search.q" autocomplete="off" class="form-control" id="videoSearch" placeholder="Search songs here">
+					  </div>
+					  <!--<button type="submit" class="btn btn-primary">Search</button>-->
+					</form>
 
-					<div class="thumbnail"  ng-click="addVideo(item)">
-						<div class="overlay">
-							<i class="close-icon"></i>
+					<div class="search-list list-group">
+						<div class="list-group-item" ng-if="videos.length" ng-repeat="item in videos" ng-class="{'added': isVideoInPlaylist(item)}" ng-click="addVideo(item)">
+							<div class="overlay">
+								<p>Added!</p>
+							</div>
+
+							<div class="thumbnail">
+								<div class="overlay">
+									<i class="close-icon"></i>
+								</div>
+
+								<img ng-src="{{item.snippet.thumbnails.default.url}}">
+							</div>
+
+							<h4>{{item.snippet.title}}</h4>
+							<p>{{ item.snippet.channelTitle }} - {{ item.durationString }}</p>
+							<div class="clearfix"></div>
 						</div>
-
-						<img ng-src="{{item.snippet.thumbnails.default.url}}">
 					</div>
 
-					<h4>{{item.snippet.title}}</h4>
-					<p>{{ item.snippet.channelTitle }} - {{ item.durationString }}</p>
-					<div class="clearfix"></div>
 				</div>
-			</div>
 
-			<div class="help list-group-item" ng-if="videos.length < 1">
-				<div class="col-md-6 add">
-					<h2>Add</h2>
-					<p>songs in the search field</p>
-				</div>
-				<div class="col-md-6 vote">
-					<h2>Vote</h2>
-					<p>for the songs you wanna hear play</p>
-				</div>
-			</div>
 
+			</div>
 		</div>
+
 	</div>
 </div>
 
