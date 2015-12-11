@@ -9,7 +9,7 @@ gulp.task('watch', ['setWatch'], function() {
 	gulp.watch(['app/public/sass/**/*.scss', '!app/public/sass/styles.scss'], ['processSCSS']);
     gulp.watch('app/patterns/**/*.scss', ['processSCSS']);
     gulp.watch(['./app.js', './app/**/*.js', './gulp/**/*.js'], ['server', 'browserify']);
-    gulp.watch( [ './app/**/*.js' , './test/unit/**/*.js' , '!./test/unit/coverage/**/*.*' ] , [ 'unitTests' ] );
+    //gulp.watch( [ './app/**/*.js' , './test/unit/**/*.js' , '!./test/unit/coverage/**/*.*' ] , [ 'unitTests' ] );
 
 	/*gulp.watch('src/images/**', ['images']);
 	gulp.watch('src/htdocs/**', ['copy']);*/

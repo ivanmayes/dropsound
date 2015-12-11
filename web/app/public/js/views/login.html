@@ -1,8 +1,57 @@
-<div class="header">
-	<h1>CO-LOUD</h1>
+<div class="header row">
+	<div class="col-md-8 col-md-offset-2">
+		<h1>Welcome to our Holiday Hangout!</h1>
+		<h2>Will you be naughty or nice?<br/>The choice is yours.</h2>
+	</div>
 </div>
 
-<div class="row">
+<div class="instructions row" ng-if="$root.isLive">
+	<div class="col-xs-12">
+		<p>Follow these steps for the merriest experience ever.</p>
+	</div>
+	<div class="col-sm-4">
+		<p class="title">Choose</p>
+		<p>Choose what kind of guest you'll be - naughty or nice.</p>
+	</div>
+	<div class="col-sm-4">
+		<p class="title">Add</p>
+		<p>Add and vote for the holiday songs you want us to hear all day.</p>
+	</div>
+	<div class="col-sm-4">
+		<p class="title">Hang</p>
+		<p>See the lights - and us - in action as you hang out.</p>
+	</div>
+</div>
+
+<div class="countdown row" ng-if="!$root.isLive">
+	<div class="col-xs-12">
+		<p>Hang out with us in</p>
+		<div id="clockdiv">
+		  <div>
+		    <span class="days"></span>
+		    <div class="smalltext">Days</div>
+		  </div>
+		  <div class="vrule"></div>
+		  <div>
+		    <span class="hours"></span>
+		    <div class="smalltext">Hours</div>
+		  </div>
+		  <div class="vrule"></div>
+		  <div>
+		    <span class="minutes"></span>
+		    <div class="smalltext">Minutes</div>
+		  </div>
+		  <div class="vrule"></div>
+		  <div>
+		    <span class="seconds"></span>
+		    <div class="smalltext">Seconds</div>
+		  </div>
+		</div>
+	</div>
+
+</div>
+
+<div class="login row" ng-if="$root.isLive">
 	<div class="col-md-6 col-md-offset-3">
 		<form ng-submit="login(user)">
 			<div class="form-group">

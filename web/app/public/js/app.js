@@ -1,6 +1,7 @@
 /*global define, require */
 
 define(['angular',
+    'bootstrapJS',
     'uiRouter',
     'socketIo',
     'angularYoutube',
