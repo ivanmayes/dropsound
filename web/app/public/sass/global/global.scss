@@ -5,17 +5,18 @@ html {
     position: relative;
     min-height: 100%;
     font-family: 'Novecentosanswide-Light', 'Helvetica Neue', sans-serif;
+    background: url('../img/bg.jpg') no-repeat;
+    background-size: 100%;
     background-color: #f0f9fd;
 }
 
 body {
     padding-top: 70px;
     padding-bottom: 120px;
+    min-height: 100%;
     font-family: 'Novecentosanswide-Light', 'Helvetica Neue', sans-serif;
     color: #07505a;
-    background-color: #f0f9fd;
-    background: url('../img/bg.jpg') no-repeat;
-    background-size: 100%;
+    background-color: transparent;
 }
 
 iframe {
@@ -206,6 +207,20 @@ iframe {
     font-size: 14px;
     text-transform: uppercase;
 }
+
+@media (max-width: 660px) {
+  #clockdiv {
+    > div {
+        padding: 10px 5px;
+        > span {
+            font-size: 40px;
+        }
+    }
+  }
+}
+
+
+
 
 .room {
     .room-info {
