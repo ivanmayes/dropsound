@@ -25,7 +25,9 @@ define(function() {
                 var checkLogin = UserService.login(user.email, user.pass);
                 checkLogin.then(function(userInfo) {
                     console.log(userInfo);
-                    $state.go('room', {roomId:1});
+                    $state.go('room', {
+                        roomId: 1
+                    });
                 }, function(reason) {
                         console.log('Failed:', reason);
                         $scope.errorMsg = reason;
@@ -51,6 +53,8 @@ define(function() {
                     $scope.errorMsg = 'Passwords do not match';
                     return false;
                 }
+
+                user.avatar = $scope.selectedAvatar;
 
                 console.log('register user', user);
 
@@ -82,6 +86,30 @@ define(function() {
             // Go to school selection
             $state.go('search');
         };
+
+        $scope.selectAvatar = function(avatar) {
+            if (avatar.name == 'Gravatar') {
+                console.log('gravatar');
+            }
+
+            $scope.selectedAvatar = avatar;
+        };
+
+        $scope.avatars = [
+            {
+                name: 'Gravatar',
+                img: 'http://www.gravatar.com/avatar/00000000000000000000000000000000'
+            },
+            {
+                name: 'Cow',
+                img: 'cow.jpg'
+            },
+            {
+                name: 'Moose',
+                img: 'moose.jpg'
+            }
+        ];
+        $scope.selectedAvatar = $scope.avatars[0];
     }
 
     ctrl.$inject = ['$scope', '$state', 'UserService'];

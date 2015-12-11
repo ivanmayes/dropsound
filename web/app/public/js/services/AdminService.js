@@ -23,8 +23,7 @@ define(['angular'], function(angular) {
             socket.emit('admin:removePlaylist', params);
         }
 
-        function removeFromPlaylist($event, video, room) {
-            $event.stopPropagation();
+        function removeFromPlaylist(video, room) {
             var params = {
                 video: video,
                 room: room

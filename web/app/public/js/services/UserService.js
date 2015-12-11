@@ -144,7 +144,7 @@ define(['angular'], function(angular) {
 
         function setUserSettings(user) {
             if (user) {
-                if(user.password) {
+                if (user.password) {
                     delete user.password;
                 }
                 $window.localStorage['user'] = JSON.stringify(user);

@@ -165,6 +165,7 @@ module.exports = (function(app, io, server) {
             if (data.user) {
                 player.firstName = data.user.firstName;
                 player.lastName = data.user.lastName;
+                player.avatar = data.user.avatar;
                 player.email = data.user.email;
                 player.photo = data.user.photo;
                 player.isAdmin = data.user.isAdmin;

@@ -32,17 +32,17 @@ define(['angular'], function(angular) {
             }
             console.log('Voting for Video', video);
             socket.emit('voteForVideo', params);
-            video.votes++;
+            //video.votes++;
         }
 
         function getVideoIndexById(id, map) {
             for (var i = 0; i < map.playlist.length; i++) {
                 var video = map.playlist[i];
-                console.log(id, video);
                 if (video.id.videoId === id) {
                     return i;
                 }
             }
+            return -1;
         }
 
         function getPlayerIndexById(id, map) {
@@ -121,18 +121,29 @@ define(['angular'], function(angular) {
         });
 
         socket.on('room:update:videos', function(data) {
+            var index = getVideoIndexById(data.currentVideo.id.videoId, currentRoom);
+
+            if (index > -1) {
+                currentRoom.playlist.splice(index, 1);
+            }
+
             if (currentRoom.currentVideo) {
                 currentRoom.currentVideo.votes = [];
-                currentRoom.playlist.push(currentRoom.currentVideo);
-                // todo check to see if this is the current video
-                currentRoom.playlist = currentRoom.playlist.slice(1);
+                currentRoom.currentVideo.modified = new Date().getTime();
+
+                var index2 = getVideoIndexById(currentRoom.currentVideo.id.videoId, currentRoom);
+
+                if (index2 > -1) {
+                    currentRoom.playlist[index2].votes = [];
+                    currentRoom.playlist[index2].modified = new Date().getTime();
+                } else {
+                    currentRoom.playlist.push(currentRoom.currentVideo);
+                }
             }
 
             currentRoom.currentVideo = data.currentVideo;
             currentRoom.currentVideoStartTime = data.currentVideoStartTime;
-            /*if (data.playlist) {
-                currentRoom.playlist = data.playlist;
-            }*/
+
             $rootScope.$broadcast('room:update', currentRoom);
         });
 
