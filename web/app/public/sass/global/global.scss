@@ -1,6 +1,9 @@
 // Scaffolding
 // -------------------------
 
+$sans-serif: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+
+
 html {
     position: relative;
     min-height: 100%;
@@ -163,7 +166,7 @@ iframe {
     p {
         font-size: 18px;
         opacity: 0.8;
-        font-family: sans-serif;
+        font-family: $sans-serif;
     }
 }
 
