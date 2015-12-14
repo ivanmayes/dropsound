@@ -6724,7 +6724,8 @@ html {
   font-family: 'Novecentosanswide-Light', 'Helvetica Neue', sans-serif;
   background: url("../img/bg.jpg") no-repeat;
   background-size: 100%;
-  background-color: #f0f9fd; }
+  background-color: #f0f9fd;
+  overflow-x: hidden; }
 
 body {
   padding-top: 70px;
@@ -6732,7 +6733,9 @@ body {
   min-height: 100%;
   font-family: 'Novecentosanswide-Light', 'Helvetica Neue', sans-serif;
   color: #07505a;
-  background-color: transparent; }
+  background-color: transparent;
+  position: relative;
+  overflow-x: hidden; }
 
 iframe {
   width: 100%; }
@@ -6740,13 +6743,14 @@ iframe {
 .header {
   text-align: center;
   font-weight: 700;
-  padding: 50px 0;
-  text-transform: uppercase; }
+  padding: 50px 0; }
   .header h1 {
     margin-bottom: 60px;
-    font-size: 50px; }
+    font-size: 50px;
+    text-transform: uppercase; }
   .header h2 {
-    font-size: 28px; }
+    font-size: 28px;
+    text-transform: uppercase; }
 
 @-webkit-keyframes swing {
   from {
@@ -6885,6 +6889,20 @@ iframe {
     padding: 10px 5px; }
     #clockdiv > div > span {
       font-size: 40px; } }
+
+@media (max-width: 660px) {
+  #clockdiv > div {
+    padding: 10px 5px; }
+    #clockdiv > div > span {
+      font-size: 40px; } }
+
+@media (max-width: 330px) {
+  #clockdiv > div {
+    padding: 10px 4px; }
+    #clockdiv > div > span {
+      font-size: 36px; }
+    #clockdiv > div > .smalltext {
+      font-size: 12px; } }
 
 .room .room-info {
   margin: 0px -15px 30px; }
