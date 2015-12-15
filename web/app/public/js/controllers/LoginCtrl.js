@@ -101,6 +101,9 @@ define(function() {
         function initializeClock(id, endtime) {
           var clock = $window.document.getElementById(id);
           console.log(clock);
+          if(!clock) {
+            return false;
+          }
           var daysSpan = clock.querySelector('.days');
           var hoursSpan = clock.querySelector('.hours');
           var minutesSpan = clock.querySelector('.minutes');
