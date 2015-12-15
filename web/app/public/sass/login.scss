@@ -21,9 +21,20 @@ $novacento: 'Novecentosanswide-Light', 'Helvetica Neue', sans-serif;
 
 .ornament {
     position: absolute;
-    top:0;
-    left:0;
+    top: 0;
+    left: 0;
     transform-origin: center top;
+    .white {
+        display: none;
+    }
+    &.white {
+        .white {
+            display: block;
+        }
+        .color {
+            display: none;
+        }
+    }
 }
 
 #ornament1 {
