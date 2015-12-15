@@ -118,16 +118,43 @@
 }
 
 .btn.add {
-        border: purple 1px solid;
-    color: purple;
-    font-size: 21px;
-    padding: 10px;
+    border-radius: 0;
+    //border: purple 1px solid;
+    //color: purple;
+    border: none;
+    //font-size: 21px;
+    //padding: 10px;
     margin-bottom: 22px;
     transition: all 300ms;
 
+    height: 87px;
+    font-size: 38px;
+    line-height: 87px;
+    vertical-align: middle;
+    padding-left: 10px;
+    padding-right: 10px;
+    position: relative;
+
+    .arrow {
+        height: 100%;
+        display: block;
+        padding-left: 35px;
+        padding-right: 35px;
+        font-size: 50px;
+        position: absolute;
+        top: 0;
+        transition: all 300ms;
+        &.arrow-right {
+            right: 0;
+        }
+        &.arrow-left {
+            left: 0;
+        }
+    }
+
     &:hover {
-        background: purple;
-        color:white;
+        //background: purple;
+        color:white !important;
     }
 }
 

@@ -7,8 +7,11 @@ define(function() {
         console.log('Room Id', $stateParams.roomId);
 
         if (!$rootScope.user.isAdmin && !$rootScope.isLive) {
+            $rootScope.inner = false;
             $state.go('login');
         }
+
+        $rootScope.inner = true;
 
         var heartbeat;
 
@@ -161,9 +164,10 @@ define(function() {
             $timeout(function() {
                 console.log('focussing');
                 var element = $window.document.getElementById('searchInput');
-                if(element)
-                  element.focus();
-              });
+                if (element) {
+                    element.focus();
+                }
+            });
         }
 
         sendHeartbeat();

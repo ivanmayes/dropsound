@@ -19,7 +19,8 @@
   <script src="/bower_components/jquery/dist/jquery.min.js"></script>
   <link rel="stylesheet" type="text/css" href="/css/styles.css">
 </head>
-<body ng-controller="AppCtrl">
+<body ng-controller="AppCtrl"
+    ng-class="{ 'red' : ($root.inner && $root.user.status == 'Naughty'), 'green' : ($root.inner && $root.user.status == 'Nice') }">
 
     <nav class="navbar navbar-default navbar-fixed-top center-block" role="navigation">
       <div class="container">
@@ -79,17 +80,21 @@
       </div>
     </nav>
 
-    <div id="ornament1" class="ornament">
-      <img src="/img/ornaments-01.svg">
+    <div id="ornament1" class="ornament" ng-class="{ 'white' : $root.inner }">
+      <img class="color" src="/img/ornaments-01.svg">
+      <img class="white" src="/img/ornaments-01-white.svg">
     </div>
-    <div id="ornament2" class="ornament">
-      <img src="/img/ornaments-02.svg">
+    <div id="ornament2" class="ornament" ng-class="{ 'white' : $root.inner }">
+      <img class="color" src="/img/ornaments-02.svg">
+      <img class="white" src="/img/ornaments-02-white.svg">
     </div>
-    <div id="ornament3" class="ornament">
-      <img src="/img/ornaments-03.svg">
+    <div id="ornament3" class="ornament" ng-class="{ 'white' : $root.inner }">
+      <img class="color" src="/img/ornaments-03.svg">
+      <img class="white" src="/img/ornaments-03-white.svg">
     </div>
-    <div id="ornament4" class="ornament">
-      <img src="/img/ornaments-04.svg">
+    <div id="ornament4" class="ornament" ng-class="{ 'white' : $root.inner }">
+      <img class="color" src="/img/ornaments-04.svg">
+      <img class="white" src="/img/ornaments-04-white.svg">
     </div>
 
     <div class="container">

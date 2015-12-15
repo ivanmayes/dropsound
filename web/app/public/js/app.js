@@ -35,6 +35,8 @@ define(['angular',
 
             // Check if Page requires authentication
             $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams) {
+                $rootScope.inner = false;
+
                 if (toState.authenticate && !UserService.isLoggedIn()) {
                     // User isn’t authenticated
                     console.log('Not logged in');
