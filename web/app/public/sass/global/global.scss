@@ -2,12 +2,12 @@
 // -------------------------
 
 $sans-serif: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
-
+$novacento: 'Novecentosanswide-Light', 'Helvetica Neue', sans-serif;
 
 html {
     position: relative;
     min-height: 100%;
-    font-family: 'Novecentosanswide-Light', 'Helvetica Neue', sans-serif;
+    font-family: $novacento;
     background: url('../img/bg.jpg') no-repeat;
     background-size: 100%;
     background-color: #f0f9fd;
@@ -18,7 +18,7 @@ body {
     padding-top: 70px;
     padding-bottom: 120px;
     min-height: 100%;
-    font-family: 'Novecentosanswide-Light', 'Helvetica Neue', sans-serif;
+    font-family: $novacento;
     color: #07505a;
     background-color: transparent;
     position: relative;
@@ -29,22 +29,7 @@ iframe {
     width: 100%;
 }
 
-.header {
-    text-align: center;
-    font-weight: 700;
-    padding: 50px 0;
 
-    h1 {
-        margin-bottom: 60px;
-        font-size: 50px;
-        text-transform: uppercase;
-    }
-
-    h2 {
-        font-size: 28px;
-        text-transform: uppercase;
-    }
-}
 
 @keyframes swing {
     from {
@@ -55,197 +40,6 @@ iframe {
         transform: rotate(1deg);
     }
 }
-
-
-.ornament {
-    position: absolute;
-    top:0;
-    left:0;
-    transform-origin: center top;
-}
-
-#ornament1 {
-    left:12%;
-    top: -380px;
-    animation: swing 1.9s ease-in-out infinite alternate;
-    img {
-        width: 200px;
-    }
-}
-
-#ornament2 {
-    left:4%;
-    top: -100px;
-    transition-delay: 300ms;
-    animation: swing 1s ease-in-out infinite alternate;
-    img {
-        width: 100px;
-    }
-}
-
-#ornament3 {
-    left: auto;
-    right:10%;
-    top: -130px;
-    transition-delay: 200ms;
-    animation: swing 2.9s ease-in-out infinite alternate;
-    img {
-        width: 160px;
-    }
-}
-
-#ornament4 {
-    top: -130px;
-    left:auto;
-    right:5%;
-    transition-delay: 100ms;
-    animation: swing 1.5s ease-in-out infinite alternate;
-    img {
-        width: 140px;
-    }
-}
-
-
-@media (max-width: 1000px) {
-  #ornament1 {
-    left:3%
-  }
-  #ornament2 {
-    left:0;
-  }
-  #ornament3 {
-    right:0;
-  }
-  #ornament4 {
-    right:3%;
-  }
-}
-
-@media (max-width: 860px) {
-  #ornament1 {
-    left:-14%;
-  }
-  #ornament2 {
-    left:-5%;
-  }
-  #ornament3 {
-    right:-13%;
-  }
-  #ornament4 {
-    right:-5%;
-  }
-}
-
-@media (max-width: 660px) {
-  .ornament {
-    display:none;
-  }
-}
-
-
-
-.swing {
-    -webkit-transform-origin: center top;
-    -moz-transform-origin: center top;
-    -o-transform-origin: center top;
-    -ms-transform-origin: center top;
-    transform-origin: center top;
-    -webkit-animation: swing 1.9s ease-in-out infinite alternate;
-    -moz-animation: swing 1.9s ease-in-out infinite alternate;
-    -o-animation: swing 1.9s ease-in-out infinite alternate;
-    animation: swing 1.9s ease-in-out infinite alternate;
-}
-
-
-.countdown {
-    text-align: center;
-
-    p {
-        font-size: 18px;
-        opacity: 0.8;
-        font-family: $sans-serif;
-    }
-}
-
-#clockdiv{
-    color: #07505A;
-    background: rgba(255,255,255,0.7);
-    border-radius: 6px;
-    display: inline-block;
-    font-weight: 100;
-    text-align: center;
-    font-size: 30px;
-
-    .vrule {
-        width: 1px;
-        padding: 0;
-        margin-top: 20px;
-        height: 40px;
-        background: #07505A;
-        vertical-align: top;
-    }
-}
-
-#clockdiv > div{
-    padding: 10px 25px;
-    display: inline-block;
-}
-
-#clockdiv div > span{
-
-    display: inline-block;
-    font-size: 50px;
-    line-height: 50px;
-
-}
-
-#clockdiv div:last-child > span {
-    border:none;
-}
-
-#clockdiv .smalltext{
-    padding-top: 5px;
-    font-size: 14px;
-    text-transform: uppercase;
-}
-
-@media (max-width: 660px) {
-  #clockdiv {
-    > div {
-        padding: 10px 5px;
-        > span {
-            font-size: 40px;
-        }
-    }
-  }
-}
-
-@media (max-width: 660px) {
-  #clockdiv {
-    > div {
-        padding: 10px 5px;
-        > span {
-            font-size: 40px;
-        }
-    }
-  }
-}
-
-@media (max-width: 330px) {
-  #clockdiv {
-    > div {
-        padding: 10px 4px;
-        > span {
-            font-size: 36px;
-        }
-        > .smalltext {
-            font-size: 12px;
-        }
-    }
-  }
-}
-
-
 
 
 .room {
@@ -282,7 +76,7 @@ iframe {
         margin: 0 0 60px 0;
         text-align: center;
         color: #00aeef;
-        font-family: 'Novecentosanswide-Light', 'Helvetica Neue', sans-serif;
+        font-family: $novacento;
     }
 
     .currentVideo {
@@ -297,7 +91,7 @@ ul {
 }
 
 .nova {
-    font-family: 'Novecentosanswide-Light', 'Helvetica Neue', sans-serif;
+    font-family: $novacento;
 }
 
 ::-webkit-input-placeholder {

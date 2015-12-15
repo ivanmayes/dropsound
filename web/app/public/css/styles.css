@@ -6720,7 +6720,7 @@ button.close {
 html {
   position: relative;
   min-height: 100%;
-  font-family: 'Novecentosanswide-Light', 'Helvetica Neue', sans-serif;
+  font-family: "Novecentosanswide-Light", "Helvetica Neue", sans-serif;
   background: url("../img/bg.jpg") no-repeat;
   background-size: 100%;
   background-color: #f0f9fd;
@@ -6730,7 +6730,7 @@ body {
   padding-top: 70px;
   padding-bottom: 120px;
   min-height: 100%;
-  font-family: 'Novecentosanswide-Light', 'Helvetica Neue', sans-serif;
+  font-family: "Novecentosanswide-Light", "Helvetica Neue", sans-serif;
   color: #07505a;
   background-color: transparent;
   position: relative;
@@ -6738,18 +6738,6 @@ body {
 
 iframe {
   width: 100%; }
-
-.header {
-  text-align: center;
-  font-weight: 700;
-  padding: 50px 0; }
-  .header h1 {
-    margin-bottom: 60px;
-    font-size: 50px;
-    text-transform: uppercase; }
-  .header h2 {
-    font-size: 28px;
-    text-transform: uppercase; }
 
 @-webkit-keyframes swing {
   from {
@@ -6766,142 +6754,6 @@ iframe {
   to {
     -webkit-transform: rotate(1deg);
             transform: rotate(1deg); } }
-
-.ornament {
-  position: absolute;
-  top: 0;
-  left: 0;
-  -webkit-transform-origin: center top;
-      -ms-transform-origin: center top;
-          transform-origin: center top; }
-
-#ornament1 {
-  left: 12%;
-  top: -380px;
-  -webkit-animation: swing 1.9s ease-in-out infinite alternate;
-          animation: swing 1.9s ease-in-out infinite alternate; }
-  #ornament1 img {
-    width: 200px; }
-
-#ornament2 {
-  left: 4%;
-  top: -100px;
-  transition-delay: 300ms;
-  -webkit-animation: swing 1s ease-in-out infinite alternate;
-          animation: swing 1s ease-in-out infinite alternate; }
-  #ornament2 img {
-    width: 100px; }
-
-#ornament3 {
-  left: auto;
-  right: 10%;
-  top: -130px;
-  transition-delay: 200ms;
-  -webkit-animation: swing 2.9s ease-in-out infinite alternate;
-          animation: swing 2.9s ease-in-out infinite alternate; }
-  #ornament3 img {
-    width: 160px; }
-
-#ornament4 {
-  top: -130px;
-  left: auto;
-  right: 5%;
-  transition-delay: 100ms;
-  -webkit-animation: swing 1.5s ease-in-out infinite alternate;
-          animation: swing 1.5s ease-in-out infinite alternate; }
-  #ornament4 img {
-    width: 140px; }
-
-@media (max-width: 1000px) {
-  #ornament1 {
-    left: 3%; }
-  #ornament2 {
-    left: 0; }
-  #ornament3 {
-    right: 0; }
-  #ornament4 {
-    right: 3%; } }
-
-@media (max-width: 860px) {
-  #ornament1 {
-    left: -14%; }
-  #ornament2 {
-    left: -5%; }
-  #ornament3 {
-    right: -13%; }
-  #ornament4 {
-    right: -5%; } }
-
-@media (max-width: 660px) {
-  .ornament {
-    display: none; } }
-
-.swing {
-  -webkit-transform-origin: center top;
-  -ms-transform-origin: center top;
-  transform-origin: center top;
-  -webkit-animation: swing 1.9s ease-in-out infinite alternate;
-  animation: swing 1.9s ease-in-out infinite alternate; }
-
-.countdown {
-  text-align: center; }
-  .countdown p {
-    font-size: 18px;
-    opacity: 0.8;
-    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; }
-
-#clockdiv {
-  color: #07505A;
-  background: rgba(255, 255, 255, 0.7);
-  border-radius: 6px;
-  display: inline-block;
-  font-weight: 100;
-  text-align: center;
-  font-size: 30px; }
-  #clockdiv .vrule {
-    width: 1px;
-    padding: 0;
-    margin-top: 20px;
-    height: 40px;
-    background: #07505A;
-    vertical-align: top; }
-
-#clockdiv > div {
-  padding: 10px 25px;
-  display: inline-block; }
-
-#clockdiv div > span {
-  display: inline-block;
-  font-size: 50px;
-  line-height: 50px; }
-
-#clockdiv div:last-child > span {
-  border: none; }
-
-#clockdiv .smalltext {
-  padding-top: 5px;
-  font-size: 14px;
-  text-transform: uppercase; }
-
-@media (max-width: 660px) {
-  #clockdiv > div {
-    padding: 10px 5px; }
-    #clockdiv > div > span {
-      font-size: 40px; } }
-
-@media (max-width: 660px) {
-  #clockdiv > div {
-    padding: 10px 5px; }
-    #clockdiv > div > span {
-      font-size: 40px; } }
-
-@media (max-width: 330px) {
-  #clockdiv > div {
-    padding: 10px 4px; }
-    #clockdiv > div > span {
-      font-size: 36px; }
-    #clockdiv > div > .smalltext {
-      font-size: 12px; } }
 
 .room .room-info {
   margin: 0px -15px 30px; }
@@ -6920,7 +6772,7 @@ iframe {
   margin: 0 0 60px 0;
   text-align: center;
   color: #00aeef;
-  font-family: 'Novecentosanswide-Light', 'Helvetica Neue', sans-serif; }
+  font-family: "Novecentosanswide-Light", "Helvetica Neue", sans-serif; }
 
 .room .currentVideo {
   margin-bottom: 20px; }
@@ -6931,7 +6783,7 @@ ul {
   list-style-type: none; }
 
 .nova {
-  font-family: 'Novecentosanswide-Light', 'Helvetica Neue', sans-serif; }
+  font-family: "Novecentosanswide-Light", "Helvetica Neue", sans-serif; }
 
 ::-webkit-input-placeholder {
   color: #e15829; }
@@ -7146,6 +6998,188 @@ class
   font-family: 'Novecentosanswide-Light';
   src: url("../fonts/novecento/29BB1D_17_0.eot");
   src: url("../fonts/novecento/29BB1D_17_0.eot?#iefix") format("embedded-opentype"), url("../fonts/novecento/29BB1D_17_0.woff") format("woff"), url("../fonts/novecento/29BB1D_17_0.ttf") format("truetype"); }
+
+.header {
+  text-align: center;
+  font-weight: 700;
+  padding: 50px 0; }
+  .header h1 {
+    margin-bottom: 60px;
+    font-size: 50px;
+    text-transform: uppercase; }
+  .header h2 {
+    font-size: 28px;
+    text-transform: uppercase; }
+
+.ornament {
+  position: absolute;
+  top: 0;
+  left: 0;
+  -webkit-transform-origin: center top;
+      -ms-transform-origin: center top;
+          transform-origin: center top; }
+
+#ornament1 {
+  left: 12%;
+  top: -380px;
+  -webkit-animation: swing 1.9s ease-in-out infinite alternate;
+          animation: swing 1.9s ease-in-out infinite alternate; }
+  #ornament1 img {
+    width: 200px; }
+
+#ornament2 {
+  left: 4%;
+  top: -100px;
+  transition-delay: 300ms;
+  -webkit-animation: swing 1s ease-in-out infinite alternate;
+          animation: swing 1s ease-in-out infinite alternate; }
+  #ornament2 img {
+    width: 100px; }
+
+#ornament3 {
+  left: auto;
+  right: 10%;
+  top: -130px;
+  transition-delay: 200ms;
+  -webkit-animation: swing 2.9s ease-in-out infinite alternate;
+          animation: swing 2.9s ease-in-out infinite alternate; }
+  #ornament3 img {
+    width: 160px; }
+
+#ornament4 {
+  top: -130px;
+  left: auto;
+  right: 5%;
+  transition-delay: 100ms;
+  -webkit-animation: swing 1.5s ease-in-out infinite alternate;
+          animation: swing 1.5s ease-in-out infinite alternate; }
+  #ornament4 img {
+    width: 140px; }
+
+@media (max-width: 1000px) {
+  #ornament1 {
+    left: 3%; }
+  #ornament2 {
+    left: 0; }
+  #ornament3 {
+    right: 0; }
+  #ornament4 {
+    right: 3%; } }
+
+@media (max-width: 860px) {
+  #ornament1 {
+    left: -14%; }
+  #ornament2 {
+    left: -5%; }
+  #ornament3 {
+    right: -13%; }
+  #ornament4 {
+    right: -5%; } }
+
+@media (max-width: 660px) {
+  .ornament {
+    display: none; } }
+
+.swing {
+  -webkit-transform-origin: center top;
+  -ms-transform-origin: center top;
+  transform-origin: center top;
+  -webkit-animation: swing 1.9s ease-in-out infinite alternate;
+  animation: swing 1.9s ease-in-out infinite alternate; }
+
+.countdown {
+  text-align: center; }
+  .countdown p {
+    font-size: 18px;
+    opacity: 0.8;
+    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; }
+
+#clockdiv {
+  color: #07505A;
+  background: rgba(255, 255, 255, 0.7);
+  border-radius: 6px;
+  display: inline-block;
+  font-weight: 100;
+  text-align: center;
+  font-size: 30px; }
+  #clockdiv .vrule {
+    width: 1px;
+    padding: 0;
+    margin-top: 20px;
+    height: 40px;
+    background: #07505A;
+    vertical-align: top; }
+
+#clockdiv > div {
+  padding: 10px 25px;
+  display: inline-block; }
+
+#clockdiv div > span {
+  display: inline-block;
+  font-size: 50px;
+  line-height: 50px; }
+
+#clockdiv div:last-child > span {
+  border: none; }
+
+#clockdiv .smalltext {
+  padding-top: 5px;
+  font-size: 14px;
+  text-transform: uppercase; }
+
+@media (max-width: 660px) {
+  #clockdiv > div {
+    padding: 10px 5px; }
+    #clockdiv > div > span {
+      font-size: 40px; } }
+
+@media (max-width: 660px) {
+  #clockdiv > div {
+    padding: 10px 5px; }
+    #clockdiv > div > span {
+      font-size: 40px; } }
+
+@media (max-width: 330px) {
+  #clockdiv > div {
+    padding: 10px 4px; }
+    #clockdiv > div > span {
+      font-size: 36px; }
+    #clockdiv > div > .smalltext {
+      font-size: 12px; } }
+
+.instructions {
+  font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+  text-align: center;
+  margin-bottom: 60px; }
+  .instructions .title {
+    font-size: 17px; }
+  .instructions .step .title {
+    border: white 1px solid;
+    font-weight: bold;
+    padding: 30px 0;
+    font-size: 20px;
+    text-transform: uppercase; }
+
+@media (max-width: 768px) {
+  .instructions .step .title {
+    margin: 35px 25% 10px; } }
+
+.login {
+  font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+  text-align: center; }
+  .login h3 {
+    font-weight: bold;
+    margin-top: 0; }
+  .login .selected-avatar {
+    margin: 0 10px; }
+  .login .nice {
+    text-align: right; }
+    .login .nice .selected-avatar {
+      float: right; }
+  .login .naughty {
+    text-align: left; }
+    .login .naughty .selected-avatar {
+      float: left; }
 
 /*
   Main Navigation Bar
