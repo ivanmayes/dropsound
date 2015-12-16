@@ -40,7 +40,7 @@
 				<div class="meta" ng-if="currentVideo">
 					<div class="row">
 						<div class="col-md-8">
-							<p class="added-by">Added By: <img class="gravatar" ng-src="{{ currentVideo.addedBy.email | gravatar }}" title="{{currentVideo.addedBy.firstName || currentVideo.addedBy.email }} {{currentVideo.addedBy.lastName}}" /> {{currentVideo.addedBy.firstName || currentVideo.addedBy.email}} {{currentVideo.addedBy.lastName}} <a class="btn btn-danger btn-xs" ng-if="user.isAdmin" ng-click="admin.removeFromPlaylist(currentVideo, room)">Remove</a></p>
+							<p class="added-by">Added By: <img class="gravatar" ng-src="{{ currentVideo.addedBy.email | gravatar }}" title="{{currentVideo.addedBy.name}}" /> {{currentVideo.addedBy.name}} <a class="btn btn-danger btn-xs" ng-if="user.isAdmin" ng-click="admin.removeFromPlaylist(currentVideo, room)">Remove</a></p>
 						</div>
 						<div class="col-md-4 votes" >
 							<a class="btn btn-default btn-xs toggle" href ng-click="toggleVideo()">Toggle Video</a>
@@ -69,11 +69,27 @@
 			<a class="btn btn-default btn-block btn-xs add theme" href ng-click="showSearchPage = true; showSearch();">ADD SOME EXCITEMENT<span class="arrow-right arrow">&gt;</span></a>
 
 			<div class="search-list list-group">
+				<div class="row" ng-if="currentVideo">
+					<div class="col-sm-6">
+						<p>NOW PLAYING</p>
+					</div>
+				</div>
+
+				<div class="playlist-items">
+					<div class="list-group-item first"
+					ng-if="currentVideo"
+					ng-include="'js/views/partials/playlist-item-current.html'"
+					ng-animate="{enter: 'animate-enter', leave: 'animate-leave'}">
+					</div>
+				</div>
+			</div>
+
+			<div class="search-list list-group">
 				<div class="row" ng-if="room.playlist.length > 0">
 					<div class="col-sm-6">
 						<p>NEXT UP</p>
 					</div>
-					<div class="col-sm-6">
+					<!--<div class="col-sm-6">
 						<div class="input-group" style="width:100%;">
 					      <input type="text" ng-model="search.q" class="form-control" placeholder="Search playlist">
 					      <span class="input-group-btn" >
@@ -82,14 +98,14 @@
 					        </button>
 					      </span>
 					    </div>
-					</div>
+					</div>-->
 				</div>
 
 				<div class="playlist-items">
 					<div class="list-group-item"
 					ng-repeat="item in (filteredItems = room.playlist | filter:{snippet:{title:search.q}} | orderBy : ['-votes.length', 'modified'] )"
 					ng-click="voteForVideo(item)"
-					ng-class="{'first': $index == 0, 'gray': item.votes.length < 1}"
+					ng-class="{'gray': item.votes.length < 1, 'top' : $index == 0, 'bottom' : $last}"
 					ng-include="'js/views/partials/playlist-item.html'"
 					ng-animate="{enter: 'animate-enter', leave: 'animate-leave'}">
 					</div>

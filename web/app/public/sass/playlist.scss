@@ -82,7 +82,7 @@
 
     .list-group-item.gray {
         h4, .votes, .votes .fa {
-            color: #ABABAB;
+            color: rgb(7, 84, 94);
         }
 
         .gravatar {
@@ -95,7 +95,7 @@
     }
 
     .added-by {
-        color: #9a9a97;
+        color: rgb(7, 84, 94);
         margin-bottom: 0;
         padding-top: 4px;
 
@@ -108,7 +108,7 @@
 
     .votes {
         text-align: right;
-        color: #e15829;
+        color: rgb(7, 84, 94);
         font-size: 17px;
 
         .fa {
