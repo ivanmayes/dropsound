@@ -43,28 +43,8 @@
 		<div class="col-sm-12 playlist">
 
 			<div class="currentVideo" ng-class="{'hide-video': hideVideo}" ng-if="$root.group == 'cam'">
-				<p class="hidden-title">{{currentVideo.snippet.title}}</p>
+
 				<iframe ng-if="currentVideo" id="unique-youtube-embed-id-1" frameborder="0" allowfullscreen="1" title="YouTube video player" width="640" height="390" ng-src="{{currentVideo.iframeLink}}"></iframe>
-
-				<div class="meta" ng-if="currentVideo">
-					<div class="row">
-						<div class="col-md-8">
-							<p class="added-by">Added By: <img class="gravatar" ng-src="{{ currentVideo.addedBy.email | gravatar }}" title="{{currentVideo.addedBy.name}}" /> {{currentVideo.addedBy.name}} <a class="btn btn-danger btn-xs" ng-if="user.isAdmin" ng-click="admin.removeFromPlaylist(currentVideo, room)">Remove</a></p>
-						</div>
-						<div class="col-md-4 votes" >
-							<a class="btn btn-default btn-xs toggle" href ng-click="toggleVideo()">Toggle Video</a>
-							{{ currentVideo.votes.length }} <a href ng-if="!hasVotedForVideo(currentVideo)"><i class="fa fa-heart-o"></i></a><span ng-if="hasVotedForVideo(currentVideo)"><i class="fa fa-heart"></i></span>
-						</div>
-					</div>
-
-					<div>
-						<span ng-if="currentVideo.votes.length > 1">Votes:</span>
-						<span ng-repeat="vote in currentVideo.votes" ng-if="vote.email !== currentVideo.addedBy.email">
-							<img class="gravatar" ng-src="{{ vote.email | gravatar }}" title="{{vote.firstName || vote.email }} {{vote.lastName}}" /> {{item.addedBy.firstName || item.addedBy.email}} {{item.addedBy.lastName}}
-						</span>
-					</div>
-				</div>
-				<div class="empty-msg" ng-if="!currentVideo">No videos playing yet, add some!</div>
 			</div>
 
 			<div class="currentVideo" ng-if="$root.group == 'shp'">
@@ -134,7 +114,7 @@
 						<a class="btn btn-default btn-xs clear" href ng-click="clearSearch()" ng-if="search.q.length > 0">Clear</a>
 					  <div class="form-group">
 					    <label class="sr-only" for="videoSearch">START TYPING TO SEARCH</label>
-					    <input id="searchInput" type="text" ng-model="search.q" autocomplete="off" class="form-control" id="videoSearch" placeholder="SEARCH FOR SONGS HERE">
+					    <input id="searchInput" type="text" ng-model="search.q" autocomplete="off" class="form-control" id="videoSearch" placeholder="SEARCH">
 					  </div>
 					  <!--<button type="submit" class="btn btn-primary">Search</button>-->
 					</form>

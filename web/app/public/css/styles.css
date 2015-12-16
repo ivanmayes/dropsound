@@ -7590,9 +7590,9 @@ body.navbar-absolute-top .navbar-fixed-top {
         position: absolute;
         top: 50%;
         left: 50%;
-        -webkit-transform: translateY(-60%);
-            -ms-transform: translateY(-60%);
-                transform: translateY(-60%);
+        -webkit-transform: translateX(-50%) translateY(-50%);
+            -ms-transform: translateX(-50%) translateY(-50%);
+                transform: translateX(-50%) translateY(-50%);
         color: black; }
     .search-list .list-group-item .overlay {
       position: absolute;
@@ -7639,19 +7639,21 @@ body.navbar-absolute-top .navbar-fixed-top {
   right: 15px; }
 
 .playlist .currentVideo {
-  transition: max-height 500ms;
-  max-height: 1000px;
-  min-height: 350px;
-  background: #EEE; }
+  position: relative;
+  padding-bottom: 56.25%;
+  padding-top: 25px;
+  height: 0; }
   .playlist .currentVideo.hide-video {
     min-height: 1px;
     overflow: hidden; }
     .playlist .currentVideo.hide-video iframe {
       max-height: 0px; }
   .playlist .currentVideo iframe {
-    transition: max-height 500ms;
-    max-height: 1000px;
-    height: 488px; }
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%; }
   .playlist .currentVideo .empty-msg {
     position: absolute;
     top: 50%;
