@@ -1,15 +1,15 @@
 <div class="row">
-	<div class="col-md-2">
+	<!--<div class="col-md-2">
 		<img class="thumb" ng-src="{{currentVideo.snippet.thumbnails.default.url}}">
-	</div>
+	</div>-->
 	<div class="col-md-10">
 		<h4>{{ currentVideo.snippet.title }}</h4>
 		<div class="row">
 			<div class="col-xs-8">
-				<p class="added-by">Added By: <img class="gravatar" ng-src="{{ currentVideo.addedBy.email | gravatar }}" title="{{currentVideo.addedBy.name}}" /> {{currentVideo.addedBy.name}} <a class="btn btn-danger btn-xs" ng-if="user.isAdmin" ng-click="admin.removeFromPlaylist($event, item, room)">Remove</a></p>
+				<p class="added-by">Added By: <img class="gravatar" ng-src="{{ currentVideo.addedBy.email | gravatar }}" title="{{currentVideo.addedBy.name}}" /> {{currentVideo.addedBy.name}}</p>
 			</div>
 			<div class="col-xs-4 votes" >
-				{{ currentVideo.votes.length }} <a href ng-if="!hasVotedForVideo(item)"><i class="fa fa-heart-o"></i></a><span ng-if="hasVotedForVideo(item)"><i class="fa fa-heart"></i></span>
+				{{ currentVideo.votes.length }} <a href ng-if="!hasVotedForVideo(currentVideo)"><i class="fa fa-heart-o"></i></a><span ng-if="hasVotedForVideo(currentVideo)"><i class="fa fa-heart"></i></span>
 			</div>
 		</div>
 	</div>

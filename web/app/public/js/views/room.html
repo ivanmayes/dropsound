@@ -1,16 +1,24 @@
 <div class="room">
-	<div class="header">
-		<h1>CO-LOUD - {{$root.group}}</h1>
+	<div class="header white">
+		<!--<h1>CO-LOUD - {{$root.group}}</h1>-->
+
+		<img ng-src="{{user.avatar}}">
+		<h2>
+			Holiday Hangout
+		</h2>
+		<h1 class="no-bottom-margin">
+			With {{user.name}} &amp; co.
+		</h1>
 	</div>
 
 	<div class="row room-info">
-		<div class="col-md-4 room">
-			<p>THEME</p>
+		<div class="col-md-4 room" ng-if="user.isAdmin">
+			<!--<p>THEME</p>
 			<li ng-if="!editingTopic">{{room.topic}} <a href class="btn btn-warning btn-xs" ng-if="user.isAdmin" ng-click="editTopic()">Edit</a></li>
-			<li><input type="text" value="My Topic" ng-if="editingTopic && user.isAdmin" ng-model="room.topic"> <a href class="btn btn-success btn-xs" ng-if="editingTopic && user.isAdmin" ng-click="changeTopic()">Save</a></li>
-			<a class="btn btn-danger btn-xs clear" ng-if="user.isAdmin" ng-click="admin.removePlaylist(room)">Clear playlist</a>
+			<li><input type="text" value="My Topic" ng-if="editingTopic && user.isAdmin" ng-model="room.topic"> <a href class="btn btn-success btn-xs" ng-if="editingTopic && user.isAdmin" ng-click="changeTopic()">Save</a></li>-->
+
 		</div>
-		<div class="col-md-8 who">
+		<!--<div class="col-md-8 who">
 			<p>MIXOLOGISTS</p>
 			<ul>
 				<li class="player" ng-repeat="player in room.players">
@@ -18,7 +26,7 @@
 					{{player.name}} <span class="slashes">//</span>
 				</li>
 			</ul>
-		</div>
+		</div>-->
 	</div>
 
 	<div class="row topic" ng-if="user.isAdmin">
@@ -28,6 +36,7 @@
 		<button ng-if="!$root.isLive" ng-click="toggleLive()">
 			Push Live
 		</button>
+		<a class="btn btn-danger btn-xs clear" ng-if="user.isAdmin" ng-click="admin.removePlaylist(room)">Clear playlist</a>
 	</div>
 
 	<div class="row">
@@ -66,7 +75,7 @@
 				<iframe id="unique-youtube-embed-id-1" frameborder="0" allowfullscreen="1" title="YouTube video player" width="640" height="390" ng-src="{{streams.pub}}"></iframe>
 			</div>
 
-			<a class="btn btn-default btn-block btn-xs add theme" href ng-click="showSearchPage = true; showSearch();">ADD SOME EXCITEMENT<span class="arrow-right arrow">&gt;</span></a>
+			<a class="btn btn-default btn-block btn-xs add theme" href ng-click="showSearchPage = true; showSearch();">ADD TO THE {{user.status | uppercase}} LIST<span class="arrow-right arrow">&gt;</span></a>
 
 			<div class="search-list list-group">
 				<div class="row" ng-if="currentVideo">

@@ -6751,9 +6751,9 @@ body {
     body.green .theme {
       color: #31b44b !important; }
       body.green .theme.btn .arrow {
-        background-color: #fadbd6; }
+        background-color: #b2f7b8; }
       body.green .theme.btn:hover {
-        background-color: #fadbd6; }
+        background-color: #b2f7b8; }
         body.green .theme.btn:hover .arrow {
           background-color: white;
           color: #31b44b; }
@@ -7025,10 +7025,14 @@ class
   text-align: center;
   font-weight: 700;
   padding: 50px 0; }
+  .header.white {
+    color: white; }
   .header h1 {
     margin-bottom: 60px;
     font-size: 50px;
     text-transform: uppercase; }
+    .header h1.no-bottom-margin {
+      margin-bottom: 0; }
   .header h2 {
     font-size: 28px;
     text-transform: uppercase; }
@@ -7467,6 +7471,7 @@ body.navbar-absolute-top .navbar-fixed-top {
     background-color: rgba(255, 255, 255, 0.8);
     margin-bottom: 0; }
     .search-list .list-group-item.first {
+      border: none !important;
       border-radius: 6px; }
     .search-list .list-group-item.top {
       border-top-left-radius: 6px;
