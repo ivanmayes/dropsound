@@ -28,6 +28,11 @@ body {
         .theme {
             color: rgb(239, 61, 35) !important;
             //border-color: rgb(239, 61, 35) !important;
+
+            &.search {
+                background-color: rgba(255, 32, 0, 0.65);
+            }
+
             &.btn {
                 .arrow {
                     background-color: rgb(250, 219, 214);
@@ -48,6 +53,11 @@ body {
         .theme {
             color: rgb(49, 180, 75) !important;
             //border-color: rgb(49, 180, 75) !important;
+
+            &.search {
+                background-color: rgba(46, 171, 42, 0.65);
+            }
+
             &.btn {
                 .arrow {
                     background-color: rgb(178, 247, 184);

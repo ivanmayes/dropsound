@@ -5,7 +5,7 @@
 	</div>
 </div>
 
-<div class="countdown row" ng-if="$root.isLive">
+<div class="countdown row" ng-if="!$root.isLive">
 	<div class="col-xs-12">
 		<p>Hang out with us on <strong>Thursday, December 17th at 9AM CST</strong></p>
 		<div id="clockdiv">
@@ -33,7 +33,7 @@
 
 </div>
 
-<div class="instructions row" ng-if="!$root.isLive">
+<div class="instructions row" ng-if="$root.isLive || $root.user.isAdmin">
 	<div class="col-md-8 col-md-offset-2 title">
 		<p>Follow these steps for the merriest experience ever:</p>
 	</div>
@@ -51,7 +51,7 @@
 	</div>
 </div>
 
-<div class="login row" ng-if="!$root.isLive">
+<div class="login row" ng-if="$root.isLive || $root.user.isAdmin">
 	<div class="col-xs-12">
 		<form class="row" ng-submit="login(user)">
 			<div class="form-group col-md-6 col-md-offset-3">

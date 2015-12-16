@@ -2,7 +2,7 @@
 	<div class="header white">
 		<!--<h1>CO-LOUD - {{$root.group}}</h1>-->
 
-		<img ng-src="{{user.avatar}}">
+		<img class="avatar" ng-src="{{user.avatar}}">
 		<h2>
 			Holiday Hangout
 		</h2>
@@ -124,7 +124,7 @@
 		</div>
 
 		<div ng-show="showSearchPage == true">
-			<div class="col-sm-12 search">
+			<div class="col-sm-12 search theme">
 				<i class="close-icon" ></i>
 				<a href class="back" ng-click="showSearchPage = false"><i class="fa fa-arrow-circle-o-left"></i> Back to Playlist {{
 					search.showSearchPage.toString()}}</a>
@@ -140,8 +140,22 @@
 					</form>
 
 					<div class="search-list list-group">
-						<div ng-if="!videos.length" ng-repeat="item in predefinedVideos[user.status.toLowerCase()] track by item.id.videoId">
-							{{item.snippet.title}}
+						<div class="list-group-item" ng-if="!videos.length" ng-repeat="item in predefinedVideos[user.status.toLowerCase()] track by item.id.videoId" ng-class="{'added': isVideoInPlaylist(item)}" ng-click="addVideo(item)">
+							<div class="overlay">
+								<p>Added!</p>
+							</div>
+
+							<div class="thumbnail">
+								<div class="overlay">
+									<i class="close-icon"></i>
+								</div>
+
+								<img ng-src="{{item.snippet.thumbnails.default.url}}">
+							</div>
+
+							<h4>{{item.snippet.title}}</h4>
+							<p>{{ item.snippet.channelTitle }} - {{ item.durationString }}</p>
+							<div class="clearfix"></div>
 						</div>
 
 						<div class="list-group-item" ng-if="videos.length" ng-repeat="item in videos" ng-class="{'added': isVideoInPlaylist(item)}" ng-click="addVideo(item)">

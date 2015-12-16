@@ -8,6 +8,7 @@
     background: rgba(0,0,0,0.8);
     z-index: 99;
     padding-top: 70px;
+    overflow-y: scroll;
 
     ::-webkit-input-placeholder { color: white; } :-moz-placeholder { /* Firefox 18- */ color: white; } ::-moz-placeholder { /* Firefox 19+ */ color: white; } :-ms-input-placeholder { color: white; }
 

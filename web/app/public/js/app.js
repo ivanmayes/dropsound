@@ -30,6 +30,7 @@ define(['angular',
 
         app.run(function($rootScope, $location, $state, UserService, socket) {
             $rootScope.isLive = isLive;
+            $rootScope.inner = false;
             $rootScope.token = UserService.getAccessToken();
             $rootScope.user = UserService.getUserSettings();
 

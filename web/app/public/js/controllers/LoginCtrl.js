@@ -22,15 +22,15 @@ define(function() {
             console.log('logging in');
 
             // If no name, give a random one
-            if(!user.name) {
+            if (!user.name) {
                 user.name = "Anonymous";
             }
 
             // If no naughty/nice, get nice
-            if($scope.cat) {
+            if ($scope.cat) {
                 user.status = $scope.cat;
                 user.avatar = getSelectedAvatar($scope.cat).img;
-            }else{
+            } else {
                 user.status = (Math.random() > .5) ? 'nice' : 'naughty';
                 var avatars = $scope.avatars[user.status.toLowerCase()],
                     index = Math.floor(Math.random() * ((avatars.length - 1) - 0 + 1));
@@ -110,7 +110,7 @@ define(function() {
 
         function getSelectedAvatar(cat) {
             var selected = [];
-            angular.forEach($scope.avatars[cat], function(avatar,k) {
+            angular.forEach($scope.avatars[cat], function(avatar, k) {
                 if (avatar.selected == true) {
                     selected = avatar;
                 }
@@ -120,10 +120,10 @@ define(function() {
         }
 
         function setSelectedAvatar(avatar, cat) {
-            angular.forEach($scope.avatars[cat], function(a,k) {
-                if(avatar == a) {
+            angular.forEach($scope.avatars[cat], function(a, k) {
+                if (avatar == a) {
                     $scope.avatars[cat][k].selected = true;
-                }else{
+                } else {
                     $scope.avatars[cat][k].selected = false;
                 }
             });
@@ -133,46 +133,46 @@ define(function() {
         // Countdown
 
         function getTimeRemaining(endtime) {
-          var t = Date.parse(endtime) - Date.now();
-          var seconds = Math.floor((t / 1000) % 60);
-          var minutes = Math.floor((t / 1000 / 60) % 60);
-          var hours = Math.floor((t / (1000 * 60 * 60)) % 24);
-          var days = Math.floor(t / (1000 * 60 * 60 * 24));
-          return {
-            'total': t,
-            'days': days,
-            'hours': hours,
-            'minutes': minutes,
-            'seconds': seconds
-          };
+            var t = Date.parse(endtime) - Date.now();
+            var seconds = Math.floor((t / 1000) % 60);
+            var minutes = Math.floor((t / 1000 / 60) % 60);
+            var hours = Math.floor((t / (1000 * 60 * 60)) % 24);
+            var days = Math.floor(t / (1000 * 60 * 60 * 24));
+            return {
+                'total': t,
+                'days': days,
+                'hours': hours,
+                'minutes': minutes,
+                'seconds': seconds
+            };
         }
 
         function initializeClock(id, endtime) {
-          var clock = $window.document.getElementById(id);
-          console.log(clock);
-          if(!clock) {
-            return false;
-          }
-          var daysSpan = clock.querySelector('.days');
-          var hoursSpan = clock.querySelector('.hours');
-          var minutesSpan = clock.querySelector('.minutes');
-          var secondsSpan = clock.querySelector('.seconds');
-
-          function updateClock() {
-            var t = getTimeRemaining(endtime);
-
-            daysSpan.innerHTML = t.days;
-            hoursSpan.innerHTML = ('0' + t.hours).slice(-2);
-            minutesSpan.innerHTML = ('0' + t.minutes).slice(-2);
-            secondsSpan.innerHTML = ('0' + t.seconds).slice(-2);
-
-            if (t.total <= 0) {
-              clearInterval(timeinterval);
+            var clock = $window.document.getElementById(id);
+            console.log(clock);
+            if (!clock) {
+                return false;
             }
-          }
+            var daysSpan = clock.querySelector('.days');
+            var hoursSpan = clock.querySelector('.hours');
+            var minutesSpan = clock.querySelector('.minutes');
+            var secondsSpan = clock.querySelector('.seconds');
 
-          updateClock();
-          var timeinterval = setInterval(updateClock, 1000);
+            function updateClock() {
+                var t = getTimeRemaining(endtime);
+
+                daysSpan.innerHTML = t.days;
+                hoursSpan.innerHTML = ('0' + t.hours).slice(-2);
+                minutesSpan.innerHTML = ('0' + t.minutes).slice(-2);
+                secondsSpan.innerHTML = ('0' + t.seconds).slice(-2);
+
+                if (t.total <= 0) {
+                    clearInterval(timeinterval);
+                }
+            }
+
+            updateClock();
+            var timeinterval = setInterval(updateClock, 1000);
         }
 
         var deadline = new Date('Thu Dec 17 2015 09:00:00 GMT-0600 (CST)');
@@ -181,7 +181,7 @@ define(function() {
         }, 500);
 
         $timeout(function() {
-            console.log('focussing');
+            console.log('focusing');
             var element = $window.document.getElementById('nameInput');
             if (element) {
                 element.focus();
