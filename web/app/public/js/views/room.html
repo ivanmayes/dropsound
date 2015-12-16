@@ -140,6 +140,10 @@
 					</form>
 
 					<div class="search-list list-group">
+						<div ng-if="!videos.length" ng-repeat="item in predefinedVideos[user.status.toLowerCase()] track by item.id.videoId">
+							{{item.snippet.title}}
+						</div>
+
 						<div class="list-group-item" ng-if="videos.length" ng-repeat="item in videos" ng-class="{'added': isVideoInPlaylist(item)}" ng-click="addVideo(item)">
 							<div class="overlay">
 								<p>Added!</p>
