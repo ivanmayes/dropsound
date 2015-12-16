@@ -7,6 +7,7 @@
     right: 0;
     background: rgba(0,0,0,0.8);
     z-index: 99;
+    padding-top: 70px;
 
     ::-webkit-input-placeholder { color: white; } :-moz-placeholder { /* Firefox 18- */ color: white; } ::-moz-placeholder { /* Firefox 19+ */ color: white; } :-ms-input-placeholder { color: white; }
 
@@ -114,14 +115,34 @@
 }
 
 .search-list {
+    color: white;
     .list-group-item {
         //min-height: 70px;
         clear: both;
-        margin: 5px 0;
+        //margin: 5px 0;
         border: 0;
-        border-bottom: 3px solid #F0F0F0;
-        border-radius: 0;
+        border-bottom: 1px solid rgb(7, 84, 94);
+        color: rgb(7, 84, 94);
+        //border-radius: 6px;
         cursor: pointer;
+        background-color: rgba(255, 255, 255, 0.8);
+        margin-bottom: 0;
+
+        &.first {
+            border: none !important;
+            border-radius: 6px;
+        }
+
+        &.top {
+            border-top-left-radius: 6px;
+            border-top-right-radius: 6px;
+        }
+
+        &.bottom {
+            border-bottom: none;
+            border-bottom-left-radius: 6px;
+            border-bottom-right-radius: 6px;
+        }
 
         &:hover {
             .thumbnail .overlay {
