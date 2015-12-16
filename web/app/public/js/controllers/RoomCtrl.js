@@ -165,10 +165,16 @@ define(function() {
                 console.log('focussing');
                 var element = $window.document.getElementById('searchInput');
                 if (element) {
+                    element.val('');
                     element.focus();
                 }
             });
         }
+
+        $timeout(function() {
+            console.log('scrolling top');
+            $window.document.body.scrollTop = 0;
+        });
 
         sendHeartbeat();
     }

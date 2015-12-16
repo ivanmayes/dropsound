@@ -64,12 +64,13 @@ $novacento: 'Novecentosanswide-Light', 'Helvetica Neue', sans-serif;
         height: 60px;
         padding: 5px;
         position: relative;
-        margin-bottom: 22px;
+        margin-bottom: 52px;
 
         .btn.clear {
             position: absolute;
-            right: 0;
-            top: 28px;        }
+            right: 15px;
+            top: 28px;
+        }
 
         .search-icon {
             background: url("/img/zoom.svg") no-repeat;
@@ -109,9 +110,10 @@ $novacento: 'Novecentosanswide-Light', 'Helvetica Neue', sans-serif;
             border: none;
             box-shadow: none;
             padding: 0;
+            border: white solid 1px;
+            padding-left: 15px;
 
             &:focus {
-                border: none;
                 box-shadow: none;
             }
         }
@@ -207,5 +209,11 @@ $novacento: 'Novecentosanswide-Light', 'Helvetica Neue', sans-serif;
             height: 50px;
             display: block;
         }
+    }
+}
+
+@media (max-width: 500px) {
+    .search .search-body {
+        margin: 0;
     }
 }

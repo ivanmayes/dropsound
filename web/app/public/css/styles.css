@@ -6740,7 +6740,7 @@ body {
     body.red .theme {
       color: #ef3d23 !important; }
       body.red .theme.search {
-        background-color: rgba(255, 32, 0, 0.65); }
+        background-color: rgba(255, 32, 0, 0.8); }
       body.red .theme.btn .arrow {
         background-color: #fadbd6; }
       body.red .theme.btn:hover {
@@ -6753,7 +6753,7 @@ body {
     body.green .theme {
       color: #31b44b !important; }
       body.green .theme.search {
-        background-color: rgba(46, 171, 42, 0.65); }
+        background-color: rgba(46, 171, 42, 0.8); }
       body.green .theme.btn .arrow {
         background-color: #b2f7b8; }
       body.green .theme.btn:hover {
@@ -7316,7 +7316,7 @@ class
 .navbar {
   background-color: rgba(255, 255, 255, 0.9);
   border: 0;
-  border-bottom: #AAA 1px solid; }
+  z-index: 10; }
   .navbar .nav-logo {
     background-size: 250px 42px;
     width: 250px;
@@ -7515,10 +7515,10 @@ body.navbar-absolute-top .navbar-fixed-top {
     height: 60px;
     padding: 5px;
     position: relative;
-    margin-bottom: 22px; }
+    margin-bottom: 52px; }
     .search form .btn.clear {
       position: absolute;
-      right: 0;
+      right: 15px;
       top: 28px; }
     .search form .search-icon {
       background: url("/img/zoom.svg") no-repeat;
@@ -7553,9 +7553,10 @@ body.navbar-absolute-top .navbar-fixed-top {
       margin: 0;
       border: none;
       box-shadow: none;
-      padding: 0; }
+      padding: 0;
+      border: white solid 1px;
+      padding-left: 15px; }
       .search form input:focus {
-        border: none;
         box-shadow: none; }
 
 .search-list {
@@ -7624,6 +7625,10 @@ body.navbar-absolute-top .navbar-fixed-top {
       width: 50px;
       height: 50px;
       display: block; }
+
+@media (max-width: 500px) {
+  .search .search-body {
+    margin: 0; } }
 
 .playlist .toggle {
   margin-right: 20px; }

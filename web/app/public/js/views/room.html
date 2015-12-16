@@ -126,20 +126,22 @@
 		<div ng-show="showSearchPage == true">
 			<div class="col-sm-12 search theme">
 				<i class="close-icon" ></i>
-				<a href class="back" ng-click="showSearchPage = false"><i class="fa fa-arrow-circle-o-left"></i> Back to Playlist {{
+				<a href class="back" ng-click="showSearchPage = false"><i class="fa fa-arrow-circle-o-left"></i> BACK TO HANGOUT {{
 					search.showSearchPage.toString()}}</a>
 				<div class="search-body" ng-controller="SearchCtrl as search">
 
 					<form class="form-inline" ng-submit="searchVideos()">
 						<a class="btn btn-default btn-xs clear" href ng-click="clearSearch()" ng-if="search.q.length > 0">Clear</a>
 					  <div class="form-group">
-					    <label class="sr-only" for="videoSearch">Start Typing to Search</label>
-					    <input id="searchInput" type="text" ng-model="search.q" autocomplete="off" class="form-control" id="videoSearch" placeholder="Search for songs here">
+					    <label class="sr-only" for="videoSearch">START TYPING TO SEARCH</label>
+					    <input id="searchInput" type="text" ng-model="search.q" autocomplete="off" class="form-control" id="videoSearch" placeholder="SEARCH FOR SONGS HERE">
 					  </div>
 					  <!--<button type="submit" class="btn btn-primary">Search</button>-->
 					</form>
 
 					<div class="search-list list-group">
+						<h3 ng-if="!videos.length">RECOMMENDED SONGS:</h3>
+						<h3 ng-if="videos.length">SEARCH RESULTS:</h3>
 						<div class="list-group-item" ng-if="!videos.length" ng-repeat="item in predefinedVideos[user.status.toLowerCase()] track by item.id.videoId" ng-class="{'added': isVideoInPlaylist(item)}" ng-click="addVideo(item)">
 							<div class="overlay">
 								<p>Added!</p>

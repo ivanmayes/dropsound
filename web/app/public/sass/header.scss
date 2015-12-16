@@ -5,7 +5,7 @@
 .navbar {
   background-color: rgba(255, 255, 255, 0.90);
   border: 0;
-  border-bottom: #AAA 1px solid;
+  z-index: 10;
 
   .nav-logo {
     background-size: 250px 42px;
