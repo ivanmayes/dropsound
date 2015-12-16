@@ -134,7 +134,7 @@
 						<a class="btn btn-default btn-xs clear" href ng-click="clearSearch()" ng-if="search.q.length > 0">Clear</a>
 					  <div class="form-group">
 					    <label class="sr-only" for="videoSearch">Start Typing to Search</label>
-					    <input id="searchInput" type="text" ng-model="search.q" autocomplete="off" class="form-control" id="videoSearch" placeholder="Search songs here">
+					    <input id="searchInput" type="text" ng-model="search.q" autocomplete="off" class="form-control" id="videoSearch" placeholder="Search for songs here">
 					  </div>
 					  <!--<button type="submit" class="btn btn-primary">Search</button>-->
 					</form>
@@ -145,13 +145,13 @@
 								<p>Added!</p>
 							</div>
 
-							<div class="thumbnail">
+							<!--<div class="thumbnail">
 								<div class="overlay">
 									<i class="close-icon"></i>
 								</div>
 
 								<img ng-src="{{item.snippet.thumbnails.default.url}}">
-							</div>
+							</div>-->
 
 							<h4>{{item.snippet.title}}</h4>
 							<p>{{ item.snippet.channelTitle }} - {{ item.durationString }}</p>

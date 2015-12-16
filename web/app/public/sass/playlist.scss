@@ -1,3 +1,6 @@
+$sans-serif: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+$novacento: 'Novecentosanswide-Light', 'Helvetica Neue', sans-serif;
+
 .playlist {
     .toggle {
         margin-right: 20px;
@@ -59,6 +62,10 @@
     .gravatar {
         width: 16px;
         height: 16px;
+    }
+
+    .list-group-item {
+        font-family: $sans-serif;
     }
 
     .list-group-item .thumb {
@@ -130,8 +137,9 @@
     height: 87px;
     font-size: 38px;
     line-height: 87px;
+    text-align: left;
     vertical-align: middle;
-    padding-left: 10px;
+    padding-left: 25px;
     padding-right: 10px;
     position: relative;
 
@@ -161,6 +169,25 @@
 @media (min-width: 1200px) {
     .container {
         width: 900px;
+    }
+}
+
+@media (max-width: 700px) {
+    .btn.add {
+        font-size: 25px;
+        padding-left: 15px;
+    }
+}
+
+@media (max-width: 500px) {
+    .btn.add {
+        font-size: 18px;
+
+        .arrow {
+            font-size: 30px;
+            padding-left: 25px;
+            padding-right: 25px;
+        }
     }
 }
 

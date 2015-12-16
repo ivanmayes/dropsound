@@ -7561,6 +7561,7 @@ body.navbar-absolute-top .navbar-fixed-top {
 .search-list {
   color: white; }
   .search-list .list-group-item {
+    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
     clear: both;
     border: 0;
     border-bottom: 1px solid #07545e;
@@ -7583,14 +7584,14 @@ body.navbar-absolute-top .navbar-fixed-top {
     .search-list .list-group-item.added > .overlay {
       opacity: 1;
       z-index: 10;
-      background: rgba(247, 216, 255, 0.78); }
+      background: rgba(255, 255, 255, 0.85); }
       .search-list .list-group-item.added > .overlay p {
         position: absolute;
         top: 50%;
-        left: 50px;
-        -webkit-transform: translateY(-50%);
-            -ms-transform: translateY(-50%);
-                transform: translateY(-50%);
+        left: 50%;
+        -webkit-transform: translateY(-60%);
+            -ms-transform: translateY(-60%);
+                transform: translateY(-60%);
         color: black; }
     .search-list .list-group-item .overlay {
       position: absolute;
@@ -7669,6 +7670,9 @@ body.navbar-absolute-top .navbar-fixed-top {
   width: 16px;
   height: 16px; }
 
+.playlist .list-group-item {
+  font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; }
+
 .playlist .list-group-item .thumb {
   width: 100%; }
 
@@ -7716,8 +7720,9 @@ body.navbar-absolute-top .navbar-fixed-top {
   height: 87px;
   font-size: 38px;
   line-height: 87px;
+  text-align: left;
   vertical-align: middle;
-  padding-left: 10px;
+  padding-left: 25px;
   padding-right: 10px;
   position: relative; }
   .btn.add .arrow {
@@ -7739,3 +7744,16 @@ body.navbar-absolute-top .navbar-fixed-top {
 @media (min-width: 1200px) {
   .container {
     width: 900px; } }
+
+@media (max-width: 700px) {
+  .btn.add {
+    font-size: 25px;
+    padding-left: 15px; } }
+
+@media (max-width: 500px) {
+  .btn.add {
+    font-size: 18px; }
+    .btn.add .arrow {
+      font-size: 30px;
+      padding-left: 25px;
+      padding-right: 25px; } }

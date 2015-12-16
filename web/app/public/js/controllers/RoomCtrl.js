@@ -34,7 +34,7 @@ define(function() {
         $scope.showSearch = showSearch;
 
         $scope.streams = {
-            shp: $sce.trustAsResourceUrl('http://player.twitch.tv/?channel=shoptology'),
+            shp: $sce.trustAsResourceUrl('https://beam.pro/embed/player/shoptology'),
             pub: $sce.trustAsResourceUrl('http://www.ustream.tv/embed/21661769?html5ui')
         };
 

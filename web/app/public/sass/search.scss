@@ -1,3 +1,6 @@
+$sans-serif: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+$novacento: 'Novecentosanswide-Light', 'Helvetica Neue', sans-serif;
+
 .search {
 
     position: fixed;
@@ -119,6 +122,7 @@
     color: white;
     .list-group-item {
         //min-height: 70px;
+        font-family: $sans-serif;
         clear: both;
         //margin: 5px 0;
         border: 0;
@@ -155,13 +159,13 @@
             > .overlay {
                 opacity: 1;
                 z-index: 10;
-                background: rgba(247, 216, 255, 0.78);
+                background: rgba(255, 255, 255, 0.85);
 
                 p {
                     position: absolute;
                     top: 50%;
-                    left: 50px;
-                    transform: translateY(-50%);
+                    left: 50%;
+                    transform: translateY(-60%);
                     color: black;
                 }
             }
