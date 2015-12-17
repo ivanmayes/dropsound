@@ -224,33 +224,33 @@ module.exports = (function(app, io, server) {
                 g.rooms[data.roomId].on('videoUpdate', videoSync);
             }
 
-            if (!player.inMap(data.roomId)) {
-                console.log('$$$$$$$$$$$$$$$$$$');
-                console.log(player.firstName + ' (' + player.id + ') joining ' + data.roomId);
-                console.log('$$$$$$$$$$$$$$$$$$');
-                player.joinMap(g.rooms[data.roomId]);
+            //if (!player.inMap(data.roomId)) {
+            console.log('$$$$$$$$$$$$$$$$$$');
+            console.log(player.firstName + ' (' + player.id + ') joining ' + data.roomId);
+            console.log('$$$$$$$$$$$$$$$$$$');
+            player.joinMap(g.rooms[data.roomId]);
 
-                socket.join(data.roomId);
+            socket.join(data.roomId);
 
-                // Handle synchronization
-                if (g.rooms[data.roomId].currentVideoStartTime && g.rooms[data.roomId].currentVideo) {
-                    var currentVideoSync = '&amp;start='
-                    + Math.ceil((new Date().getTime() - g.rooms[data.roomId].currentVideoStartTime) / 1000);
+            // Handle synchronization
+            if (g.rooms[data.roomId].currentVideoStartTime && g.rooms[data.roomId].currentVideo) {
+                var currentVideoSync = '&amp;start='
+                + Math.ceil((new Date().getTime() - g.rooms[data.roomId].currentVideoStartTime) / 1000);
 
-                    g.rooms[data.roomId].currentVideoSync = currentVideoSync;
-                }
+                g.rooms[data.roomId].currentVideoSync = currentVideoSync;
+            }
 
-                this.to(data.roomId)
-                    .emit('room:update:player:add', {
-                        player: player
-                    });
-
-                this.emit('roomUpdated', {
-                    room: g.rooms[data.roomId]
+            this.to(data.roomId)
+                .emit('room:update:player:add', {
+                    player: player
                 });
 
-                console.log(g.rooms[data.roomId].players);
-            }
+            this.emit('roomUpdated', {
+                room: g.rooms[data.roomId]
+            });
+
+            console.log(g.rooms[data.roomId].players);
+            //}
         }
 
         function onAddVideo(data) {

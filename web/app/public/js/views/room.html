@@ -115,7 +115,7 @@
 					<div class="search-list list-group">
 						<h3 ng-if="!videos.length">RECOMMENDED SONGS:</h3>
 						<h3 ng-if="videos.length">SEARCH RESULTS:</h3>
-						<div class="list-group-item" ng-if="!videos.length" ng-repeat="item in predefinedVideos[user.status.toLowerCase()] track by item.id.videoId" ng-class="{'added': isVideoInPlaylist(item)}" ng-click="addVideo(item, isVideoInPlaylist(item))">
+						<div class="list-group-item" ng-if="!videos.length && room" ng-repeat="item in predefinedVideos[user.status.toLowerCase()] track by item.id.videoId" ng-class="{'added': isVideoInPlaylist(item)}" ng-click="addVideo(item, isVideoInPlaylist(item))">
 							<div class="overlay">
 								<p>Added!</p>
 							</div>
