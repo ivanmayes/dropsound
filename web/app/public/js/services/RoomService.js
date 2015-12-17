@@ -15,7 +15,10 @@ define(['angular'], function(angular) {
                 leaveRoom: leaveRoom
             };
 
-        function addVideoToPlaylist(video) {
+        function addVideoToPlaylist(video, isInList) {
+            if (isInList) {
+                return false;
+            }
             video.addedBy = $rootScope.user;
             console.log(currentRoom);
             var params = {
