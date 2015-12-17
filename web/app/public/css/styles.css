@@ -7214,7 +7214,8 @@ class
     text-align: center;
     border: 0;
     font-size: 30px;
-    padding: 30px; }
+    padding: 10px;
+    height: auto; }
   .login .naughty-nice {
     padding: 20px 0; }
     .login .naughty-nice .subtitle {
