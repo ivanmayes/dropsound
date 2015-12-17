@@ -12,7 +12,7 @@
 	</div>
 
 	<div class="row room-info">
-		<div class="col-md-12 who" ng-if="user.isAdmin">
+		<div class="col-md-12 who">
 			<ul>
 				<li class="player" ng-repeat="player in room.players" ng-if="player.name != user.name">
 					<img class="gravatar" ng-if="player.avatar" ng-src="{{player.avatar}}" title="{{player.name}}" />
