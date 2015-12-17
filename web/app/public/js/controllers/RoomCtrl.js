@@ -165,7 +165,6 @@ define(function() {
                 console.log('focussing');
                 var element = $window.document.getElementById('searchInput');
                 if (element) {
-                    element.val('');
                     element.focus();
                 }
             });

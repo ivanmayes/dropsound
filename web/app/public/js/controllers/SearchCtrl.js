@@ -19,9 +19,11 @@ define(function() {
         $scope.videos = [];
         $scope.predefinedVideos = {};
 
-        function addVideo(video) {
-            console.log('adding video');
-            RoomService.addVideoToPlaylist(video);
+        function addVideo(video, inPlaylist) {
+            if(!inPlaylist) {
+                console.log('adding video', video, inPlaylist);
+                RoomService.addVideoToPlaylist(video);
+            }
         }
 
         function searchVideos() {
