@@ -6784,13 +6784,14 @@ iframe {
 .room .room-info {
   margin: 0px -15px 30px; }
   .room .room-info .who {
-    text-align: right; }
+    text-align: center; }
   .room .room-info .who li, .room .room-info .room li {
-    color: #00aeef; }
+    color: white;
+    margin: 8px 5px; }
   .room .room-info .player:last-child .slashes {
     display: none; }
   .room .room-info .gravatar {
-    width: 16px; }
+    width: 26px; }
   .room .room-info li {
     display: inline; }
 
@@ -7028,7 +7029,7 @@ class
 .header {
   text-align: center;
   font-weight: 700;
-  padding: 50px 0; }
+  padding: 50px 0 10px; }
   .header.white {
     color: white; }
   .header img.avatar {
