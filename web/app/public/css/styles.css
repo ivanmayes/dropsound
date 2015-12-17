@@ -7628,7 +7628,9 @@ body.navbar-absolute-top .navbar-fixed-top {
 
 @media (max-width: 500px) {
   .search .search-body {
-    margin: 0; } }
+    margin: 0; }
+  .search a.back {
+    margin-left: 0; } }
 
 .playlist .toggle {
   margin-right: 20px; }
