@@ -27,9 +27,9 @@ define(function() {
             }
 
             // If no naughty/nice, get nice
-            if ($scope.cat) {
-                user.status = $scope.cat;
-                user.avatar = getSelectedAvatar($scope.cat).img;
+            if (user.cat) {
+                user.status = user.cat;
+                user.avatar = getSelectedAvatar(user.cat).img;
             } else {
                 user.status = (Math.random() > .5) ? 'nice' : 'naughty';
                 var avatars = $scope.avatars[user.status.toLowerCase()],
@@ -40,6 +40,8 @@ define(function() {
 
             user.token = (user.name + user.status + new Date().getTime()).replace(/\s/g, '_');
             user.email = user.token + '@goshoptology.com';
+
+            console.log('user', user);
 
             UserService.login(user)
                 .then(function(userInfo) {

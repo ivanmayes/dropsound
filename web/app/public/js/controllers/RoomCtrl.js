@@ -34,7 +34,7 @@ define(function() {
         $scope.showSearch = showSearch;
 
         $scope.streams = {
-            shp: $sce.trustAsResourceUrl('http://player.twitch.tv/?channel=shoptology'),
+            shp: $sce.trustAsResourceUrl('https://beam.pro/embed/player/shoptology'),
             pub: $sce.trustAsResourceUrl('http://www.ustream.tv/embed/21661769?html5ui')
         };
 
@@ -165,10 +165,16 @@ define(function() {
                 console.log('focussing');
                 var element = $window.document.getElementById('searchInput');
                 if (element) {
+                    element.val('');
                     element.focus();
                 }
             });
         }
+
+        $timeout(function() {
+            console.log('scrolling top');
+            $window.document.body.scrollTop = 0;
+        });
 
         sendHeartbeat();
     }

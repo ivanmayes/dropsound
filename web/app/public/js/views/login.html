@@ -64,11 +64,11 @@
 					<div class="col-xs-12">
 						<h3>I'm Feeling...</h3>
 					</div>
-					<div class="form-group col-xs-6 nice" ng-class="{'active': cat == 'nice'}" ng-click="cat = 'nice'">
-						<img class="selected-avatar" ng-src="{{ getSelectedAvatar('nice').img }}" ng-click="cat = 'nice'">
+					<div class="form-group col-xs-6 nice" ng-class="{'active': user.cat == 'nice'}" ng-click="user.cat = 'nice'">
+						<img class="selected-avatar" ng-src="{{ getSelectedAvatar('nice').img }}" ng-click="user.cat = 'nice'">
 						<h3>Nice</h3>
 						<p>Jolly ol' holiday classics, rocked-out remakes and gift-wrapped rapping</p>
-						<div class="avatar-box" ng-if="cat == 'nice'">
+						<div class="avatar-box" ng-if="user.cat == 'nice'">
 							<ul>
 								<li class="avatar" ng-repeat="avatar in avatars.nice" ng-click="setSelectedAvatar(avatar, 'nice')" ng-class="{ 'active' : (avatar.img == getSelectedAvatar('nice').img)}">
 									<!--<img src="http://placehold.it/50x50">-->
@@ -80,11 +80,11 @@
 					<div class="col-xs-12 or">
 						<h3>Or</h3>
 					</div>
-					<div class="form-group col-xs-6 naughty" ng-class="{'active': cat == 'naughty'}" ng-click="cat = 'naughty'">
-						<img class="selected-avatar" ng-src="{{ getSelectedAvatar('naughty').img }}" ng-click="cat = 'naughty'">
+					<div class="form-group col-xs-6 naughty" ng-class="{'active': user.cat == 'naughty'}" ng-click="user.cat = 'naughty'">
+						<img class="selected-avatar" ng-src="{{ getSelectedAvatar('naughty').img }}" ng-click="user.cat = 'naughty'">
 						<h3>Naughty</h3>
 						<p>High-pitched singing chipmunks, dogs barking Jingle Bells and grandmas ran over by reindeer</p>
-						<div class="avatar-box" ng-if="cat == 'naughty'">
+						<div class="avatar-box" ng-if="user.cat == 'naughty'">
 							<ul>
 								<li class="avatar" ng-repeat="avatar in avatars.naughty" ng-click="setSelectedAvatar(avatar, 'naughty')" ng-class="{ 'active' : (avatar.img == getSelectedAvatar('naughty').img)}">
 									<!--<img src="http://placehold.it/50x50">-->
