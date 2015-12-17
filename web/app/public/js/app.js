@@ -43,7 +43,6 @@ define(['angular',
                     console.log('Not logged in');
                     $state.transitionTo('login');
                     event.preventDefault();
-
                 }
 
                 if (!$rootScope.isLive && !$rootScope.user.isAdmin) {

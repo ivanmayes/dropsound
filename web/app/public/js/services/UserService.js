@@ -22,6 +22,12 @@ define(['angular'], function(angular) {
 
             setUserSettings(user);
 
+            ga('send',
+                'event',
+                'user',
+                'login',
+                user.name + ' - ' + user.status);
+
             deferred.resolve(user.token);
 
             return deferred.promise;
