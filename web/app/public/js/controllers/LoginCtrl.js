@@ -177,7 +177,7 @@ define(function() {
             var timeinterval = setInterval(updateClock, 1000);
         }
 
-        var deadline = new Date('Thu Dec 17 2015 09:00:00 GMT-0600 (CST)');
+        var deadline = new Date('Fri Dec 18 2015 09:00:00 GMT-0600 (CST)');
         setTimeout(function() {
             initializeClock('clockdiv', deadline);
         }, 500);
