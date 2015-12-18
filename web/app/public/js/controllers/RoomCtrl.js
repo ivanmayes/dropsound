@@ -34,7 +34,7 @@ define(function() {
         $scope.showSearch = showSearch;
 
         $scope.streams = {
-            shp: $sce.trustAsResourceUrl('https://www.youtube.com/embed/Sj3-lmMmI1Y'),
+            shp: $sce.trustAsResourceUrl('https://www.youtube.com/embed/PL4mTlUC7O0'),
             pub: $sce.trustAsResourceUrl('http://www.ustream.tv/embed/21661769?html5ui')
         };
 
