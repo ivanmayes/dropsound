@@ -23,6 +23,7 @@ define(function() {
             controls: 1,
             autoplay: 1
         };
+
         $scope.room;
         $scope.toggleVideo = toggleVideo;
         $scope.toggleLive = toggleLive;
