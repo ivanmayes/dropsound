@@ -27,16 +27,7 @@ define(function() {
             }
 
             // If no naughty/nice, get nice
-            if (user.cat) {
-                user.status = user.cat;
-                user.avatar = getSelectedAvatar(user.cat).img;
-            } else {
-                user.status = (Math.random() > .5) ? 'nice' : 'naughty';
-                var avatars = $scope.avatars[user.status.toLowerCase()],
-                    index = Math.floor(Math.random() * ((avatars.length - 1) - 0 + 1));
-
-                user.avatar = avatars[index].img;
-            }
+            user.avatar = getSelectedAvatar().img
 
             user.token = (user.name + user.status + new Date().getTime()).replace(/\s/g, '_');
             user.email = user.token + '@goshoptology.com';
@@ -53,66 +44,121 @@ define(function() {
                     });
         };
 
-        $scope.selectAvatar = function(avatar, cat) {
+        $scope.selectAvatar = function(avatar) {
             console.log('gravatar');
             if (avatar.name == 'Gravatar') {
                 console.log('gravatar');
             }
 
             $scope.selectedAvatar = avatar;
-            $scope.selectedAvatar.cat = cat;
         };
 
-        $scope.avatars = {
-            nice: [
-                {
-                    img: '/img/avatar-01.svg',
-                    selected: true
-                },
-                {
-                    img: '/img/avatar-02.svg',
-                    selected: false
-                },
-                {
-                    img: '/img/avatar-03.svg',
-                    selected: false
-                },
-                {
-                    img: '/img/avatar-04.svg',
-                    selected: false
-                },
-                {
-                    img: '/img/avatar-05.svg',
-                    selected: false
-                },
-            ],
-            naughty: [
-                {
-                    img: '/img/avatar-06.svg',
-                    selected: true
-                },
-                {
-                    img: '/img/avatar-07.svg',
-                    selected: false
-                },
-                {
-                    img: '/img/avatar-08.svg',
-                    selected: false
-                },
-                {
-                    img: '/img/avatar-09.svg',
-                    selected: false
-                },
-                {
-                    img: '/img/avatar-10.svg',
-                    selected: false
-                },
-            ]
-        };
+        $scope.avatars = [
+            {
+                img: '/img/avatar-01.svg',
+                selected: true
+            },
+            {
+                img: '/img/avatar-02.svg',
+                selected: false
+            },
+            {
+                img: '/img/avatar-03.svg',
+                selected: false
+            },
+            {
+                img: '/img/avatar-04.svg',
+                selected: false
+            },
+            {
+                img: '/img/avatar-05.svg',
+                selected: false
+            },
+            {
+                img: '/img/avatar-06.svg',
+                selected: false
+            },
+            {
+                img: '/img/avatar-07.svg',
+                selected: false
+            },
+            {
+                img: '/img/avatar-08.svg',
+                selected: false
+            },
+            {
+                img: '/img/avatar-09.svg',
+                selected: false
+            },
+            {
+                img: '/img/avatar-10.svg',
+                selected: false
+            },
+            {
+                img: '/img/avatar-11.svg',
+                selected: false
+            },
+            {
+                img: '/img/avatar-12.svg',
+                selected: false
+            },
+            {
+                img: '/img/avatar-13.svg',
+                selected: false
+            },
+            {
+                img: '/img/avatar-14.svg',
+                selected: false
+            },
+            {
+                img: '/img/avatar-15.svg',
+                selected: false
+            },
+            {
+                img: '/img/avatar-16.svg',
+                selected: false
+            },
+            {
+                img: '/img/avatar-17.svg',
+                selected: false
+            },
+            {
+                img: '/img/avatar-18.svg',
+                selected: false
+            },
+            {
+                img: '/img/avatar-19.svg',
+                selected: false
+            },
+            {
+                img: '/img/avatar-20.svg',
+                selected: false
+            },
+            {
+                img: '/img/avatar-21.svg',
+                selected: false
+            },
+            {
+                img: '/img/avatar-22.svg',
+                selected: false
+            },
+            {
+                img: '/img/avatar-23.svg',
+                selected: false
+            },
+            {
+                img: '/img/avatar-24.svg',
+                selected: false
+            },
+            {
+                img: '/img/avatar-25.svg',
+                selected: false
+            }
+        ];
 
-        function getSelectedAvatar(cat) {
+        function getSelectedAvatar() {
             var selected = [];
-            angular.forEach($scope.avatars[cat], function(avatar, k) {
+            angular.forEach($scope.avatars, function(avatar, k) {
                 if (avatar.selected == true) {
                     selected = avatar;
                 }
@@ -121,12 +167,12 @@ define(function() {
             return selected;
         }
 
-        function setSelectedAvatar(avatar, cat) {
-            angular.forEach($scope.avatars[cat], function(a, k) {
+        function setSelectedAvatar(avatar) {
+            angular.forEach($scope.avatars, function(a, k) {
                 if (avatar == a) {
-                    $scope.avatars[cat][k].selected = true;
+                    $scope.avatars[k].selected = true;
                 } else {
-                    $scope.avatars[cat][k].selected = false;
+                    $scope.avatars[k].selected = false;
                 }
             });
         }

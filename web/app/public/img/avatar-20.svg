@@ -1,0 +1,23 @@
+<svg id="icons" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 90.04 101.5">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #fff;
+      }
+
+      .cls-2 {
+        fill: none;
+        stroke: #00aeef;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        stroke-width: 1.5px;
+      }
+    </style>
+  </defs>
+  <title>avatar-01</title>
+  <path class="cls-1" d="M849.55,90.7L887.3,112.5a8.08,8.08,0,0,0,7.27,0L932.32,90.7A8.07,8.07,0,0,0,936,84.4V40.82a8.06,8.06,0,0,0-3.63-6.3L894.57,12.73a8,8,0,0,0-7.27,0L849.55,34.52a8.06,8.06,0,0,0-3.64,6.3V84.4A8.07,8.07,0,0,0,849.55,90.7Z" transform="translate(-845.92 -11.86)"/>
+  <g>
+    <circle class="cls-2" cx="45.17" cy="39.59" r="16.92"/>
+    <path class="cls-2" d="M865.06,98c1.12-7.51,6.56-22.65,13.12-22.65H904c6.18,0,11.37,13.46,12.88,21.29" transform="translate(-845.92 -11.86)"/>
+  </g>
+</svg>

@@ -6721,9 +6721,9 @@ html {
   position: relative;
   min-height: 100%;
   font-family: "Novecentosanswide-Light", "Helvetica Neue", sans-serif;
-  background: url("../img/bg.jpg") no-repeat;
   background-size: 100%;
-  background-color: #f0f9fd;
+  background-color: #D4D3D3;
+  background-color: #76BC43;
   overflow-x: hidden; }
 
 body {
@@ -6735,6 +6735,8 @@ body {
   background-color: transparent;
   position: relative;
   overflow-x: hidden; }
+  body .white {
+    color: white; }
   body.red {
     background-color: rgba(255, 32, 0, 0.65); }
     body.red .theme {
@@ -6780,6 +6782,9 @@ iframe {
   to {
     -webkit-transform: rotate(1deg);
             transform: rotate(1deg); } }
+
+.room input {
+  color: black; }
 
 .room .room-info {
   margin: 0px -15px 30px; }
@@ -7235,24 +7240,27 @@ class
       .login .naughty-nice .or h3 {
         font-size: 16px; }
   .login .selected-avatar {
-    width: 80px;
+    width: 100px;
     margin: 0 10px; }
-  .login .nice, .login .naughty {
+  .login .nice, .login .naughty, .login .avatar-picker {
     cursor: pointer; }
-    .login .nice h3, .login .naughty h3 {
+    .login .nice h3, .login .naughty h3, .login .avatar-picker h3 {
       font-family: 'Novecentosanswide-Normal', 'Helvetica Neue', 'Open Sans', sans-serif;
       font-weight: normal; }
-    .login .nice.active h3, .login .naughty.active h3 {
+    .login .nice.active h3, .login .naughty.active h3, .login .avatar-picker.active h3 {
       font-weight: bold; }
-    .login .nice .avatar-box, .login .naughty .avatar-box {
+    .login .nice .avatar-box, .login .naughty .avatar-box, .login .avatar-picker .avatar-box {
       margin-top: 15px; }
-    .login .nice .avatar, .login .naughty .avatar {
+    .login .nice .avatar, .login .naughty .avatar, .login .avatar-picker .avatar {
       margin: 0 10px;
-      width: 40px;
+      width: 54px;
       border: #07505a solid 0;
       border-radius: 25px;
-      transition: border 200ms; }
-      .login .nice .avatar.active, .login .naughty .avatar.active {
+      transition: border 200ms;
+      display: inline-block; }
+      .login .nice .avatar img, .login .naughty .avatar img, .login .avatar-picker .avatar img {
+        width: 100%; }
+      .login .nice .avatar.active, .login .naughty .avatar.active, .login .avatar-picker .avatar.active {
         border: #07505a solid 3px; }
   .login .nice {
     text-align: right; }

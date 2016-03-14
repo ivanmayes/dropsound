@@ -4,15 +4,17 @@
 
 		<img class="avatar" ng-src="{{user.avatar}}">
 		<h2>
-			Holiday Hangout
+			Co-Loud
 		</h2>
 		<h1 class="no-bottom-margin">
-			With {{user.name}} &amp; co.
+			<span ng-if="!editingTopic">Today's theme: {{room.topic}} <a href class="btn btn-warning btn-xs" ng-if="user.isAdmin" ng-click="editTopic()">Edit</a></span>
+			<span><input type="text" value="My Topic" ng-if="editingTopic && user.isAdmin" ng-model="room.topic"> <a href class="btn btn-success btn-xs" ng-if="editingTopic && user.isAdmin" ng-click="changeTopic()">Save</a></span>
 		</h1>
 	</div>
 
 	<div class="row room-info">
 		<div class="col-md-12 who">
+			<span class="white" ng-if="room.players.length > 1">FEATURING:<br><br></span>
 			<ul>
 				<li class="player" ng-repeat="player in room.players" ng-if="player.name != user.name">
 					<img class="gravatar" ng-if="player.avatar" ng-src="{{player.avatar}}" title="{{player.name}}" />
@@ -23,32 +25,18 @@
 	</div>
 
 	<div class="row topic" ng-if="user.isAdmin">
-		<button ng-if="$root.isLive" ng-click="toggleLive()">
-			Take Offline
-		</button>
-		<button ng-if="!$root.isLive" ng-click="toggleLive()">
-			Push Live
-		</button>
 		<a class="btn btn-danger btn-xs clear" ng-if="user.isAdmin" ng-click="admin.removePlaylist(room)">Clear playlist</a>
 	</div>
 
 	<div class="row">
 		<div class="col-sm-12 playlist">
 
-			<div class="currentVideo" ng-class="{'hide-video': hideVideo}" ng-if="$root.group == 'cam'">
-
+			<div class="currentVideo" ng-class="{'hide-video': hideVideo}">
+				<p class="hidden-title">{{currentVideo.snippet.title}}</p>
 				<iframe ng-if="currentVideo" id="unique-youtube-embed-id-1" frameborder="0" allowfullscreen="1" title="YouTube video player" width="640" height="390" ng-src="{{currentVideo.iframeLink}}"></iframe>
-			</div>
 
-			<div class="currentVideo" ng-if="$root.group == 'shp'">
-				<iframe id="unique-youtube-embed-id-1" frameborder="0" allowfullscreen="1" title="YouTube video player" width="640" height="390" ng-src="{{streams.shp}}"></iframe>
+				<div class="empty-msg" ng-if="!currentVideo">No videos playing yet, add some!</div>
 			</div>
-
-			<div class="currentVideo" ng-if="$root.group == 'pub'">
-				<iframe id="unique-youtube-embed-id-1" frameborder="0" allowfullscreen="1" title="YouTube video player" width="640" height="390" ng-src="{{streams.pub}}"></iframe>
-			</div>
-
-			<a class="btn btn-default btn-block btn-xs add theme" href ng-click="showSearchPage = true; showSearch();">ADD TO THE {{user.status | uppercase}} LIST<span class="arrow-right arrow">&gt;</span></a>
 
 			<div class="search-list list-group">
 				<div class="row" ng-if="currentVideo">
@@ -65,6 +53,8 @@
 					</div>
 				</div>
 			</div>
+
+			<a class="btn btn-default btn-block btn-xs add theme" href ng-click="showSearchPage = true; showSearch();">ADD TO THE LIST<span class="arrow-right arrow">&gt;</span></a>
 
 			<div class="search-list list-group">
 				<div class="row" ng-if="room.playlist.length > 0">
@@ -86,7 +76,7 @@
 				<div class="playlist-items">
 					<div class="list-group-item"
 					ng-repeat="item in (filteredItems = room.playlist | filter:{snippet:{title:search.q}} | orderBy : ['-votes.length', 'modified'] )"
-					ng-click="voteForVideo(item)"
+					ng-click="voteForVideo($event, item)"
 					ng-class="{'gray': item.votes.length < 1, 'top' : $index == 0, 'bottom' : $last}"
 					ng-include="'js/views/partials/playlist-item.html'"
 					ng-animate="{enter: 'animate-enter', leave: 'animate-leave'}">
@@ -99,7 +89,7 @@
 		<div ng-show="showSearchPage == true">
 			<div class="col-sm-12 search theme">
 				<i class="close-icon" ></i>
-				<a href class="back" ng-click="showSearchPage = false"><i class="fa fa-arrow-circle-o-left"></i> BACK TO HANGOUT {{
+				<a href class="back" ng-click="hideSearch()"><i class="fa fa-arrow-circle-o-left"></i> BACK TO HANGOUT {{
 					search.showSearchPage.toString()}}</a>
 				<div class="search-body" ng-controller="SearchCtrl as search">
 
@@ -113,25 +103,7 @@
 					</form>
 
 					<div class="search-list list-group">
-						<h3 ng-if="!videos.length">RECOMMENDED SONGS:</h3>
 						<h3 ng-if="videos.length">SEARCH RESULTS:</h3>
-						<div class="list-group-item" ng-if="!videos.length && room" ng-repeat="item in predefinedVideos[user.status.toLowerCase()] track by item.id.videoId" ng-class="{'added': isVideoInPlaylist(item)}" ng-click="addVideo(item, isVideoInPlaylist(item))">
-							<div class="overlay">
-								<p>Added!</p>
-							</div>
-
-							<!--<div class="thumbnail">
-								<div class="overlay">
-									<i class="close-icon"></i>
-								</div>
-
-								<img ng-src="{{item.snippet.thumbnails.default.url}}">
-							</div>-->
-
-							<h4>{{item.snippet.title}}</h4>
-							<p>{{ item.snippet.channelTitle }} - {{ item.durationString }}</p>
-							<div class="clearfix"></div>
-						</div>
 
 						<div class="list-group-item" ng-if="videos.length" ng-repeat="item in videos" ng-class="{'added': isVideoInPlaylist(item)}" ng-click="addVideo(item, isVideoInPlaylist(item))">
 							<div class="overlay">

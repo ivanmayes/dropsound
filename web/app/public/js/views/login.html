@@ -1,57 +1,15 @@
 <div class="header row">
 	<div class="col-md-8 col-md-offset-2">
-		<h1>Welcome to our Holiday Hangout!</h1>
-		<h2>Will you be naughty or nice?<br/>The choice is yours.</h2>
+		<h1>Welcome!</h1>
+		<h2>Please sign in below</h2>
+		<br>
+		<br>
+		<br>
+		<br>
 	</div>
 </div>
 
-<div class="countdown row" ng-if="!$root.isLive">
-	<div class="col-xs-12">
-		<p>Hang out with us on <strong>Thursday, December 17th at 9AM CST</strong></p>
-		<div id="clockdiv">
-		  <div>
-		    <span class="days"></span>
-		    <div class="smalltext">Days</div>
-		  </div>
-		  <div class="vrule"></div>
-		  <div>
-		    <span class="hours"></span>
-		    <div class="smalltext">Hours</div>
-		  </div>
-		  <div class="vrule"></div>
-		  <div>
-		    <span class="minutes"></span>
-		    <div class="smalltext">Minutes</div>
-		  </div>
-		  <div class="vrule"></div>
-		  <div>
-		    <span class="seconds"></span>
-		    <div class="smalltext">Seconds</div>
-		  </div>
-		</div>
-	</div>
-
-</div>
-
-<div class="instructions row" ng-if="$root.isLive || $root.user.isAdmin">
-	<div class="col-md-8 col-md-offset-2 title">
-		<p>Follow these steps for the merriest experience ever:</p>
-	</div>
-	<div class="col-sm-2 col-sm-offset-3 step">
-		<p class="title">Choose</p>
-		<p>Choose what kind of guest you'll be - naughty or nice.</p>
-	</div>
-	<div class="col-sm-2 step">
-		<p class="title">Add</p>
-		<p>Add and vote for the holiday songs you want us to hear all day.</p>
-	</div>
-	<div class="col-sm-2 step">
-		<p class="title">Hang</p>
-		<p>See the lights - and us - in action as you hang out.</p>
-	</div>
-</div>
-
-<div class="login row" ng-if="$root.isLive || $root.user.isAdmin">
+<div class="login row">
 	<div class="col-xs-12">
 		<form class="row" ng-submit="login(user)">
 			<div class="form-group col-md-6 col-md-offset-3">
@@ -59,46 +17,27 @@
 				<input type="text" id="nameInput" class="form-control" ng-model="user.name">
 			</div>
 
-			<div class="col-xs-12 naughty-nice">
+			<div class="col-xs-12 naughty-nice avatar-picker">
 				<div class="row">
 					<div class="col-xs-12">
-						<h3>I'm Feeling...</h3>
+						<h3>Pick an avatar</h3>
 					</div>
-					<div class="form-group col-xs-6 nice" ng-class="{'active': user.cat == 'nice'}" ng-click="user.cat = 'nice'">
-						<img class="selected-avatar" ng-src="{{ getSelectedAvatar('nice').img }}" ng-click="user.cat = 'nice'">
-						<h3>Nice</h3>
-						<p>Spread some cheer with jolly ol' holiday classics, rocked-out remakes and gift-wrapped rapping</p>
-						<div class="avatar-box" ng-if="user.cat == 'nice'">
-							<ul>
-								<li class="avatar" ng-repeat="avatar in avatars.nice" ng-click="setSelectedAvatar(avatar, 'nice')" ng-class="{ 'active' : (avatar.img == getSelectedAvatar('nice').img)}">
-									<!--<img src="http://placehold.it/50x50">-->
-									<img ng-src="{{avatar.img}}">
-								</li>
-							</ul>
-						</div>
+					<div class="avatar-current">
+						<img class="selected-avatar" ng-src="{{ getSelectedAvatar().img }}">
 					</div>
-					<div class="col-xs-12 or">
-						<h3>Or</h3>
-					</div>
-					<div class="form-group col-xs-6 naughty" ng-class="{'active': user.cat == 'naughty'}" ng-click="user.cat = 'naughty'">
-						<img class="selected-avatar" ng-src="{{ getSelectedAvatar('naughty').img }}" ng-click="user.cat = 'naughty'">
-						<h3>Naughty</h3>
-						<p>Annoy Shoptology with high-pitched singing chipmunks, dogs barking Jingle Bells and grandmas ran over by reindeer</p>
-						<div class="avatar-box" ng-if="user.cat == 'naughty'">
-							<ul>
-								<li class="avatar" ng-repeat="avatar in avatars.naughty" ng-click="setSelectedAvatar(avatar, 'naughty')" ng-class="{ 'active' : (avatar.img == getSelectedAvatar('naughty').img)}">
-									<!--<img src="http://placehold.it/50x50">-->
-									<img ng-src="{{avatar.img}}">
-								</li>
-							</ul>
-						</div>
+					<div class="avatar-box col-xs-12">
+						<ul>
+							<li class="avatar" ng-repeat="avatar in avatars" ng-click="setSelectedAvatar(avatar)" ng-class="{ 'active' : (avatar.img == getSelectedAvatar().img)}">
+								<!--<img src="http://placehold.it/50x50">-->
+								<img ng-src="{{avatar.img}}">
+							</li>
+						</ul>
 					</div>
 				</div>
-				<p class="subtitle">Not sure? Don't worry, you can add whatever songs you like.</p>
 			</div>
 
 			<div class="col-xs-12">
-				<a class="btn btn-default btn-xs login" href ng-click="login(user)">Let's Hang<span class="arrow-right arrow"><i class="fa fa-angle-right"></i></span></a>
+				<a class="btn btn-default btn-xs login" href ng-click="login(user)">Get on it<span class="arrow-right arrow"><i class="fa fa-angle-right"></i></span></a>
 
 				<!--<input class="btn btn-primary" type="submit" value="Lets Hang">-->
 			</div>

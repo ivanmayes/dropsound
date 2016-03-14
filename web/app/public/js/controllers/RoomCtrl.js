@@ -6,7 +6,7 @@ define(function() {
     function ctrl($scope, $rootScope, $state, $stateParams, $sce, UserService, RoomService, PlayersService, AdminService, youtubeEmbedUtils, socket, $timeout, $window) {
         console.log('Room Id', $stateParams.roomId);
 
-        if (!$rootScope.user.isAdmin && !$rootScope.isLive) {
+        if (!$rootScope.user) {
             $rootScope.inner = false;
             $state.go('login');
         }
@@ -32,6 +32,7 @@ define(function() {
             q: ''
         }
         $scope.showSearch = showSearch;
+        $scope.hideSearch = hideSearch;
 
         $scope.streams = {
             shp: $sce.trustAsResourceUrl('https://www.youtube.com/embed/Sj3-lmMmI1Y'),
@@ -162,12 +163,21 @@ define(function() {
 
         function showSearch() {
             $timeout(function() {
-                console.log('focussing');
                 var element = $window.document.getElementById('searchInput');
                 if (element) {
                     element.focus();
                 }
             });
+        }
+
+        function hideSearch() {
+            $timeout(function() {
+                var element = $window.document.getElementById('searchInput');
+                if (element) {
+                    element.value = '';
+                    $scope.showSearchPage = false
+                }
+            })
         }
 
         $timeout(function() {

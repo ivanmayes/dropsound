@@ -28,7 +28,10 @@ define(['angular'], function(angular) {
             socket.emit('addVideo', params);
         }
 
-        function voteForVideo(video) {
+        function voteForVideo(event, video) {
+            if ($(event.target).hasClass('remove')) {
+                return false;
+            }
             var params = {
                 room: currentRoom,
                 video: video

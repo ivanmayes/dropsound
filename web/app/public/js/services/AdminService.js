@@ -24,7 +24,8 @@ define(['angular'], function(angular) {
             socket.emit('admin:removePlaylist', params);
         }
 
-        function removeFromPlaylist(video, room) {
+        function removeFromPlaylist(event, video, room) {
+            event.preventDefault();
             var params = {
                 video: video,
                 room: room
