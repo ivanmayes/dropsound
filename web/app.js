@@ -112,7 +112,7 @@ if (process.env.NODE_ENV === 'dev') {
 }
 
 
-app.use(compress());
+//app.use(compress());
 
 app.use(logger('dev'));
 app.use(bodyParser.json());
@@ -132,9 +132,9 @@ app.use(session({
         autoReconnect: true
     })*/
 }));
-app.use(passport.initialize());
-app.use(passport.session());
-app.use(flash());
+//app.use(passport.initialize());
+//app.use(passport.session());
+//app.use(flash());
 app.use(function(req, res, next) {
     // CSRF protection.
     if (_.contains(csrfExclude, req.path)) {
@@ -164,6 +164,10 @@ app.use(express.static(path.join(__dirname, 'app/public'), {
 /**
  * Routes.
  */
+
+//-----Holiday card event tracking
+app.locals.isLive = false;
+//--------------------------------//
 
 require('./app/config/routes')(app, passport, passportConf);
 

@@ -18,7 +18,7 @@ module.exports = (function(app, io, server) {
     var rData = {
         id: 1,
         name: 'Shoptology DJ',
-        topic: 'Off Topic',
+        topic: 'Off Topic'
     };
 
     /*if(r) {
@@ -137,8 +137,32 @@ module.exports = (function(app, io, server) {
                         room: r
                     });
                 }
+            },
+            toggleLive: function(data) {
+                var player = playerById(this.id);
+
+                if (player.isAdmin) {
+                    app.locals.isLive = (data.isLive) ? true : false;
+
+                    s.sockets
+                        .emit('update:isLive', {
+                            isLive: app.locals.isLive
+                        });
+
+                    /*s
+                        .to(data.room.id)
+                        .emit('room:update:isLive', {
+                            isLive: app.locals.isLive
+                        });*/
+                }
             }
         };
+
+        //TODO:
+        //socket.on('admin:changeStreamPub', admin.changeStreamPub);
+        //socket.on('admin:changeStreamShp', admin.changeStreamShp);
+
+        socket.on('admin:toggleLive', admin.toggleLive);
 
         socket.on('admin:changeTopic', admin.changeTopic);
         socket.on('admin:removePlaylist', admin.removePlaylist);
@@ -146,7 +170,7 @@ module.exports = (function(app, io, server) {
 
         function onPlayerHeartbeat(data) {
             var player = playerById(socket.id);
-            console.log('heartbeat received from ' + player.firstName + ', responding');
+            console.log('heartbeat received from ' + player.name + ', responding');
             socket.emit('player:heartbeat:response', {
                 msg: 'kthx'
             });
@@ -163,13 +187,13 @@ module.exports = (function(app, io, server) {
 
             // Add user details
             if (data.user) {
-                player.firstName = data.user.firstName;
-                player.lastName = data.user.lastName;
+                player.name = data.user.name;
                 player.avatar = data.user.avatar;
                 player.email = data.user.email;
-                player.photo = data.user.photo;
                 player.isAdmin = data.user.isAdmin;
             }
+
+            data.roomId = 1;
 
             if (!data.roomId) {
                 console.log('Cannot join an empty game?', data.roomId);
@@ -200,33 +224,33 @@ module.exports = (function(app, io, server) {
                 g.rooms[data.roomId].on('videoUpdate', videoSync);
             }
 
-            if (!player.inMap(data.roomId)) {
-                console.log('$$$$$$$$$$$$$$$$$$');
-                console.log(player.firstName + ' (' + player.id + ') joining ' + data.roomId);
-                console.log('$$$$$$$$$$$$$$$$$$');
-                player.joinMap(g.rooms[data.roomId]);
+            //if (!player.inMap(data.roomId)) {
+            console.log('$$$$$$$$$$$$$$$$$$');
+            console.log(player.firstName + ' (' + player.id + ') joining ' + data.roomId);
+            console.log('$$$$$$$$$$$$$$$$$$');
+            player.joinMap(g.rooms[data.roomId]);
 
-                socket.join(data.roomId);
+            socket.join(data.roomId);
 
-                // Handle synchronization
-                if (g.rooms[data.roomId].currentVideoStartTime && g.rooms[data.roomId].currentVideo) {
-                    var currentVideoSync = '&amp;start='
-                    + Math.ceil((new Date().getTime() - g.rooms[data.roomId].currentVideoStartTime) / 1000);
+            // Handle synchronization
+            if (g.rooms[data.roomId].currentVideoStartTime && g.rooms[data.roomId].currentVideo) {
+                var currentVideoSync = '&amp;start='
+                + Math.ceil((new Date().getTime() - g.rooms[data.roomId].currentVideoStartTime) / 1000);
 
-                    g.rooms[data.roomId].currentVideoSync = currentVideoSync;
-                }
+                g.rooms[data.roomId].currentVideoSync = currentVideoSync;
+            }
 
-                this.to(data.roomId)
-                    .emit('room:update:player:add', {
-                        player: player
-                    });
-
-                this.emit('roomUpdated', {
-                    room: g.rooms[data.roomId]
+            this.to(data.roomId)
+                .emit('room:update:player:add', {
+                    player: player
                 });
 
-                console.log(g.rooms[data.roomId].players);
-            }
+            this.emit('roomUpdated', {
+                room: g.rooms[data.roomId]
+            });
+
+            console.log(g.rooms[data.roomId].players);
+            //}
         }
 
         function onAddVideo(data) {

@@ -5,7 +5,8 @@ define(['angular'], function(angular) {
         var services = {
             changeTopic: changeTopic,
             removePlaylist: removePlaylist,
-            removeFromPlaylist: removeFromPlaylist
+            removeFromPlaylist: removeFromPlaylist,
+            toggleLive: toggleLive
         };
 
         function changeTopic(room) {
@@ -23,12 +24,22 @@ define(['angular'], function(angular) {
             socket.emit('admin:removePlaylist', params);
         }
 
-        function removeFromPlaylist(video, room) {
+        function removeFromPlaylist(event, video, room) {
+            event.preventDefault();
             var params = {
                 video: video,
                 room: room
             };
             socket.emit('admin:removeFromPlaylist', params);
+        }
+
+        function toggleLive(room) {
+            var params = {
+                room: room,
+                isLive: ($rootScope.isLive) ? false : true
+            };
+
+            socket.emit('admin:toggleLive', params);
         }
 
         return services;

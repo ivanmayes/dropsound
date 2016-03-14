@@ -1,0 +1,35 @@
+<svg id="icons" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 90.04 101.5">
+  <defs>
+    <style>
+      .cls-1, .cls-3 {
+        fill: #fff;
+      }
+
+      .cls-2 {
+        fill: #00aeef;
+      }
+
+      .cls-2, .cls-3, .cls-4 {
+        stroke: #00aeef;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        stroke-width: 1.5px;
+      }
+
+      .cls-4 {
+        fill: none;
+      }
+    </style>
+  </defs>
+  <title>avatar-24</title>
+  <path class="cls-1" d="M957.25,667.1L995,688.89a8.08,8.08,0,0,0,7.27,0L1040,667.1a8.07,8.07,0,0,0,3.63-6.3V617.22a8.06,8.06,0,0,0-3.63-6.3l-37.75-21.79a8,8,0,0,0-7.27,0l-37.75,21.79a8.06,8.06,0,0,0-3.64,6.3V660.8A8.07,8.07,0,0,0,957.25,667.1Z" transform="translate(-953.62 -588.26)"/>
+  <ellipse class="cls-2" cx="44.69" cy="73.86" rx="29.08" ry="6.19"/>
+  <path class="cls-3" d="M992.46,626.74a4.43,4.43,0,0,0,0,8.87l-5.5-.07a5.61,5.61,0,0,0,0,11.23h-5.1a7.4,7.4,0,1,0,0,14.8h34.47a7.4,7.4,0,1,0,0-14.8h-5.22a5.61,5.61,0,0,0,0-11.23l-5.63.07a4.43,4.43,0,0,0,0-8.87,17.81,17.81,0,0,1-3.62-.5c-1.57-.44-2.8-1.25-2.8-2.8a2.8,2.8,0,0,1,2.8-2.8c2,0,2.84,2.54,2.84,2.54l0-.5a6.48,6.48,0,1,0-10.68,4.94" transform="translate(-953.62 -588.26)"/>
+  <path class="cls-4" d="M1002,654.85a2.41,2.41,0,0,1-4.81,0" transform="translate(-953.62 -588.26)"/>
+  <circle class="cls-4" cx="29.39" cy="64.79" r="1.81"/>
+  <circle class="cls-4" cx="61.29" cy="64.79" r="1.81"/>
+  <path class="cls-4" d="M998.3,607.14A2.71,2.71,0,1,1,1000,602" transform="translate(-953.62 -588.26)"/>
+  <path class="cls-4" d="M998.3,607.14a2.71,2.71,0,0,1,1.7,3.43" transform="translate(-953.62 -588.26)"/>
+  <path class="cls-4" d="M993.41,608.69a2.71,2.71,0,0,1,2.22,3.12" transform="translate(-953.62 -588.26)"/>
+  <path class="cls-3" d="M987.21,643.65a2.4,2.4,0,0,1-2.4-2.4" transform="translate(-953.62 -588.26)"/>
+</svg>

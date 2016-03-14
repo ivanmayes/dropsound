@@ -1,6 +1,7 @@
 /*global define, require */
 
 define(['angular',
+    'bootstrapJS',
     'uiRouter',
     'socketIo',
     'angularYoutube',
@@ -27,22 +28,40 @@ define(['angular',
             'ngAnimate'
         ]);
 
-        app.run(function($rootScope, $state, UserService, socket) {
-
+        app.run(function($rootScope, $location, $state, UserService, socket) {
+            $rootScope.isLive = isLive;
+            $rootScope.inner = false;
             $rootScope.token = UserService.getAccessToken();
             $rootScope.user = UserService.getUserSettings();
 
             // Check if Page requires authentication
-            $rootScope.$on("$stateChangeStart", function(event, toState, toParams, fromState, fromParams) {
+            $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams) {
+                $rootScope.inner = false;
+
                 if (toState.authenticate && !UserService.isLoggedIn()) {
                     // User isn’t authenticated
                     console.log('Not logged in');
                     $state.transitionTo('login');
                     event.preventDefault();
-
                 }
-                console.log('Route changed');
 
+                if (!$rootScope.isLive && !$rootScope.user.isAdmin) {
+                    //$state.transitionTo('login');
+                    //event.preventDefault();
+                }
+
+                console.log('Route changed');
+            });
+
+            if (!$rootScope.isLive && !$rootScope.user.isAdmin) {
+                $state.go('login');
+            }
+
+            socket.on('update:isLive', function(data) {
+                $rootScope.isLive = data.isLive;
+                if (!$rootScope.isLive && !$rootScope.user.isAdmin) {
+                    $state.go('login');
+                }
             });
 
             // Route change socket emit

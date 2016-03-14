@@ -1,3 +1,6 @@
+$sans-serif: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+$novacento: 'Novecentosanswide-Light', 'Helvetica Neue', sans-serif;
+
 .search {
 
     position: fixed;
@@ -7,6 +10,8 @@
     right: 0;
     background: rgba(0,0,0,0.8);
     z-index: 99;
+    padding-top: 70px;
+    overflow-y: scroll;
 
     ::-webkit-input-placeholder { color: white; } :-moz-placeholder { /* Firefox 18- */ color: white; } ::-moz-placeholder { /* Firefox 19+ */ color: white; } :-ms-input-placeholder { color: white; }
 
@@ -59,12 +64,13 @@
         height: 60px;
         padding: 5px;
         position: relative;
-        margin-bottom: 22px;
+        margin-bottom: 52px;
 
         .btn.clear {
             position: absolute;
-            right: 0;
-            top: 28px;        }
+            right: 15px;
+            top: 28px;
+        }
 
         .search-icon {
             background: url("/img/zoom.svg") no-repeat;
@@ -104,9 +110,10 @@
             border: none;
             box-shadow: none;
             padding: 0;
+            border: white solid 1px;
+            padding-left: 15px;
 
             &:focus {
-                border: none;
                 box-shadow: none;
             }
         }
@@ -114,14 +121,35 @@
 }
 
 .search-list {
+    color: white;
     .list-group-item {
         //min-height: 70px;
+        font-family: $sans-serif;
         clear: both;
-        margin: 5px 0;
+        //margin: 5px 0;
         border: 0;
-        border-bottom: 3px solid #F0F0F0;
-        border-radius: 0;
+        border-bottom: 1px solid rgb(7, 84, 94);
+        color: rgb(7, 84, 94);
+        //border-radius: 6px;
         cursor: pointer;
+        background-color: rgba(255, 255, 255, 0.8);
+        margin-bottom: 0;
+
+        &.first {
+            border: none !important;
+            border-radius: 6px;
+        }
+
+        &.top {
+            border-top-left-radius: 6px;
+            border-top-right-radius: 6px;
+        }
+
+        &.bottom {
+            border-bottom: none;
+            border-bottom-left-radius: 6px;
+            border-bottom-right-radius: 6px;
+        }
 
         &:hover {
             .thumbnail .overlay {
@@ -133,13 +161,13 @@
             > .overlay {
                 opacity: 1;
                 z-index: 10;
-                background: rgba(247, 216, 255, 0.78);
+                background: rgba(255, 255, 255, 0.85);
 
                 p {
                     position: absolute;
                     top: 50%;
-                    left: 50px;
-                    transform: translateY(-50%);
+                    left: 50%;
+                    transform: translateX(-50%) translateY(-50%);
                     color: black;
                 }
             }
@@ -181,5 +209,14 @@
             height: 50px;
             display: block;
         }
+    }
+}
+
+@media (max-width: 500px) {
+    .search .search-body {
+        margin: 0;
+    }
+    .search a.back {
+        margin-left: 0;
     }
 }

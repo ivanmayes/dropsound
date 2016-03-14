@@ -1,0 +1,43 @@
+<svg id="icons" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 90.04 101.5">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #fff;
+      }
+
+      .cls-2 {
+        fill: #00aeef;
+      }
+
+      .cls-2, .cls-3 {
+        stroke: #00aeef;
+      }
+
+      .cls-2, .cls-3, .cls-4 {
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        stroke-width: 1.5px;
+      }
+
+      .cls-3, .cls-4 {
+        fill: none;
+      }
+
+      .cls-4 {
+        stroke: #fff;
+      }
+    </style>
+  </defs>
+  <title>avatar-07</title>
+  <path class="cls-1" d="M904,187.09l37.75,21.79a8.08,8.08,0,0,0,7.27,0l37.75-21.79a8.07,8.07,0,0,0,3.63-6.3V137.21a8.06,8.06,0,0,0-3.63-6.3l-37.75-21.79a8,8,0,0,0-7.27,0L904,130.91a8.06,8.06,0,0,0-3.64,6.3v43.59A8.07,8.07,0,0,0,904,187.09Z" transform="translate(-900.4 -108.25)"/>
+  <g>
+    <path class="cls-2" d="M937.18,152.87a0.56,0.56,0,0,1,.25-0.44l7.81-4.59a0.54,0.54,0,0,1,.49,0l7.81,4.59a0.56,0.56,0,0,1,.25.44V162a0.56,0.56,0,0,1-.25.44l-7.81,4.59a0.54,0.54,0,0,1-.49,0l-7.81-4.59a0.56,0.56,0,0,1-.25-0.44v-9.17Z" transform="translate(-900.4 -108.25)"/>
+    <line class="cls-3" x1="45.08" y1="31.9" x2="45.08" y2="19.76"/>
+    <line class="cls-3" x1="45.08" y1="78.58" x2="45.08" y2="66.44"/>
+    <line class="cls-3" x1="28.1" y1="49.22" x2="16.16" y2="49.22"/>
+    <line class="cls-3" x1="74.01" y1="49.22" x2="62.06" y2="49.22"/>
+    <line class="cls-4" x1="49.19" y1="49.83" x2="40.78" y2="49.83"/>
+    <line class="cls-4" x1="44.99" y1="45.55" x2="44.99" y2="54.1"/>
+    <ellipse class="cls-3" cx="44.95" cy="49.22" rx="24.14" ry="24.55"/>
+  </g>
+</svg>

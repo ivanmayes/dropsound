@@ -15,7 +15,10 @@ define(['angular'], function(angular) {
                 leaveRoom: leaveRoom
             };
 
-        function addVideoToPlaylist(video) {
+        function addVideoToPlaylist(video, isInList) {
+            if (isInList) {
+                return false;
+            }
             video.addedBy = $rootScope.user;
             console.log(currentRoom);
             var params = {
@@ -25,7 +28,10 @@ define(['angular'], function(angular) {
             socket.emit('addVideo', params);
         }
 
-        function voteForVideo(video) {
+        function voteForVideo(event, video) {
+            if ($(event.target).hasClass('remove')) {
+                return false;
+            }
             var params = {
                 room: currentRoom,
                 video: video
@@ -102,13 +108,22 @@ define(['angular'], function(angular) {
         });
 
         socket.on('room:update:player:add', function(data) {
+            if ($rootScope.user.isAdmin) {
+                var audio = new Audio('snd/login.mp3');
+                audio.play();
+            }
+
             currentRoom.players.push(data.player);
             $rootScope.$broadcast('room:update', currentRoom);
         });
 
         socket.on('room:update:player:remove', function(data) {
-            var index = getPlayerIndexById(data.player.id, currentRoom);
+            if ($rootScope.user.isAdmin) {
+                var audio = new Audio('snd/logout.mp3');
+                audio.play();
+            }
 
+            var index = getPlayerIndexById(data.player.id, currentRoom);
             currentRoom.players.splice(index, 1);
         });
 

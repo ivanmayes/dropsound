@@ -1,25 +1,49 @@
-<div class="header">
-	<h1>CO-LOUD</h1>
+<div class="header row">
+	<div class="col-md-8 col-md-offset-2">
+		<h1>Welcome!</h1>
+		<h2>Please sign in below</h2>
+		<br>
+		<br>
+		<br>
+		<br>
+	</div>
 </div>
 
-<div class="row">
-	<div class="col-md-6 col-md-offset-3">
+<div class="login row">
+	<div class="col-xs-12">
+		<form class="row" ng-submit="login(user)">
+			<div class="form-group col-md-6 col-md-offset-3">
+				<h3>Hello my name is...</h3>
+				<input type="text" id="nameInput" class="form-control" ng-model="user.name">
+			</div>
 
-		<form ng-submit="login(user)">
-			<div class="form-group">
-				<label>Email address</label>
-				<input type="text" class="form-control" ng-model="user.email" placeholder="email@address.com">
+			<div class="col-xs-12 naughty-nice avatar-picker">
+				<div class="row">
+					<div class="col-xs-12">
+						<h3>Pick an avatar</h3>
+					</div>
+					<div class="avatar-current">
+						<img class="selected-avatar" ng-src="{{ getSelectedAvatar().img }}">
+					</div>
+					<div class="avatar-box col-xs-12">
+						<ul>
+							<li class="avatar" ng-repeat="avatar in avatars" ng-click="setSelectedAvatar(avatar)" ng-class="{ 'active' : (avatar.img == getSelectedAvatar().img)}">
+								<!--<img src="http://placehold.it/50x50">-->
+								<img ng-src="{{avatar.img}}">
+							</li>
+						</ul>
+					</div>
+				</div>
 			</div>
-			<div class="form-group">
-				<label>Password</label>
-				<input type="password" class="form-control" ng-model="user.pass" placeholder="password">
+
+			<div class="col-xs-12">
+				<a class="btn btn-default btn-xs login" href ng-click="login(user)">Get on it<span class="arrow-right arrow"><i class="fa fa-angle-right"></i></span></a>
+
+				<!--<input class="btn btn-primary" type="submit" value="Lets Hang">-->
 			</div>
-			<input class="btn btn-primary" type="submit" value="Login">
 		</form>
 
 		<p class="alert alert-danger error-msg" ng-show="errorMsg">{{ errorMsg }}</p>
-
-		<p>Haven't signed up yet? <a ui-sref="signup">Sign Up Now</a></p>
 
 	</div>
 </div>

@@ -1,0 +1,422 @@
+$sans-serif: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+$novacento: 'Novecentosanswide-Light', 'Helvetica Neue', sans-serif;
+
+
+.header {
+    text-align: center;
+    font-weight: 700;
+    padding: 50px 0 10px;
+
+    &.white {
+        color: white;
+    }
+
+    img.avatar {
+        width: 85px;
+        height: 85px;
+    }
+
+    h1 {
+        margin-bottom: 60px;
+        font-size: 50px;
+        text-transform: uppercase;
+        &.no-bottom-margin {
+            margin-bottom: 0;
+        }
+    }
+
+    h2 {
+        font-size: 28px;
+        text-transform: uppercase;
+    }
+}
+
+.ornament {
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform-origin: center top;
+    .white {
+        display: none;
+    }
+    &.white {
+        .white {
+            display: block;
+        }
+        .color {
+            display: none;
+        }
+    }
+}
+
+#ornament1 {
+    left:12%;
+    top: -380px;
+    animation: swing 1.9s ease-in-out infinite alternate;
+    img {
+        width: 200px;
+    }
+}
+
+#ornament2 {
+    left:4%;
+    top: -100px;
+    transition-delay: 300ms;
+    animation: swing 1s ease-in-out infinite alternate;
+    img {
+        width: 100px;
+    }
+}
+
+#ornament3 {
+    left: auto;
+    right:10%;
+    top: -130px;
+    transition-delay: 200ms;
+    animation: swing 2.9s ease-in-out infinite alternate;
+    img {
+        width: 160px;
+    }
+}
+
+#ornament4 {
+    top: -130px;
+    left:auto;
+    right:5%;
+    transition-delay: 100ms;
+    animation: swing 1.5s ease-in-out infinite alternate;
+    img {
+        width: 140px;
+    }
+}
+
+
+@media (max-width: 1000px) {
+  #ornament1 {
+    left:3%
+  }
+  #ornament2 {
+    left:0;
+  }
+  #ornament3 {
+    right:0;
+  }
+  #ornament4 {
+    right:3%;
+  }
+}
+
+@media (max-width: 860px) {
+  #ornament1 {
+    left:-14%;
+  }
+  #ornament2 {
+    left:-5%;
+  }
+  #ornament3 {
+    right:-13%;
+  }
+  #ornament4 {
+    right:-5%;
+  }
+}
+
+@media (max-width: 660px) {
+  .ornament {
+    display:none;
+  }
+}
+
+
+
+.swing {
+    -webkit-transform-origin: center top;
+    -moz-transform-origin: center top;
+    -o-transform-origin: center top;
+    -ms-transform-origin: center top;
+    transform-origin: center top;
+    -webkit-animation: swing 1.9s ease-in-out infinite alternate;
+    -moz-animation: swing 1.9s ease-in-out infinite alternate;
+    -o-animation: swing 1.9s ease-in-out infinite alternate;
+    animation: swing 1.9s ease-in-out infinite alternate;
+}
+
+
+.countdown {
+    text-align: center;
+
+    p {
+        font-size: 18px;
+        opacity: 0.8;
+        font-family: $sans-serif;
+    }
+}
+
+#clockdiv{
+    color: #07505A;
+    background: rgba(255,255,255,0.7);
+    border-radius: 6px;
+    display: inline-block;
+    font-weight: 100;
+    text-align: center;
+    font-size: 30px;
+
+    .vrule {
+        width: 1px;
+        padding: 0;
+        margin-top: 20px;
+        height: 40px;
+        background: #07505A;
+        vertical-align: top;
+    }
+}
+
+#clockdiv > div{
+    padding: 10px 25px;
+    display: inline-block;
+}
+
+#clockdiv div > span{
+
+    display: inline-block;
+    font-size: 50px;
+    line-height: 50px;
+
+}
+
+#clockdiv div:last-child > span {
+    border:none;
+}
+
+#clockdiv .smalltext{
+    padding-top: 5px;
+    font-size: 14px;
+    text-transform: uppercase;
+}
+
+@media (max-width: 660px) {
+  #clockdiv {
+    > div {
+        padding: 10px 5px;
+        > span {
+            font-size: 40px;
+        }
+    }
+  }
+}
+
+@media (max-width: 660px) {
+  #clockdiv {
+    > div {
+        padding: 10px 5px;
+        > span {
+            font-size: 40px;
+        }
+    }
+  }
+}
+
+@media (max-width: 330px) {
+  #clockdiv {
+    > div {
+        padding: 10px 4px;
+        > span {
+            font-size: 36px;
+        }
+        > .smalltext {
+            font-size: 12px;
+        }
+    }
+  }
+}
+
+.instructions {
+    font-family: $sans-serif;
+    text-align: center;
+    margin-bottom: 60px;
+
+    .title {
+        font-size: 17px;
+    }
+    .step {
+        .title {
+            border: white 1px solid;
+            padding: 30px 0;
+            font-family: 'Novecentosanswide-Normal', 'Helvetica Neue', 'Open Sans', sans-serif;
+            font-size: 20px;
+            text-transform: uppercase;
+        }
+    }
+}
+
+@media (max-width: 768px) {
+  .instructions .step .title {
+        margin: 35px 25% 10px;
+  }
+}
+
+.login {
+    font-family: $sans-serif;
+    text-align: center;
+
+    h3 {
+        font-family: $novacento;
+        text-transform: uppercase;
+        margin-top:0;
+    }
+
+    input {
+        text-align: center;
+        border: 0;
+        font-size: 30px;
+        padding: 10px;
+        height: auto;
+    }
+
+    .naughty-nice {
+        padding: 20px 0;
+
+        .subtitle {
+            opacity: 0.6;
+            width: 230px;
+            margin: 0 auto;
+        }
+
+        .or {
+            position: absolute;
+            top: 90px;
+            padding-left: 40px;
+            user-select: none;
+            pointer-events: none;
+
+            h3 {
+                font-size: 16px;
+            }
+        }
+    }
+
+    .selected-avatar {
+        width: 100px;
+        margin:0 10px;
+    }
+
+    .nice, .naughty, .avatar-picker {
+        cursor: pointer;
+
+        h3 {
+            font-family: 'Novecentosanswide-Normal', 'Helvetica Neue', 'Open Sans', sans-serif;
+            font-weight: normal;
+        }
+
+        &.active {
+            h3 {
+                font-weight: bold;
+            }
+        }
+
+        .avatar-box {
+            margin-top: 15px;
+        }
+
+        .avatar {
+            margin:0 10px;
+            width: 54px;
+            border: #07505a solid 0;
+            border-radius: 25px;
+            transition: border 200ms;
+            display: inline-block;
+            img {
+                width: 100%;
+            }
+
+            &.active {
+                border: #07505a solid 3px;
+            }
+        }
+    }
+
+    .nice {
+        text-align: right;
+        .selected-avatar {
+            float: right;
+            margin-right: 15px;
+        }
+        .avatar-box {
+            margin-right: 24px;
+        }
+        .avatar {
+            float: right;
+        }
+    }
+    .naughty {
+        text-align: left;
+        .selected-avatar {
+            float: left;
+        }
+        .avatar-box {
+            margin-left: 20px;
+        }
+        .avatar {
+            float: left;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .naughty, .nice {
+            text-align: center;
+            padding: 5%;
+
+            .selected-avatar {
+                float:none;
+                margin: 0 auto 10px;
+            }
+
+            .avatar {
+                margin: 5px 10px;
+            }
+        }
+    }
+
+    .btn.login {
+        border-radius: 4px;
+        border: none;
+        margin-bottom: 22px;
+        transition: all 300ms;
+        font-size: 16px;
+        position: relative;
+        padding: 10px 70px 10px 30px;
+        font-family: 'Novecentosanswide-Normal', 'Helvetica Neue', 'Open Sans', sans-serif;
+        text-transform: uppercase;
+        color: #07505a;
+
+        .arrow {
+            height: 100%;
+            display: block;
+            background: #EFEFEF;
+            padding-left: 19px;
+            padding-right: 11px;
+            padding-top: 6px;
+            font-size: 20px;
+            position: absolute;
+            top: 0;
+            transition: all 300ms;
+            border-top-right-radius: 4px;
+            border-bottom-right-radius: 4px;
+            &.arrow-right {
+                right: 0;
+            }
+            &.arrow-left {
+                left: 0;
+            }
+        }
+
+        &:hover {
+            .arrow {
+                background: #07505a;
+                color:white !important;
+            }
+
+        }
+    }
+
+}

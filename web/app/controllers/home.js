@@ -19,6 +19,7 @@ exports.app = function(req, res) {
     res.render('app', {
         title: 'List Maker',
         api: api,
+        isLive: req.app.locals.isLive,
         layout: 'layout-app'
     });
 };

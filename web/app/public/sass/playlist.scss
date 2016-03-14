@@ -1,3 +1,6 @@
+$sans-serif: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+$novacento: 'Novecentosanswide-Light', 'Helvetica Neue', sans-serif;
+
 .playlist {
     .toggle {
         margin-right: 20px;
@@ -10,10 +13,10 @@
     }
 
     .currentVideo {
-        transition: max-height 500ms;
-        max-height: 1000px;
-        min-height: 350px;
-        background: #EEE;
+        position: relative;
+        padding-bottom: 56.25%;
+        padding-top: 25px;
+        height: 0;
 
         &.hide-video {
             min-height: 1px;
@@ -25,9 +28,11 @@
         }
 
         iframe {
-            transition: max-height 500ms;
-            max-height: 1000px;
-            height: 488px;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
         }
 
         .empty-msg {
@@ -61,6 +66,10 @@
         height: 16px;
     }
 
+    .list-group-item {
+        font-family: $sans-serif;
+    }
+
     .list-group-item .thumb {
         width: 100%;
     }
@@ -82,7 +91,7 @@
 
     .list-group-item.gray {
         h4, .votes, .votes .fa {
-            color: #ABABAB;
+            color: rgb(7, 84, 94);
         }
 
         .gravatar {
@@ -95,7 +104,7 @@
     }
 
     .added-by {
-        color: #9a9a97;
+        color: rgb(7, 84, 94);
         margin-bottom: 0;
         padding-top: 4px;
 
@@ -108,7 +117,7 @@
 
     .votes {
         text-align: right;
-        color: #e15829;
+        color: rgb(7, 84, 94);
         font-size: 17px;
 
         .fa {
@@ -118,22 +127,69 @@
 }
 
 .btn.add {
-        border: purple 1px solid;
-    color: purple;
-    font-size: 21px;
-    padding: 10px;
+    border-radius: 0;
+    //border: purple 1px solid;
+    //color: purple;
+    border: none;
+    //font-size: 21px;
+    //padding: 10px;
     margin-bottom: 22px;
     transition: all 300ms;
 
+    height: 87px;
+    font-size: 38px;
+    line-height: 87px;
+    text-align: left;
+    vertical-align: middle;
+    padding-left: 25px;
+    padding-right: 10px;
+    position: relative;
+
+    .arrow {
+        height: 100%;
+        display: block;
+        padding-left: 35px;
+        padding-right: 35px;
+        font-size: 50px;
+        position: absolute;
+        top: 0;
+        transition: all 300ms;
+        &.arrow-right {
+            right: 0;
+        }
+        &.arrow-left {
+            left: 0;
+        }
+    }
+
     &:hover {
-        background: purple;
-        color:white;
+        //background: purple;
+        color:white !important;
     }
 }
 
 @media (min-width: 1200px) {
     .container {
         width: 900px;
+    }
+}
+
+@media (max-width: 700px) {
+    .btn.add {
+        font-size: 25px;
+        padding-left: 15px;
+    }
+}
+
+@media (max-width: 500px) {
+    .btn.add {
+        font-size: 18px;
+
+        .arrow {
+            font-size: 30px;
+            padding-left: 25px;
+            padding-right: 25px;
+        }
     }
 }
 

@@ -1,0 +1,27 @@
+<svg id="icons" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 90.04 101.5">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #fff;
+      }
+
+      .cls-2 {
+        fill: none;
+        stroke: #16ace3;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        stroke-width: 1.5px;
+      }
+    </style>
+  </defs>
+  <title>avatar-15</title>
+  <path class="cls-1" d="M1281.28,282.55L1319,304.34a8.08,8.08,0,0,0,7.27,0L1364,282.55a8.07,8.07,0,0,0,3.63-6.3V232.66a8.06,8.06,0,0,0-3.63-6.3l-37.75-21.79a8,8,0,0,0-7.27,0l-37.75,21.79a8.06,8.06,0,0,0-3.64,6.3v43.59A8.07,8.07,0,0,0,1281.28,282.55Z" transform="translate(-1277.64 -203.7)"/>
+  <polyline class="cls-2" points="71.87 66.64 71.86 52.69 50.37 43.51"/>
+  <line class="cls-2" x1="74.94" y1="51.3" x2="75.04" y2="65.03"/>
+  <line class="cls-2" x1="68.16" y1="54.43" x2="68.16" y2="68.83"/>
+  <ellipse class="cls-2" cx="46.8" cy="42.06" rx="5.32" ry="1.98"/>
+  <path class="cls-2" d="M1336.53,271.44a26.73,26.73,0,0,1-25.18.2" transform="translate(-1277.64 -203.7)"/>
+  <path class="cls-2" d="M1342.06,257.74V271.8s-5.61,6.33-18.34,6.33-18.44-6.33-18.44-6.33V257.74" transform="translate(-1277.64 -203.7)"/>
+  <path class="cls-2" d="M1345.8,258.13l-21.36-10.23a15.47,15.47,0,0,0,3.86-.78,2.09,2.09,0,0,0,1.46-1.36l22.92,9.16Z" transform="translate(-1277.64 -203.7)"/>
+  <polyline class="cls-2" points="65.41 53.11 45.58 62.8 9.97 45.4 45.58 31.21 81.18 45.4 71.87 49.95"/>
+</svg>

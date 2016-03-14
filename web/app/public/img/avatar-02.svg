@@ -1,0 +1,37 @@
+<svg id="icons" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 90.04 101.5">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #fff;
+      }
+
+      .cls-2, .cls-4 {
+        fill: none;
+        stroke-width: 1.5px;
+      }
+
+      .cls-2, .cls-3 {
+        stroke: #00aeef;
+      }
+
+      .cls-2, .cls-3, .cls-4 {
+        stroke-linecap: round;
+        stroke-linejoin: round;
+      }
+
+      .cls-3 {
+        fill: #00aeef;
+      }
+
+      .cls-4 {
+        stroke: #fff;
+      }
+    </style>
+  </defs>
+  <title>avatar-02</title>
+  <path class="cls-1" d="M957.59,90.7l37.75,21.79a8.08,8.08,0,0,0,7.27,0l37.75-21.79a8.07,8.07,0,0,0,3.63-6.3V40.82a8.06,8.06,0,0,0-3.63-6.3l-37.75-21.79a8,8,0,0,0-7.27,0L957.59,34.52a8.06,8.06,0,0,0-3.64,6.3V84.4A8.07,8.07,0,0,0,957.59,90.7Z" transform="translate(-953.96 -11.86)"/>
+  <path class="cls-2" d="M972.12,70.22c1.2,3-3.36,5.39-3.36,5.39a7.65,7.65,0,0,0,7.53-.75s3.88,4.19,13,4.19a21,21,0,1,0-20.94-21A22.11,22.11,0,0,0,972.12,70.22Z" transform="translate(-953.96 -11.86)"/>
+  <path class="cls-3" d="M1023.79,81.8c-0.94,2.35,2.64,4.24,2.64,4.24a6,6,0,0,1-5.92-.59s-3,3.29-10.26,3.29a16.48,16.48,0,1,1,16.46-16.48A17.38,17.38,0,0,1,1023.79,81.8Z" transform="translate(-953.96 -11.86)"/>
+  <path class="cls-2" d="M973.27,57.09a14.42,14.42,0,0,1,14.42-14.42" transform="translate(-953.96 -11.86)"/>
+  <path class="cls-4" d="M1010.26,59.18a13.07,13.07,0,0,1,13.07,13.07" transform="translate(-953.96 -11.86)"/>
+</svg>

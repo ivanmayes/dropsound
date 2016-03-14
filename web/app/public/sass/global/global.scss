@@ -1,40 +1,116 @@
 // Scaffolding
 // -------------------------
 
+$sans-serif: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+$novacento: 'Novecentosanswide-Light', 'Helvetica Neue', sans-serif;
+
 html {
     position: relative;
     min-height: 100%;
-    background-color: white;
-    font-family: 'Novecentosanswide-Light', 'Helvetica Neue', sans-serif;
+    font-family: $novacento;
+    background-size: 100%;
+    background-color: #D4D3D3;
+    background-color: #76BC43;
+    overflow-x: hidden;
 }
 
 body {
-    margin-bottom: 120px;
-    font-family: 'Helvetica Neue', sans-serif;
+    padding-top: 70px;
+    padding-bottom: 120px;
+    min-height: 100%;
+    font-family: $novacento;
+    color: #07505a;
+    background-color: transparent;
+    position: relative;
+    overflow-x: hidden;
+    .white {
+        color: white;
+    }
+    &.red {
+        background-color: rgba(255, 32, 0, 0.65);
+        .theme {
+            color: rgb(239, 61, 35) !important;
+            //border-color: rgb(239, 61, 35) !important;
+
+            &.search {
+                background-color: rgba(255, 32, 0, 0.8);
+            }
+
+            &.btn {
+                .arrow {
+                    background-color: rgb(250, 219, 214);
+                }
+                &:hover {
+                    background-color: rgb(250, 219, 214);
+                    .arrow {
+                        background-color: white;
+                        color: rgb(239, 61, 35);
+                    }
+                }
+            }
+
+        }
+    }
+    &.green {
+        background-color: rgba(46, 171, 42, 0.65);
+        .theme {
+            color: rgb(49, 180, 75) !important;
+            //border-color: rgb(49, 180, 75) !important;
+
+            &.search {
+                background-color: rgba(46, 171, 42, 0.8);
+            }
+
+            &.btn {
+                .arrow {
+                    background-color: rgb(178, 247, 184);
+                }
+                &:hover {
+                    background-color: rgb(178, 247, 184);
+                    .arrow {
+                        background-color: white;
+                        color: rgb(49, 180, 75);
+                    }
+                }
+            }
+        }
+    }
 }
 
 iframe {
     width: 100%;
 }
 
-.header {
-    text-align: center;
-    font-family: 'Novecentosanswide-Bold', 'Helvetica Neue', sans-serif;
-    font-weight: 700;
+
+
+@keyframes swing {
+    from {
+        transform: rotate(-1deg);
+    }
+
+    to {
+        transform: rotate(1deg);
+    }
 }
 
+
 .room {
+    input {
+        color: black;
+    }
+
     .room-info {
 
         margin: 0px -15px 30px;
 
         .who {
-            text-align: right;
+            text-align: center;
         }
 
         .who, .room {
             li {
-                color: #00aeef;
+                color: white;
+                    margin: 8px 5px;
             }
         }
 
@@ -45,7 +121,7 @@ iframe {
         }
 
         .gravatar {
-            width: 16px;
+            width: 26px;
         }
 
         li {
@@ -57,7 +133,7 @@ iframe {
         margin: 0 0 60px 0;
         text-align: center;
         color: #00aeef;
-        font-family: 'Novecentosanswide-Light', 'Helvetica Neue', sans-serif;
+        font-family: $novacento;
     }
 
     .currentVideo {
@@ -72,7 +148,7 @@ ul {
 }
 
 .nova {
-    font-family: 'Novecentosanswide-Light', 'Helvetica Neue', sans-serif;
+    font-family: $novacento;
 }
 
 ::-webkit-input-placeholder {
@@ -94,7 +170,7 @@ ul {
 }
 
 // Navbar
-// -------------------------
+
 
 .navbar-nav img {
     width: 30px;

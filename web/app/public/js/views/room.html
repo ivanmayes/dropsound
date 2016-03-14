@@ -1,67 +1,67 @@
 <div class="room">
-	<div class="header">
-		<h1>CO-LOUD</h1>
+	<div class="header white">
+		<!--<h1>CO-LOUD - {{$root.group}}</h1>-->
+
+		<img class="avatar" ng-src="{{user.avatar}}">
+		<h2>
+			Co-Loud
+		</h2>
+		<h1 class="no-bottom-margin">
+			<span ng-if="!editingTopic">Today's theme: {{room.topic}} <a href class="btn btn-warning btn-xs" ng-if="user.isAdmin" ng-click="editTopic()">Edit</a></span>
+			<span><input type="text" value="My Topic" ng-if="editingTopic && user.isAdmin" ng-model="room.topic"> <a href class="btn btn-success btn-xs" ng-if="editingTopic && user.isAdmin" ng-click="changeTopic()">Save</a></span>
+		</h1>
 	</div>
 
 	<div class="row room-info">
-		<div class="col-md-4 room">
-			<p>THEME</p>
-			<li ng-if="!editingTopic">{{room.topic}} <a href class="btn btn-warning btn-xs" ng-if="user.isAdmin" ng-click="editTopic()">Edit</a></li>
-			<li><input type="text" value="My Topic" ng-if="editingTopic && user.isAdmin" ng-model="room.topic"> <a href class="btn btn-success btn-xs" ng-if="editingTopic && user.isAdmin" ng-click="changeTopic()">Save</a></li>
-			<a class="btn btn-danger btn-xs clear" ng-if="user.isAdmin" ng-click="admin.removePlaylist(room)">Clear playlist</a>
-		</div>
-		<div class="col-md-8 who">
-			<p>MIXOLOGISTS</p>
+		<div class="col-md-12 who">
+			<span class="white" ng-if="room.players.length > 1">FEATURING:<br><br></span>
 			<ul>
-				<li class="player" ng-repeat="player in room.players">
-					<!--<img class="gravatar" ng-if="player.avatar" ng-src="{{player.avatar}}" title="{{player.firstName || player.email }} {{player.lastName}}">-->
-					<img class="gravatar" ng-if="!player.avatar" ng-src="{{ player.email | gravatar }}" title="{{player.firstName || player.email }} {{player.lastName}}"> {{player.firstName || player.email }} {{player.lastName}} <span class="slashes">//</span>
+				<li class="player" ng-repeat="player in room.players" ng-if="player.name != user.name">
+					<img class="gravatar" ng-if="player.avatar" ng-src="{{player.avatar}}" title="{{player.name}}" />
+					{{player.name}}
 				</li>
 			</ul>
 		</div>
 	</div>
 
+	<div class="row topic" ng-if="user.isAdmin">
+		<a class="btn btn-danger btn-xs clear" ng-if="user.isAdmin" ng-click="admin.removePlaylist(room)">Clear playlist</a>
+	</div>
+
 	<div class="row">
 		<div class="col-sm-12 playlist">
-
-
 
 			<div class="currentVideo" ng-class="{'hide-video': hideVideo}">
 				<p class="hidden-title">{{currentVideo.snippet.title}}</p>
 				<iframe ng-if="currentVideo" id="unique-youtube-embed-id-1" frameborder="0" allowfullscreen="1" title="YouTube video player" width="640" height="390" ng-src="{{currentVideo.iframeLink}}"></iframe>
 
-				<div class="meta" ng-if="currentVideo">
-					<div class="row">
-						<div class="col-md-8">
-							<p class="added-by">Added By: <img class="gravatar" ng-src="{{ currentVideo.addedBy.email | gravatar }}" title="{{currentVideo.addedBy.firstName || currentVideo.addedBy.email }} {{currentVideo.addedBy.lastName}}" /> {{currentVideo.addedBy.firstName || currentVideo.addedBy.email}} {{currentVideo.addedBy.lastName}} <a class="btn btn-danger btn-xs" ng-if="user.isAdmin" ng-click="admin.removeFromPlaylist(currentVideo, room)">Remove</a></p>
-						</div>
-						<div class="col-md-4 votes" >
-							<a class="btn btn-default btn-xs toggle" href ng-click="toggleVideo()">Toggle Video</a>
-							{{ currentVideo.votes.length }} <a href ng-if="!hasVotedForVideo(currentVideo)"><i class="fa fa-heart-o"></i></a><span ng-if="hasVotedForVideo(currentVideo)"><i class="fa fa-heart"></i></span>
-						</div>
-					</div>
+				<div class="empty-msg" ng-if="!currentVideo">No videos playing yet, add some!</div>
+			</div>
 
-					<div>
-						<span ng-if="currentVideo.votes.length > 1">Votes:</span>
-						<span ng-repeat="vote in currentVideo.votes" ng-if="vote.email !== currentVideo.addedBy.email">
-							<img class="gravatar" ng-src="{{ vote.email | gravatar }}" title="{{vote.firstName || vote.email }} {{vote.lastName}}" /> {{item.addedBy.firstName || item.addedBy.email}} {{item.addedBy.lastName}}
-						</span>
+			<div class="search-list list-group">
+				<div class="row" ng-if="currentVideo">
+					<div class="col-sm-6">
+						<p>NOW PLAYING</p>
 					</div>
 				</div>
 
-
-				<div class="empty-msg" ng-if="!currentVideo">No videos playing yet, add some!</div>
-
+				<div class="playlist-items">
+					<div class="list-group-item first"
+					ng-if="currentVideo"
+					ng-include="'js/views/partials/playlist-item-current.html'"
+					ng-animate="{enter: 'animate-enter', leave: 'animate-leave'}">
+					</div>
+				</div>
 			</div>
 
-			<a class="btn btn-default btn-block btn-xs add" href ng-click="showSearchPage = true; showSearch();"><i class="fa fa-plus"></i> Add Song</a>
+			<a class="btn btn-default btn-block btn-xs add theme" href ng-click="showSearchPage = true; showSearch();">ADD TO THE LIST<span class="arrow-right arrow">&gt;</span></a>
 
 			<div class="search-list list-group">
 				<div class="row" ng-if="room.playlist.length > 0">
 					<div class="col-sm-6">
 						<p>NEXT UP</p>
 					</div>
-					<div class="col-sm-6">
+					<!--<div class="col-sm-6">
 						<div class="input-group" style="width:100%;">
 					      <input type="text" ng-model="search.q" class="form-control" placeholder="Search playlist">
 					      <span class="input-group-btn" >
@@ -70,14 +70,14 @@
 					        </button>
 					      </span>
 					    </div>
-					</div>
+					</div>-->
 				</div>
 
 				<div class="playlist-items">
 					<div class="list-group-item"
 					ng-repeat="item in (filteredItems = room.playlist | filter:{snippet:{title:search.q}} | orderBy : ['-votes.length', 'modified'] )"
-					ng-click="voteForVideo(item)"
-					ng-class="{'first': $index == 0, 'gray': item.votes.length < 1}"
+					ng-click="voteForVideo($event, item)"
+					ng-class="{'gray': item.votes.length < 1, 'top' : $index == 0, 'bottom' : $last}"
 					ng-include="'js/views/partials/playlist-item.html'"
 					ng-animate="{enter: 'animate-enter', leave: 'animate-leave'}">
 					</div>
@@ -87,23 +87,25 @@
 		</div>
 
 		<div ng-show="showSearchPage == true">
-			<div class="col-sm-12 search">
+			<div class="col-sm-12 search theme">
 				<i class="close-icon" ></i>
-				<a href class="back" ng-click="showSearchPage = false"><i class="fa fa-arrow-circle-o-left"></i> Back to Playlist {{
+				<a href class="back" ng-click="hideSearch()"><i class="fa fa-arrow-circle-o-left"></i> BACK TO HANGOUT {{
 					search.showSearchPage.toString()}}</a>
 				<div class="search-body" ng-controller="SearchCtrl as search">
 
 					<form class="form-inline" ng-submit="searchVideos()">
 						<a class="btn btn-default btn-xs clear" href ng-click="clearSearch()" ng-if="search.q.length > 0">Clear</a>
 					  <div class="form-group">
-					    <label class="sr-only" for="videoSearch">Start Typing to Search</label>
-					    <input id="searchInput" type="text" ng-model="search.q" autocomplete="off" class="form-control" id="videoSearch" placeholder="Search songs here">
+					    <label class="sr-only" for="videoSearch">START TYPING TO SEARCH</label>
+					    <input id="searchInput" type="text" ng-model="search.q" autocomplete="off" class="form-control" id="videoSearch" placeholder="SEARCH">
 					  </div>
 					  <!--<button type="submit" class="btn btn-primary">Search</button>-->
 					</form>
 
 					<div class="search-list list-group">
-						<div class="list-group-item" ng-if="videos.length" ng-repeat="item in videos" ng-class="{'added': isVideoInPlaylist(item)}" ng-click="addVideo(item)">
+						<h3 ng-if="videos.length">SEARCH RESULTS:</h3>
+
+						<div class="list-group-item" ng-if="videos.length" ng-repeat="item in videos" ng-class="{'added': isVideoInPlaylist(item)}" ng-click="addVideo(item, isVideoInPlaylist(item))">
 							<div class="overlay">
 								<p>Added!</p>
 							</div>

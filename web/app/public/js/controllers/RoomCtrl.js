@@ -6,6 +6,13 @@ define(function() {
     function ctrl($scope, $rootScope, $state, $stateParams, $sce, UserService, RoomService, PlayersService, AdminService, youtubeEmbedUtils, socket, $timeout, $window) {
         console.log('Room Id', $stateParams.roomId);
 
+        if (!$rootScope.user) {
+            $rootScope.inner = false;
+            $state.go('login');
+        }
+
+        $rootScope.inner = true;
+
         var heartbeat;
 
         $scope.currentVideo;
@@ -18,12 +25,19 @@ define(function() {
         };
         $scope.room;
         $scope.toggleVideo = toggleVideo;
+        $scope.toggleLive = toggleLive;
         $scope.voteForVideo = RoomService.voteForVideo;
         $scope.isNew = true;
         $scope.search = {
             q: ''
         }
         $scope.showSearch = showSearch;
+        $scope.hideSearch = hideSearch;
+
+        $scope.streams = {
+            shp: $sce.trustAsResourceUrl('https://www.youtube.com/embed/Sj3-lmMmI1Y'),
+            pub: $sce.trustAsResourceUrl('http://www.ustream.tv/embed/21661769?html5ui')
+        };
 
         $scope.editingTopic = false;
         $scope.editTopic = editTopic;
@@ -45,6 +59,14 @@ define(function() {
         });
 
         $scope.$on('room:update', function(evt, room) {
+
+
+            /*// Kick if not live
+            if (!$scope.user.isAdmin && !$rootScope.isLive) {
+                alert('not broadcasting');
+                $state.go('login');
+            }*/
+
             console.log('Room Updated!', room);
             $scope.room = room;
             if (room.currentVideo !== $scope.currentVideo) {
@@ -99,6 +121,10 @@ define(function() {
             $scope.editingTopic = false;
         }
 
+        function toggleLive() {
+            $scope.admin.toggleLive($scope.room);
+        }
+
         function toggleVideo() {
             if ($scope.hideVideo) {
                 $scope.hideVideo = false;
@@ -137,12 +163,27 @@ define(function() {
 
         function showSearch() {
             $timeout(function() {
-                console.log('focussing');
                 var element = $window.document.getElementById('searchInput');
-                if(element)
-                  element.focus();
-              });
+                if (element) {
+                    element.focus();
+                }
+            });
         }
+
+        function hideSearch() {
+            $timeout(function() {
+                var element = $window.document.getElementById('searchInput');
+                if (element) {
+                    element.value = '';
+                    $scope.showSearchPage = false
+                }
+            })
+        }
+
+        $timeout(function() {
+            console.log('scrolling top');
+            $window.document.body.scrollTop = 0;
+        });
 
         sendHeartbeat();
     }
