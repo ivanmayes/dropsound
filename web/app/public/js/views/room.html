@@ -1,8 +1,7 @@
 <div class="room">
 	<div class="header white">
 		<!--<h1>CO-LOUD - {{$root.group}}</h1>-->
-
-		<img class="avatar" ng-src="{{user.avatar}}">
+		<!--<img class="avatar" ng-src="{{user.avatar}}">-->
 		<h2>
 			Co-Loud
 		</h2>
@@ -32,21 +31,15 @@
 		<div class="col-sm-12 playlist">
 
 			<div class="currentVideo" ng-class="{'hide-video': hideVideo}">
-				<p class="hidden-title">{{currentVideo.snippet.title}}</p>
+				<p class="hidden-title" ng-if="currentVideo">{{currentVideo.snippet.title}}</p>
 				<iframe ng-if="currentVideo" id="unique-youtube-embed-id-1" frameborder="0" allowfullscreen="1" title="YouTube video player" width="640" height="390" ng-src="{{currentVideo.iframeLink}}"></iframe>
 
-				<div class="empty-msg" ng-if="!currentVideo">No videos playing yet, add some!</div>
+				<div class="empty-msg" ng-if="!currentVideo" style="font-size:40px; text-align: center;">No videos playing yet, add some!</div>
 			</div>
 
 			<div class="search-list list-group">
-				<div class="row" ng-if="currentVideo">
-					<div class="col-sm-6">
-						<p>NOW PLAYING</p>
-					</div>
-				</div>
-
 				<div class="playlist-items">
-					<div class="list-group-item first"
+					<div class="first" style="color: white;"
 					ng-if="currentVideo"
 					ng-include="'js/views/partials/playlist-item-current.html'"
 					ng-animate="{enter: 'animate-enter', leave: 'animate-leave'}">

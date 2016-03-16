@@ -25,7 +25,7 @@
 					<div class="avatar-current">
 						<img class="selected-avatar" ng-src="{{ getSelectedAvatar().img }}">
 					</div>
-					<div class="avatar-box col-xs-12">
+					<div class="avatar-box col-xs-8 col-xs-offset-2">
 						<ul>
 							<li class="avatar" ng-repeat="avatar in avatars" ng-click="setSelectedAvatar(avatar)" ng-class="{ 'active' : (avatar.img == getSelectedAvatar().img)}">
 								<!--<img src="http://placehold.it/50x50">-->
@@ -37,7 +37,7 @@
 			</div>
 
 			<div class="col-xs-12">
-				<a class="btn btn-default btn-xs login" href ng-click="login(user)">Get on it<span class="arrow-right arrow"><i class="fa fa-angle-right"></i></span></a>
+				<a class="btn btn-default btn-xs login" href ng-click="login(user)" ng-show="user.name.length > 0">Get on it<span class="arrow-right arrow"><i class="fa fa-angle-right"></i></span></a>
 
 				<!--<input class="btn btn-primary" type="submit" value="Lets Hang">-->
 			</div>

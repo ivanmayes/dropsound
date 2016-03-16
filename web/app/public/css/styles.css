@@ -6727,7 +6727,6 @@ html {
   overflow-x: hidden; }
 
 body {
-  padding-top: 70px;
   padding-bottom: 120px;
   min-height: 100%;
   font-family: "Novecentosanswide-Light", "Helvetica Neue", sans-serif;
@@ -6805,9 +6804,6 @@ iframe {
   text-align: center;
   color: #00aeef;
   font-family: "Novecentosanswide-Light", "Helvetica Neue", sans-serif; }
-
-.room .currentVideo {
-  margin-bottom: 20px; }
 
 ul {
   padding: 0;
@@ -7252,16 +7248,16 @@ class
     .login .nice .avatar-box, .login .naughty .avatar-box, .login .avatar-picker .avatar-box {
       margin-top: 15px; }
     .login .nice .avatar, .login .naughty .avatar, .login .avatar-picker .avatar {
-      margin: 0 10px;
+      margin: 4px 1px;
       width: 54px;
       border: #07505a solid 0;
       border-radius: 25px;
-      transition: border 200ms;
+      transition: opacity 200ms;
       display: inline-block; }
       .login .nice .avatar img, .login .naughty .avatar img, .login .avatar-picker .avatar img {
         width: 100%; }
       .login .nice .avatar.active, .login .naughty .avatar.active, .login .avatar-picker .avatar.active {
-        border: #07505a solid 3px; }
+        opacity: 0.5; }
   .login .nice {
     text-align: right; }
     .login .nice .selected-avatar {
@@ -7642,6 +7638,14 @@ body.navbar-absolute-top .navbar-fixed-top {
   .search a.back {
     margin-left: 0; } }
 
+.playlist-items .first .added-by {
+  color: white;
+  font-weight: bold; }
+
+.playlist-items .first .votes {
+  color: white;
+  font-weight: bold; }
+
 .playlist .toggle {
   margin-right: 20px; }
 
@@ -7720,8 +7724,9 @@ body.navbar-absolute-top .navbar-fixed-top {
   margin-bottom: 0;
   padding-top: 4px; }
   .playlist .added-by .gravatar {
-    width: 16px;
-    height: 16px;
+    width: 26px;
+    height: 26px;
+    border: solid green 1px;
     margin: 0 1px 0 5px; }
 
 .playlist .votes {

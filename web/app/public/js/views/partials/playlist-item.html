@@ -1,12 +1,12 @@
 <div class="row">
 	<div class="col-xs-2">
-		<img class="thumb" ng-src="{{ item.addedBy.avatar }}">
+		<img class="thumb" ng-src="{{ item.snippet.thumbnails.default.url }}">
 	</div>
 	<div class="col-xs-10">
 		<h4>{{ item.snippet.title }}</h4>
 		<div class="row">
 			<div class="col-xs-8">
-				<p class="added-by">Added By: {{item.addedBy.name}} <a class="btn btn-danger btn-xs remove" ng-if="user.isAdmin" ng-click="admin.removeFromPlaylist($event, item, room)">Remove</a></p>
+				<p class="added-by">Added By: <img class="gravatar" ng-src="{{item.addedBy.avatar}}" title="{{vote.name}}" /> {{item.addedBy.name}} <a class="btn btn-danger btn-xs remove" ng-if="user.isAdmin" ng-click="admin.removeFromPlaylist($event, item, room)">Remove</a></p>
 			</div>
 			<div class="col-xs-4 votes" >
 				{{ item.votes.length }} <a href ng-if="!hasVotedForVideo(item)"><i class="fa fa-heart-o"></i></a><span ng-if="hasVotedForVideo(item)"><i class="fa fa-heart"></i></span>
