@@ -68,7 +68,7 @@
 
 				<div class="playlist-items">
 					<div class="list-group-item"
-					ng-repeat="item in (filteredItems = room.playlist | filter:{snippet:{title:search.q}} | orderBy : ['-votes.length', 'modified'] )"
+					ng-repeat="item in (filteredItems = room.playlist | filter:{snippet:{title:search.q}} | orderBy : ['-votes.length', 'modified'] ) track by $index"
 					ng-click="voteForVideo($event, item)"
 					ng-class="{'gray': item.votes.length < 1, 'top' : $index == 0, 'bottom' : $last}"
 					ng-include="'js/views/partials/playlist-item.html'"
